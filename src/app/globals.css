@@ -1,26 +1,111 @@
 @import "tailwindcss";
 
+/* =============================================================================
+   🎨 HAPPICO CENTRAL COLOR THEME CONFIGURATION (केंद्रीय रंग थीम)
+   -----------------------------------------------------------------------------
+   👉 Sirf yahan colors change karein, poore website ke Header, Footer, Buttons,
+      Badges aur Accents me automatic change ho jayega!
+   
+   👉 QUICK PRESETS (Copy-paste any preset to test):
+      - Indigo Violet (Default): --primary: #6366f1; --primary-hover: #4f46e5;
+      - Ocean Blue:             --primary: #2563eb; --primary-hover: #1d4ed8;
+      - Fresh Emerald:          --primary: #10b981; --primary-hover: #059669;
+      - Sunset Coral/Orange:    --primary: #f97316; --primary-hover: #ea580c;
+      - Royal Purple:           --primary: #8b5cf6; --primary-hover: #7c3aed;
+   ============================================================================= */
+
 :root {
+  /* --- Primary Brand Color (Main Theme) --- */
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --primary-active: #4338ca;
+  --primary-light: #eef2ff;
+  --primary-glow: rgba(99, 102, 241, 0.25);
+  --primary-text: #ffffff;
+
+  /* --- Secondary / Accent Color --- */
+  --secondary: #06b6d4;
+  --secondary-hover: #0891b2;
+  --secondary-light: #ecfeff;
+  --secondary-text: #ffffff;
+
+  /* --- Header Theme --- */
+  --header-bg: rgba(255, 255, 255, 0.88);
+  --header-scrolled-bg: rgba(255, 255, 255, 0.95);
+  --header-border: rgba(226, 232, 240, 0.85);
+  --header-text: #0f172a;
+  --header-text-muted: #64748b;
+  --header-active-bg: rgba(99, 102, 241, 0.08);
+
+  /* --- Top Announcement Bar (Header) --- */
+  --topbar-bg: #090d16;
+  --topbar-text: #94a3b8;
+  --topbar-border: rgba(255, 255, 255, 0.08);
+
+  /* --- Footer Theme --- */
+  --footer-bg: #090d16;
+  --footer-surface: #111827;
+  --footer-border: rgba(255, 255, 255, 0.08);
+  --footer-text: #f8fafc;
+  --footer-text-muted: #94a3b8;
+  --footer-text-dim: #64748b;
+  --footer-bottom-bg: #05080e;
+
+  /* --- General Page Defaults --- */
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0f172a;
+  --surface: #f8fafc;
+  --surface-border: #e2e8f0;
 }
 
 @theme inline {
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-light: var(--primary-light);
+  --color-primary-glow: var(--primary-glow);
+  --color-secondary: var(--secondary);
+  --color-secondary-hover: var(--secondary-hover);
+  --color-secondary-light: var(--secondary-light);
+
+  --color-header-bg: var(--header-bg);
+  --color-header-border: var(--header-border);
+  --color-header-text: var(--header-text);
+  --color-header-muted: var(--header-text-muted);
+
+  --color-footer-bg: var(--footer-bg);
+  --color-footer-surface: var(--footer-surface);
+  --color-footer-border: var(--footer-border);
+  --color-footer-text: var(--footer-text);
+  --color-footer-muted: var(--footer-text-muted);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Base Body Styles */
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-poppins), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
 }
