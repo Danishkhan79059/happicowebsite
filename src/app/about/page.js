@@ -3,8 +3,63 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import BounceCards from "@/components/BounceCards";
+import SpotlightCard from "@/components/SpotlightCard";
+
+// =============================================================================
+// 📸 BOUNCE CARDS IMAGES (Aap yahan apni images add kar sakte hain)
+// -----------------------------------------------------------------------------
+// Note: Abhi images empty rakhi gayi hain jaisa aapne request kiya tha.
+// Jab aapko photos add karni ho, bas yahan URLs ya local paths daal dijiye:
+// Example:
+//   "/community-event-stage.jpg",
+//   "https://images.unsplash.com/photo-..."
+// =============================================================================
+const BOUNCE_GALLERY_IMAGES = [
+  "", // Card 1 (Left)
+  "", // Card 2
+  "", // Card 3 (Center)
+  "", // Card 4
+  "", // Card 5 (Right)
+];
+
+// =============================================================================
+// 👥 CORE ENGINEERING TEAM (Aap yahan photos & details update kar sakte hain)
+// -----------------------------------------------------------------------------
+// Note: Images empty rakhi gayi hain jaisa aapne request kiya tha.
+// Jab aapko apni photos add karni ho, bas `image` field me URL ya path daal dijiye:
+// Example:
+//   image: "/team/danish.jpg"
+//   image: "/team/gopal.jpg"
+// =============================================================================
+const ENGINEERING_TEAM = [
+  {
+    name: "Danish Khan",
+    role: "Full Stack Developer",
+    badge: "Core Engineering",
+    image: "", // Photo URL ya local path yahan add karein (baad me)
+    initials: "DK",
+    bio: "Passionate Full Stack Developer specializing in high-performance Next.js architectures, modern front-end experiences, scalable backend systems, and automated event marketing pipelines.",
+    skills: ["React & Next.js", "Full Stack Development", "Node.js & APIs", "Tailwind CSS", "Database Design"],
+    quote: "Building seamless digital platforms with precision and modern web architecture.",
+  },
+  {
+    name: "Gopal Krishan Vasudevan",
+    role: "Full Stack Developer",
+    badge: "Core Engineering",
+    image: "", // Photo URL ya local path yahan add karein (baad me)
+    initials: "GV",
+    bio: "Accomplished Full Stack Developer focused on architecting resilient platforms, interactive interfaces, end-to-end data integrations, and scalable tech infrastructure for communities.",
+    skills: ["Full Stack Engineering", "Next.js & React", "System Architecture", "Cloud Services", "API Integration"],
+    quote: "Crafting scalable, data-driven applications that empower communities worldwide.",
+  },
+];
+
 import {
+  Code2,
+  Terminal,
   Sparkles,
+
   Users,
   Award,
   Globe,
@@ -539,6 +594,81 @@ export default function AboutPage() {
       </section>
 
       {/* =========================================================================
+          SECTION: INTERACTIVE COMMUNITY & EVENT HIGHLIGHTS (<BounceCards />)
+          ========================================================================= */}
+      <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+        <div className="relative rounded-3xl bg-gradient-to-b from-white via-slate-50 to-slate-100/80 border border-slate-200/90 p-8 sm:p-14 shadow-xl overflow-hidden">
+          {/* Ambient Glows */}
+          <div
+            className="absolute -top-24 right-10 h-72 w-72 rounded-full blur-3xl opacity-20 pointer-events-none"
+            style={{ backgroundColor: "var(--primary)" }}
+          />
+          <div
+            className="absolute -bottom-24 left-10 h-72 w-72 rounded-full blur-3xl opacity-15 pointer-events-none"
+            style={{ backgroundColor: "var(--secondary)" }}
+          />
+
+          {/* Section Header */}
+          <div className="relative text-center max-w-3xl mx-auto space-y-4 mb-10">
+            <div
+              className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider border border-slate-200 bg-white shadow-2xs"
+              style={{ color: "var(--primary)" }}
+            >
+              <Sparkles className="h-3.5 w-3.5" />
+              <span>Interactive Event Gallery</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">
+              Moments from Our Community Stages & Summits
+            </h2>
+
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
+              Hover over the cards to fan them out, inspect event glimpses, and click to feel the physics bounce.
+            </p>
+          </div>
+
+          {/* BounceCards Interactive Container */}
+          <div className="relative flex flex-col items-center justify-center my-4">
+            <div className="w-full flex justify-center py-6 overflow-x-auto sm:overflow-visible">
+              <BounceCards
+                images={BOUNCE_GALLERY_IMAGES}
+                containerWidth={500}
+                containerHeight={320}
+                cardSize={200}
+                spread={85}
+                rotation={10}
+                arc={0}
+                pushDistance={160}
+                hoverScale={1.06}
+                bounciness={0.6}
+                animationDelay={0.5}
+                animationStagger={0.06}
+                borderWidth={5}
+                borderColor="#ffffff"
+                radius={25}
+                shadow
+                enableHover
+              />
+            </div>
+
+            {/* Quick Interactive Hints */}
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-xs text-slate-500">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-slate-200 shadow-2xs">
+                <span className="flex h-2 w-2 rounded-full bg-emerald-500" />
+                <span>Hover / Swipe to fan out cards</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-slate-200 shadow-2xs">
+                <span>Click any card to bounce</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 font-semibold">
+                <span>📸 Image slots empty — ready for your photos</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
           SECTION 4: FOUNDER & LEADERSHIP PROFILE (TARUN GUPTA)
           ========================================================================= */}
       <section
@@ -701,6 +831,147 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          SECTION: CORE ENGINEERING TEAM (<SpotlightCard />)
+          ========================================================================= */}
+      <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto border-t border-slate-200">
+        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <div
+            className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider border border-slate-200 bg-white shadow-2xs"
+            style={{ color: "var(--primary)" }}
+          >
+            <Code2 className="h-3.5 w-3.5" />
+            <span>Core Engineering Team</span>
+          </div>
+
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">
+            The Developers Powering Our Platform
+          </h2>
+
+          <p className="text-base text-slate-600 leading-relaxed font-normal">
+            Meet our Full Stack Developers driving architecture, high-performance web experiences, and seamless community technologies.
+          </p>
+        </div>
+
+        {/* 2 Spotlight Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {ENGINEERING_TEAM.map((dev, idx) => (
+            <SpotlightCard
+              key={idx}
+              theme="light"
+              spotlightColor="rgba(99, 102, 241, 0.35)"
+              intensity={0.25}
+              spotlightSize={300}
+              softness={0.7}
+              borderGlow={0.7}
+              proximity={90}
+              smoothing={0.25}
+              flare={true}
+              className="p-8 sm:p-10 rounded-3xl bg-white border border-slate-200/90 shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col justify-between group"
+            >
+              <div>
+                {/* Header row: Avatar & Badge */}
+                <div className="flex items-start justify-between gap-4 mb-6">
+                  {/* Photo or Empty Avatar Placeholder */}
+                  <div className="relative">
+                    {dev.image ? (
+                      <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden ring-4 ring-slate-100 shadow-md">
+                        <Image
+                          src={dev.image}
+                          alt={dev.name}
+                          fill
+                          className="object-cover object-center"
+                        />
+                      </div>
+                    ) : (
+                      <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-indigo-500 via-indigo-600 to-cyan-500 p-0.5 shadow-md group-hover:scale-105 transition-transform">
+                        <div className="w-full h-full rounded-[14px] bg-slate-900 flex flex-col items-center justify-center text-white relative overflow-hidden">
+                          <span className="text-xl sm:text-2xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 to-cyan-200">
+                            {dev.initials}
+                          </span>
+                          <span className="text-[9px] font-semibold text-slate-400 mt-0.5">
+                            + Add Photo
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Role Badge */}
+                  <div className="flex flex-col items-end gap-1.5">
+                    <span
+                      className="text-xs font-bold px-3 py-1 rounded-full shadow-2xs"
+                      style={{
+                        backgroundColor: "var(--primary-light)",
+                        color: "var(--primary)",
+                      }}
+                    >
+                      {dev.badge}
+                    </span>
+                    <span className="text-[11px] font-semibold text-emerald-600 flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      Active Developer
+                    </span>
+                  </div>
+                </div>
+
+                {/* Developer Name & Role */}
+                <h3 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight group-hover:text-indigo-600 transition-colors">
+                  {dev.name}
+                </h3>
+                <p className="text-sm font-bold text-indigo-600 mt-1 flex items-center gap-2">
+                  <Terminal className="h-4 w-4" />
+                  <span>{dev.role}</span>
+                </p>
+
+                {/* Bio Narrative */}
+                <p className="text-sm text-slate-600 leading-relaxed font-normal mt-4">
+                  {dev.bio}
+                </p>
+
+                {/* Guiding Quote */}
+                <div className="mt-4 p-3.5 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-700 italic">
+                  &ldquo;{dev.quote}&rdquo;
+                </div>
+
+                {/* Skills Chips */}
+                <div className="mt-5 pt-4 border-t border-slate-100">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block mb-2.5">
+                    Technical Expertise & Stack
+                  </span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {dev.skills.map((skill, sIdx) => (
+                      <span
+                        key={sIdx}
+                        className="px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200/80 group-hover:border-indigo-200 transition-colors"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Card Footer Actions */}
+              <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 text-xs font-bold text-slate-700 hover:text-indigo-600 transition-colors"
+                >
+                  <Mail className="h-4 w-4 text-slate-400" />
+                  <span>Connect with {dev.name.split(" ")[0]}</span>
+                  <ArrowRight className="h-3.5 w-3.5 text-slate-400" />
+                </Link>
+
+                <span className="px-2.5 py-1 rounded-md bg-indigo-50 text-indigo-700 font-mono text-[11px] font-semibold border border-indigo-100">
+                  Full Stack
+                </span>
+              </div>
+            </SpotlightCard>
+          ))}
         </div>
       </section>
 

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import PixelCard from "@/components/PixelCard";
+import RotatingText from "@/components/RotatingText";
 import {
   Check,
   X,
@@ -682,17 +683,20 @@ export default function PricingPage() {
             <span>Community Platform Subscriptions</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight">
-            Select a plan for your{" "}
-            <span
-              className="bg-clip-text text-transparent"
-              style={{
-                backgroundImage:
-                  "linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)",
-              }}
-            >
-              Community
-            </span>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
+            <span>Select a plan for your</span>
+            <RotatingText
+              texts={["Community", "Events", "Hackathons", "Startups", "Ecosystem"]}
+              effect="slide"
+              direction="up"
+              highlight={true}
+              highlightColor="#6366f1"
+              staggerFrom="last"
+              staggerDuration={0.025}
+              splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+              mainClassName="px-3 sm:px-4 py-0.5 sm:py-1 rounded-2xl shadow-xl shadow-indigo-500/25 inline-flex align-baseline text-white"
+              rotationInterval={2400}
+            />
           </h1>
 
           <p className="mx-auto max-w-2xl text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
@@ -709,8 +713,8 @@ export default function PricingPage() {
                 type="button"
                 onClick={() => setIsAnnual(false)}
                 className={`px-5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${!isAnnual
-                    ? "text-white shadow-md"
-                    : "text-slate-600 hover:text-slate-900"
+                  ? "text-white shadow-md"
+                  : "text-slate-600 hover:text-slate-900"
                   }`}
                 style={
                   !isAnnual
@@ -728,8 +732,8 @@ export default function PricingPage() {
                 type="button"
                 onClick={() => setIsAnnual(true)}
                 className={`px-5 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${isAnnual
-                    ? "text-white shadow-md"
-                    : "text-slate-600 hover:text-slate-900"
+                  ? "text-white shadow-md"
+                  : "text-slate-600 hover:text-slate-900"
                   }`}
                 style={
                   isAnnual
@@ -764,11 +768,9 @@ export default function PricingPage() {
             return (
               <div
                 key={plan.id}
-                className={`relative flex flex-col transition-all duration-300 ${
-                  plan.popular
-                    ? "scale-[1.02] lg:-translate-y-2 z-20"
-                    : "hover:-translate-y-1 z-10"
-                }`}
+                className={`relative flex flex-col transition-all duration-300 ${plan.popular
+                    ? "scale-[1.02] lg:-translate-y-2 z-20" : "hover:-translate-y-1 z-10"
+                  }`}
               >
                 {/* Most Popular Ribbon - placed outside PixelCard so overflow:hidden does not clip it */}
                 {plan.popular && (
@@ -803,11 +805,10 @@ export default function PricingPage() {
                   intro
                   introDelay={pIdx * 120}
                   theme="dark"
-                  className={`w-full h-full flex flex-col justify-between ${
-                    plan.popular
+                  className={`w-full h-full flex flex-col justify-between ${plan.popular
                       ? "ring-2 ring-indigo-500/50 shadow-2xl shadow-indigo-500/20"
                       : "shadow-xl"
-                  }`}
+                    }`}
                   style={{
                     width: "100%",
                     minHeight: "100%",
@@ -915,11 +916,10 @@ export default function PricingPage() {
                     <div className="mt-8 pt-6 border-t border-white/10 space-y-3">
                       <Link
                         href={plan.ctaLink}
-                        className={`flex items-center justify-center gap-2 w-full py-3.5 px-5 rounded-xl text-sm font-bold transition-all shadow-md active:scale-98 ${
-                          plan.popular
+                        className={`flex items-center justify-center gap-2 w-full py-3.5 px-5 rounded-xl text-sm font-bold transition-all shadow-md active:scale-98 ${plan.popular
                             ? "text-white hover:brightness-110 shadow-indigo-500/40"
                             : "bg-white text-slate-900 hover:bg-slate-100 shadow-white/10"
-                        }`}
+                          }`}
                         style={
                           plan.popular
                             ? {
@@ -1337,8 +1337,8 @@ export default function PricingPage() {
                   </span>
                   <span
                     className={`h-7 w-7 rounded-full flex items-center justify-center shrink-0 transition-transform duration-200 ${isOpen
-                        ? "rotate-180 bg-slate-900 text-white"
-                        : "bg-slate-100 text-slate-600"
+                      ? "rotate-180 bg-slate-900 text-white"
+                      : "bg-slate-100 text-slate-600"
                       }`}
                   >
                     <ChevronDown className="h-4 w-4" />

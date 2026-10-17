@@ -7,6 +7,62 @@ import MaskedHeading from "@/components/MaskedHeading";
 import FadeContent from "@/components/FadeContent";
 import GooeyNav from "@/components/GooeyNav";
 import SwarmCursor from "@/components/SwarmCursor";
+import MagicBento from "@/components/MagicBento";
+
+// =============================================================================
+// 🍱 MAGIC BENTO GRID ITEMS (Happico Community & Event Platform Content)
+// =============================================================================
+const HAPPICO_BENTO_ITEMS = [
+  {
+    label: "Campaign Analytics",
+    title: "Real-Time Event & Marketing ROI",
+    description: "Measure live registration conversions, social reach, attendee sentiment, and sponsor ROI in real time.",
+    visual: "analytics",
+    colSpan: 1,
+    rowSpan: 1,
+  },
+  {
+    label: "DevRel Growth",
+    title: "Developer Community Scale",
+    description: "Track active practitioner retention, chapter meetups, engagement velocity, and ecosystem growth.",
+    visual: "dashboard",
+    colSpan: 1,
+    rowSpan: 1,
+  },
+  {
+    label: "Live Stage Operations",
+    title: "Hackathon & Summit Orchestration",
+    description: "Orchestrate multi-track stages, speaker agendas, sponsor collaterals, and attendee live chat with zero friction.",
+    visual: "collaboration",
+    colSpan: 2,
+    rowSpan: 2,
+  },
+  {
+    label: "AI & Ecosystem Workflows",
+    title: "Salesforce, Slack & Agentforce Automations",
+    description: "Connect CRM pipelines, automated RSVP notifications, attendee badge approvals, and AI matchmaking sub-second.",
+    visual: "automation",
+    colSpan: 2,
+    rowSpan: 2,
+  },
+  {
+    label: "Platform Integrations",
+    title: "Sync Salesforce, Slack, GitHub & Tableau",
+    description: "Bi-directional pipelines keeping community channels, code repositories, and enterprise analytics synchronized.",
+    visual: "integration",
+    colSpan: 1,
+    rowSpan: 1,
+  },
+  {
+    label: "Enterprise Governance",
+    title: "Bank-Grade SSO & Attendee Privacy",
+    description: "Enterprise access management, GDPR & data privacy compliance, 2FA protocols, and secure attendee identity.",
+    visual: "security",
+    colSpan: 1,
+    rowSpan: 1,
+  },
+];
+
 import {
   Sparkles,
   ArrowRight,
@@ -1757,6 +1813,63 @@ export default function Home() {
             </Link>
           ))}
         </FadeContent>
+      </section>
+
+      {/* =========================================================================
+          MAGIC BENTO GRID: ECOSYSTEM & PLATFORM ARCHITECTURE (DARK THEME)
+          ========================================================================= */}
+      <section
+        className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 text-white relative overflow-hidden border-t border-slate-800"
+        style={{ backgroundColor: "var(--footer-bg, #090d16)" }}
+      >
+        {/* Ambient Dark Glows */}
+        <div
+          className="absolute -top-32 -left-32 h-96 w-96 rounded-full blur-[140px] opacity-25 pointer-events-none"
+          style={{ backgroundColor: "var(--primary)" }}
+        />
+        <div
+          className="absolute -bottom-32 -right-32 h-96 w-96 rounded-full blur-[140px] opacity-20 pointer-events-none"
+          style={{ backgroundColor: "var(--secondary)" }}
+        />
+
+        <div className="relative max-w-7xl mx-auto">
+          <FadeContent effect="fade" duration={0.8} threshold={0.15} className="text-center max-w-3xl mx-auto space-y-4 mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/10 text-indigo-300 border border-white/10 shadow-sm backdrop-blur-md">
+              <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
+              <span>Interactive Platform Architecture</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
+              Comprehensive Community & Event Technology
+            </h2>
+
+            <p className="text-base text-slate-300 leading-relaxed font-normal">
+              Explore our ecosystem capabilities — interactive live analytics, multi-track collaboration, automated workflows, connected developer tools, and enterprise security.
+            </p>
+          </FadeContent>
+
+          <div className="w-full">
+            <MagicBento
+              items={HAPPICO_BENTO_ITEMS}
+              columns={4}
+              rowHeight={230}
+              gap={16}
+              radius={24}
+              theme="dark"
+              glowColor={selectedTheme.primary || "#6366f1"}
+              enableBorderGlow={true}
+              enableSpotlight={true}
+              spotlightRadius={320}
+              enableStars={true}
+              particleCount={24}
+              enableTilt={true}
+              enableMagnetism={true}
+              clickEffect={true}
+              intro={true}
+              textAutoHide={false}
+            />
+          </div>
+        </div>
       </section>
     </div>
   );

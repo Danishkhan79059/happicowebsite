@@ -188,11 +188,11 @@ export default function Header() {
                     </span>
                   ),
                 },
-                {
-                  label: "Solutions",
-                  href: "/",
-                  icon: <Sparkles className="h-3.5 w-3.5 text-amber-400" />,
-                },
+                // {
+                //   label: "Solutions",
+                //   href: "/",
+                //   icon: <Sparkles className="h-3.5 w-3.5 text-amber-400" />,
+                // },
               ]}
               initialActiveIndex={0}
               theme="light"
