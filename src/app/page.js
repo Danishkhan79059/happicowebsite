@@ -9,6 +9,24 @@ import GooeyNav from "@/components/GooeyNav";
 import SwarmCursor from "@/components/SwarmCursor";
 import MagicBento from "@/components/MagicBento";
 import AccordionGallery from "@/components/AccordionGallery";
+import LogoLoop from "@/components/LogoLoop";
+import {
+  FaSalesforce,
+  FaSlack,
+  FaGithub,
+  FaDiscord,
+  FaDocker,
+  FaReact,
+  FaProductHunt,
+  FaFigma,
+} from "react-icons/fa6";
+import {
+  SiNextdotjs,
+  SiTypescript,
+  SiTailwindcss,
+  SiPostgresql,
+  SiVercel,
+} from "react-icons/si";
 
 // =============================================================================
 // 🖼️ ACCORDION GALLERY ITEMS (Community & Event Highlights)
@@ -44,6 +62,25 @@ const ACCORDION_GALLERY_ITEMS = [
     link: "/book-demo",
     alt: "Ecosystem Networking and Partner Alliances",
   },
+];
+
+// =============================================================================
+// 🌐 ECOSYSTEM & PLATFORM INTEGRATIONS FOR LOGOLOOP
+// =============================================================================
+const ECOSYSTEM_LOGOS = [
+  { node: <FaSalesforce />, title: "Salesforce", href: "https://salesforce.com", hoverColor: "#00a1e0" },
+  { node: <FaSlack />, title: "Slack", href: "https://slack.com", hoverColor: "#e01e5a" },
+  { node: <FaGithub />, title: "GitHub", href: "https://github.com", hoverColor: "#ffffff" },
+  { node: <FaDiscord />, title: "Discord", href: "https://discord.com", hoverColor: "#5865f2" },
+  { node: <FaProductHunt />, title: "Product Hunt", href: "https://producthunt.com", hoverColor: "#da552f" },
+  { node: <FaDocker />, title: "Docker", href: "https://docker.com", hoverColor: "#2496ed" },
+  { node: <FaReact />, title: "React", href: "https://react.dev", hoverColor: "#61dafb" },
+  { node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org", hoverColor: "#ffffff" },
+  { node: <SiTypescript />, title: "TypeScript", href: "https://typescriptlang.org", hoverColor: "#3178c6" },
+  { node: <SiTailwindcss />, title: "Tailwind CSS", href: "https://tailwindcss.com", hoverColor: "#38bdf8" },
+  { node: <FaFigma />, title: "Figma", href: "https://figma.com", hoverColor: "#f24e1e" },
+  { node: <SiPostgresql />, title: "PostgreSQL", href: "https://postgresql.org", hoverColor: "#336791" },
+  { node: <SiVercel />, title: "Vercel", href: "https://vercel.com", hoverColor: "#ffffff" },
 ];
 
 // =============================================================================
@@ -1651,6 +1688,29 @@ export default function Home() {
                     <span>Showcase verified project repos on the global leaderboard.</span>
                   </li>
                 </ul>
+              </div>
+            </div>
+          </FadeContent>
+
+          {/* 🔄 ECOSYSTEM LOGO LOOP (React Bits LogoLoop) */}
+          <FadeContent effect="fade" blur={true} duration={1} threshold={0.15}>
+            <div className="pt-8 pb-2 w-full space-y-3">
+              <p className="text-[11px] font-mono uppercase tracking-widest text-slate-400 text-center">
+                Trusted Integrations &amp; Global Tech Ecosystems
+              </p>
+              <div className="relative w-full overflow-hidden py-3">
+                <LogoLoop
+                  logos={ECOSYSTEM_LOGOS}
+                  speed={80}
+                  direction="left"
+                  logoHeight={34}
+                  gap={60}
+                  scaleOnHover={true}
+                  fadeOut={true}
+                  fadeOutWidth={0.15}
+                  labels="hover"
+                  ariaLabel="Happico Ecosystem Partners"
+                />
               </div>
             </div>
           </FadeContent>

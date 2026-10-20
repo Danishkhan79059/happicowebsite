@@ -3,6 +3,24 @@
 import { useState, useRef } from "react";
 import Link from "next/link";
 import LaserFlow from "@/components/LaserFlow";
+import LogoLoop from "@/components/LogoLoop";
+import {
+  FaSalesforce,
+  FaSlack,
+  FaGithub,
+  FaDiscord,
+  FaDocker,
+  FaReact,
+  FaProductHunt,
+  FaFigma,
+} from "react-icons/fa6";
+import {
+  SiNextdotjs,
+  SiTypescript,
+  SiTailwindcss,
+  SiPostgresql,
+  SiVercel,
+} from "react-icons/si";
 import {
   Users,
   Trophy,
@@ -33,6 +51,25 @@ import {
   Clock,
   Compass,
 } from "lucide-react";
+
+// =============================================================================
+// 🌐 ECOSYSTEM & TECH PARTNER LOGOS FOR LOGOLOOP
+// =============================================================================
+const ECOSYSTEM_LOGOS = [
+  { node: <FaSalesforce />, title: "Salesforce", href: "https://salesforce.com", hoverColor: "#00a1e0" },
+  { node: <FaSlack />, title: "Slack", href: "https://slack.com", hoverColor: "#e01e5a" },
+  { node: <FaGithub />, title: "GitHub", href: "https://github.com", hoverColor: "#ffffff" },
+  { node: <FaDiscord />, title: "Discord", href: "https://discord.com", hoverColor: "#5865f2" },
+  { node: <FaProductHunt />, title: "Product Hunt", href: "https://producthunt.com", hoverColor: "#da552f" },
+  { node: <FaDocker />, title: "Docker", href: "https://docker.com", hoverColor: "#2496ed" },
+  { node: <FaReact />, title: "React", href: "https://react.dev", hoverColor: "#61dafb" },
+  { node: <SiNextdotjs />, title: "Next.js", href: "https://nextjs.org", hoverColor: "#ffffff" },
+  { node: <SiTypescript />, title: "TypeScript", href: "https://typescriptlang.org", hoverColor: "#3178c6" },
+  { node: <SiTailwindcss />, title: "Tailwind CSS", href: "https://tailwindcss.com", hoverColor: "#38bdf8" },
+  { node: <FaFigma />, title: "Figma", href: "https://figma.com", hoverColor: "#f24e1e" },
+  { node: <SiPostgresql />, title: "PostgreSQL", href: "https://postgresql.org", hoverColor: "#336791" },
+  { node: <SiVercel />, title: "Vercel", href: "https://vercel.com", hoverColor: "#ffffff" },
+];
 
 // =============================================================================
 // 🌟 6 CORE SOLUTIONS DATA (Tailored to Happico Community & Event Engine)
@@ -516,6 +553,31 @@ export default function SolutionsPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          ECOSYSTEM & TECH PARTNER LOGO LOOP (React Bits LogoLoop)
+          ========================================================================= */}
+      <section className="py-12 bg-slate-950 border-b border-slate-800 text-white overflow-hidden relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 text-center">
+          <p className="text-xs uppercase tracking-widest font-mono font-semibold text-slate-400">
+            Integrated With Premier Enterprise Tools &amp; Developer Ecosystems
+          </p>
+        </div>
+        <div className="w-full relative">
+          <LogoLoop
+            logos={ECOSYSTEM_LOGOS}
+            speed={75}
+            direction="left"
+            logoHeight={34}
+            gap={64}
+            scaleOnHover={true}
+            fadeOut={true}
+            fadeOutWidth={0.15}
+            labels="hover"
+            ariaLabel="Happico Ecosystem & Solution Partners"
+          />
         </div>
       </section>
 
