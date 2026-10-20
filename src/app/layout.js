@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import CurtainIntro from "@/components/CurtainIntro";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -35,6 +36,7 @@ export default function RootLayout({ children }) {
         <meta name="theme-color" content="#6366f1" />
       </head>
       <body className={`${poppins.className} antialiased min-h-screen flex flex-col bg-white text-slate-900 selection:bg-indigo-500 selection:text-white`}>
+        <CurtainIntro />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
