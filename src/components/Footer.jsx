@@ -13,6 +13,7 @@ import {
 
 const PRODUCT_LINKS = [
   { label: "Home", href: "/" },
+  { label: "Solutions", href: "/solutions" },
   { label: "About Us", href: "/about" },
   { label: "Pricing & Plans", href: "/pricing" },
   { label: "Book a Demo", href: "/Bookdemo" },
@@ -22,7 +23,7 @@ const PRODUCT_LINKS = [
 
 const COMPANY_LINKS = [
   { label: "About Happico", href: "/about" },
-  { label: "Event Solutions", href: "/about" },
+  { label: "Platform Solutions", href: "/solutions" },
   { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Terms & Services", href: "/terms-and-services" },
   { label: "Refund & Cancellation", href: "/refund-and-cancellation" },

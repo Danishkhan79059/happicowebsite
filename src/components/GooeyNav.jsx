@@ -132,9 +132,13 @@ void main() {
 
 const parse = value => {
   let str = String(value || '').trim();
-  if (str.startsWith('var(') && typeof window !== 'undefined') {
+  if (str.startsWith('var(')) {
     const varName = str.slice(4, -1).trim();
-    str = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+    if (typeof window !== 'undefined') {
+      str = getComputedStyle(document.documentElement).getPropertyValue(varName).trim() || '#6366f1';
+    } else {
+      str = varName === '--secondary' ? '#06b6d4' : '#6366f1';
+    }
   }
   const match = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(str);
   if (match) {

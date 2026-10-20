@@ -18,6 +18,7 @@ import {
   Users,
   Zap,
   MessageSquare,
+  Layers,
 } from "lucide-react";
 
 const NAV_LINKS = [
@@ -26,6 +27,13 @@ const NAV_LINKS = [
     href: "/",
     desc: "Landing page & ecosystem overview",
     icon: Sparkles,
+  },
+  {
+    label: "Solutions",
+    href: "/solutions",
+    desc: "Communities, events & DevRel programs",
+    icon: Layers,
+    badge: "Popular",
   },
   {
     label: "About Us",

@@ -46,11 +46,13 @@ const AccordionGallery = ({
   const vertical = orientation === 'vertical';
   const count = items.length;
   const [active, setActive] = useState(Math.min(Math.max(defaultIndex, 0), count - 1));
+  const [prefersReduced, setPrefersReduced] = useState(false);
 
-  const prefersReduced =
-    typeof window !== 'undefined' && window.matchMedia
-      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      : false;
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      setPrefersReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    }
+  }, []);
 
   const applyLayout = useCallback(
     animate => {
