@@ -8,6 +8,43 @@ import FadeContent from "@/components/FadeContent";
 import GooeyNav from "@/components/GooeyNav";
 import SwarmCursor from "@/components/SwarmCursor";
 import MagicBento from "@/components/MagicBento";
+import AccordionGallery from "@/components/AccordionGallery";
+
+// =============================================================================
+// 🖼️ ACCORDION GALLERY ITEMS (Community & Event Highlights)
+// =============================================================================
+const ACCORDION_GALLERY_ITEMS = [
+  {
+    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80",
+    label: "Global Tech Summits",
+    link: "/book-demo",
+    alt: "Global Developer & Tech Summits",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=1200&q=80",
+    label: "Developer Hackathons",
+    link: "/book-demo",
+    alt: "Collaborative Multi-Track Hackathons",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80",
+    label: "Live Stage Streaming",
+    link: "/book-demo",
+    alt: "Happico Live Stage Production & Broadcasts",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
+    label: "Community Chapters",
+    link: "/book-demo",
+    alt: "Local Meetups & Developer Chapters",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80",
+    label: "Ecosystem Collaborations",
+    link: "/book-demo",
+    alt: "Ecosystem Networking and Partner Alliances",
+  },
+];
 
 // =============================================================================
 // 🍱 MAGIC BENTO GRID ITEMS (Happico Community & Event Platform Content)
@@ -1643,177 +1680,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Live Interactive Color Theme Switcher Demo */}
-      <section className="py-14 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-        <FadeContent effect="fade" blur={true} duration={1} threshold={0.15}>
-          <div className="rounded-3xl border border-slate-200 bg-white p-6 sm:p-8 shadow-sm">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
-              <div>
-                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500">
-                  <Palette className="h-4 w-4" style={{ color: "var(--primary)" }} />
-                  <span>Live Interactive Theme Switcher</span>
-                </div>
-                <h2 className="text-xl sm:text-2xl font-black text-slate-900 mt-1">
-                  Test Color Themes in Real-Time
-                </h2>
-                <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                  Neeche diye kisi bhi color par click karke dekhein — Header, Footer aur Buttons ka color turant live change hoga!
-                </p>
-              </div>
 
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100 text-xs font-mono font-semibold text-slate-700 w-fit">
-                <span>Active:</span>
-                <span className="font-bold" style={{ color: "var(--primary)" }}>
-                  {selectedTheme.name} ({selectedTheme.primary})
-                </span>
-              </div>
-            </div>
 
-            {/* Color Palettes Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-6">
-              {THEME_PRESETS.map((preset) => {
-                const isSelected = selectedTheme.name === preset.name;
-                return (
-                  <button
-                    key={preset.name}
-                    onClick={() => applyPreset(preset)}
-                    className={`p-3 rounded-2xl border flex flex-col items-center gap-2.5 transition-all text-center cursor-pointer ${isSelected
-                        ? "border-slate-900 ring-2 ring-slate-900/10 shadow-md bg-slate-50"
-                        : "border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50/50"
-                      }`}
-                  >
-                    <div
-                      className="h-9 w-9 rounded-full shadow-inner flex items-center justify-center text-white"
-                      style={{ backgroundColor: preset.primary }}
-                    >
-                      {isSelected && <Check className="h-4 w-4 stroke-[3]" />}
-                    </div>
-                    <div className="text-xs font-bold text-slate-800">
-                      {preset.name}
-                    </div>
-                    <div className="text-[10px] font-mono text-slate-400">
-                      {preset.primary}
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
 
-            {/* Code Snippet Info Box */}
-            <div className="mt-8 p-4 sm:p-5 rounded-2xl bg-slate-900 text-slate-200 text-xs font-mono space-y-2 border border-slate-800">
-              <div className="flex items-center justify-between text-slate-400 pb-2 border-b border-slate-800 font-sans">
-                <span className="flex items-center gap-1.5 font-bold text-xs text-white">
-                  <Sliders className="h-3.5 w-3.5 text-indigo-400" />
-                  Permanent Color Change Kaise Karein?
-                </span>
-                <span className="text-[11px] text-slate-400">src/app/globals.css</span>
-              </div>
-              <p className="text-slate-300 font-sans">
-                Permanently color change karne ke liye <code className="text-emerald-400">src/app/globals.css</code> open karein aur top par <code className="text-amber-300">--primary: #6366f1;</code> ko apne manpasand color hex se replace kar dein:
-              </p>
-              <pre className="text-indigo-300 bg-black/40 p-3 rounded-xl overflow-x-auto text-[11px] leading-relaxed">
-                {`:root {
-  --primary: ${selectedTheme.primary};        /* Header, Footer & CTAs automatically use this */
-  --primary-hover: ${selectedTheme.hover};  /* Hover state */
-  --secondary: #06b6d4;      /* Secondary accent color */
-}`}
-              </pre>
-            </div>
-          </div>
-        </FadeContent>
-      </section>
-
-      {/* Pages & Navigation Checklist */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-        <FadeContent effect="fade" duration={0.8} threshold={0.15} className="text-center space-y-2 mb-10">
-          <p className="text-xs font-bold uppercase tracking-wider" style={{ color: "var(--primary)" }}>
-            Requested Architecture Ready
-          </p>
-          <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
-            All 6 Requested Sections Active
-          </h2>
-          <p className="text-sm text-slate-500">
-            Click on any card to test the page navigation immediately.
-          </p>
-        </FadeContent>
-
-        <FadeContent
-          effect="focus"
-          blur={true}
-          stagger={0.08}
-          duration={0.8}
-          threshold={0.15}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
-        >
-          {[
-            {
-              title: "Home",
-              href: "/",
-              desc: "Main landing page showcasing brand features and live theme customizer.",
-              badge: "Active",
-            },
-            {
-              title: "About Us",
-              href: "/about",
-              desc: "Company vision, leadership, milestones and values.",
-              badge: "Ready",
-            },
-            {
-              title: "Pricing",
-              href: "/pricing",
-              desc: "Transparent tiers with feature breakdowns and monthly/annual toggles.",
-              badge: "Ready",
-            },
-            {
-              title: "Contact Us",
-              href: "/contact",
-              desc: "Interactive contact inquiry form, phone, email, and live support.",
-              badge: "Ready",
-            },
-            {
-              title: "Book a Demo",
-              href: "/Bookdemo",
-              desc: "Interactive demo request schedule with date and time selection.",
-              badge: "Primary CTA",
-            },
-            {
-              title: "Login",
-              href: "/login",
-              desc: "Clean customer portal sign-in screen with email, SSO & password.",
-              badge: "Auth Ready",
-            },
-          ].map((item, i) => (
-            <Link
-              key={i}
-              href={item.href}
-              className="p-5 rounded-2xl border border-slate-200 bg-white hover:border-slate-300 hover:shadow-md transition-all group flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700">
-                    {item.badge}
-                  </span>
-                  <ArrowRight className="h-4 w-4 text-slate-400 group-hover:translate-x-1 transition-transform" />
-                </div>
-                <h3 className="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">
-                  {item.title}
-                </h3>
-                <p className="text-xs text-slate-500 mt-1.5 leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
-
-              <div
-                className="mt-4 pt-3 border-t border-slate-100 text-xs font-semibold flex items-center gap-1"
-                style={{ color: "var(--primary)" }}
-              >
-                <span>Open {item.title}</span>
-                <ArrowRight className="h-3 w-3" />
-              </div>
-            </Link>
-          ))}
-        </FadeContent>
-      </section>
 
       {/* =========================================================================
           MAGIC BENTO GRID: ECOSYSTEM & PLATFORM ARCHITECTURE (DARK THEME)
@@ -1867,6 +1736,55 @@ export default function Home() {
               clickEffect={true}
               intro={true}
               textAutoHide={false}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          INTERACTIVE ACCORDION GALLERY SECTION (React Bits Component - Light Theme)
+          ========================================================================= */}
+      <section className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 bg-white text-slate-900 relative overflow-hidden border-t border-slate-100">
+        {/* Soft Ambient Light Glows */}
+        <div
+          className="absolute -top-32 right-1/4 h-96 w-96 rounded-full blur-[140px] opacity-10 pointer-events-none"
+          style={{ backgroundColor: selectedTheme.primary || "#6366f1" }}
+        />
+        <div
+          className="absolute -bottom-32 left-1/4 h-96 w-96 rounded-full blur-[140px] opacity-10 pointer-events-none"
+          style={{ backgroundColor: selectedTheme.secondary || "#06b6d4" }}
+        />
+
+        <div className="relative max-w-7xl mx-auto space-y-12">
+          <FadeContent effect="fade" duration={0.8} threshold={0.15} className="text-center max-w-3xl mx-auto space-y-4">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-indigo-50 text-indigo-600 border border-indigo-100 shadow-sm">
+              <Sparkles className="h-3.5 w-3.5 text-indigo-500" />
+              <span>Interactive Visual Gallery</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+              Moments That Inspire Global Communities
+            </h2>
+
+            <p className="text-base text-slate-600 leading-relaxed font-normal">
+              Hover over each panel to experience fluid 3D tilt, parallax depth drift, and smooth responsive transitions powered by GSAP.
+            </p>
+          </FadeContent>
+
+          <div className="w-full">
+            <AccordionGallery
+              items={ACCORDION_GALLERY_ITEMS}
+              defaultIndex={2}
+              expandRatio={0.52}
+              trigger="hover"
+              height={460}
+              radius={20}
+              gap={14}
+              accentColor={selectedTheme.primary || "#6366f1"}
+              overlayColor="#020617"
+              textColor="#ffffff"
+              grayscale={false}
+              showLabels={true}
             />
           </div>
         </div>
