@@ -176,7 +176,7 @@ export default function Header() {
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Brand Logo - Powered by Gooey Liquid Nav */}
-          <div className="flex items-center shrink-0">
+          <div id="header-brand-target" data-brand-target="true" className="flex items-center shrink-0">
             <GooeyNav
               items={[
                 {
