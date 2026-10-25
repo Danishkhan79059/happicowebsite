@@ -105,7 +105,7 @@ const FAQS = [
   },
   {
     q: "How do you integrate with our CRM and community tools?",
-    a: "With deep enterprise expertise in Salesforce, Slack, and Tableau from Vivaansh Consulting, we build automated registration pipelines that sync attendee data directly into your CRM and Slack workspace in real-time.",
+    a: "Buzzoraa seamlessly connects with your CRM (Salesforce, HubSpot), social channels (LinkedIn, X/Twitter, Reddit), and community platforms (Slack, Discord) to sync conversations, leads, and engagement metrics in real-time.",
   },
   {
     q: "Can we invite Tarun Gupta for a keynote or panel session?",
@@ -175,7 +175,7 @@ export default function ContactPage() {
   return (
     <div className="bg-slate-50 min-h-screen text-slate-900 selection:bg-indigo-500 selection:text-white">
       {/* =========================================================================
-          HERO SECTION: CONTEXTUAL HEADER ALIGNED WITH HAPPICO & VIVAANSH
+          HERO SECTION: CONTEXTUAL HEADER ALIGNED WITH BUZZORAA
           ========================================================================= */}
       <section className="relative overflow-hidden pt-12 pb-20 sm:pt-20 sm:pb-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-slate-50/70 to-slate-100/60 border-b border-slate-200">
         {/* Glow Effects */}
@@ -193,12 +193,12 @@ export default function ContactPage() {
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-slate-200 bg-white/90 shadow-2xs backdrop-blur-md">
             <Sparkles className="h-3.5 w-3.5" style={{ color: "var(--primary)" }} />
             <span className="text-xs font-bold text-slate-800">
-              Event Marketing • Community Strategy • Tech Ecosystems
+              Social Engagement • Community Activation • GTM SaaS
             </span>
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.14]">
-            Let&apos;s Build, Scale & Market{" "}
+            Let&apos;s Turn Conversations Into{" "}
             <span
               className="bg-clip-text text-transparent"
               style={{
@@ -206,12 +206,12 @@ export default function ContactPage() {
                   "linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)",
               }}
             >
-              Your Next Big Event.
+              Sustainable Growth.
             </span>
           </h1>
 
           <p className="mx-auto max-w-2xl text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-            Planning a developer summit, hackathon, or meetup? Want to launch a tech product to active practitioner communities, or explore enterprise Salesforce, Slack & AI consulting with Tarun Gupta? We are ready to execute with you.
+            Buzzoraa brings social engagement, community activation, content amplification, and GTM growth together in one platform. We help brands, startups, founders, and communities build meaningful connections, amplify their presence, and grow through conversations.
           </p>
 
           {/* Trust Guarantees Bar */}
@@ -249,10 +249,10 @@ export default function ContactPage() {
                 Direct Communication Hub
               </span>
               <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1">
-                Reach Out to Our Strategy Team
+                Reach Out to Buzzoraa
               </h2>
               <p className="text-xs sm:text-sm text-slate-500 mt-1.5 leading-relaxed">
-                Connect directly with Tarun Gupta and the community growth desk for strategic planning, event marketing, or consulting partnerships.
+                Connect directly with our GTM strategy desk to discover how social engagement and content amplification can accelerate your pipeline.
               </p>
             </div>
 
@@ -304,10 +304,10 @@ export default function ContactPage() {
                   <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
                 <a
-                  href="mailto:contact@happico.com"
+                  href="mailto:contact@buzzoraa.com"
                   className="text-slate-500 hover:text-slate-800 font-medium"
                 >
-                  contact@happico.com
+                  contact@buzzoraa.com
                 </a>
               </div>
             </div>
@@ -321,10 +321,10 @@ export default function ContactPage() {
                   <span>Official Inquiries</span>
                 </div>
                 <a
-                  href="mailto:contact@happico.com"
+                  href="mailto:contact@buzzoraa.com"
                   className="text-sm font-bold text-slate-900 hover:text-indigo-600 transition-colors block break-all"
                 >
-                  contact@happico.com
+                  contact@buzzoraa.com
                 </a>
                 <p className="text-[11px] text-slate-400 mt-1">
                   Direct inbox monitored 24/7
@@ -372,7 +372,7 @@ export default function ContactPage() {
               </p>
 
               <a
-                href="https://wa.me/919876543210?text=Hello%20Tarun%20%26%20Happico%20Team%2C%20I%20want%20to%20discuss%20an%20event%20marketing%20campaign%20or%20collaboration."
+                href="https://wa.me/919876543210?text=Hello%20Buzzoraa%20Team%2C%20I%20want%20to%20discuss%20social%20engagement%20and%20GTM%20growth."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 w-full py-3 px-5 rounded-2xl bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs font-bold transition-all shadow-lg active:scale-95"
@@ -412,13 +412,13 @@ export default function ContactPage() {
               </span>
               <div>
                 <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                  Headquarters & Innovation Hub
+                  Headquarters &amp; Innovation Hub
                 </h4>
                 <p className="text-sm font-semibold text-slate-900 mt-0.5">
-                  Happico & Vivaansh Consulting
+                  Buzzoraa Inc.
                 </p>
                 <p className="text-xs text-slate-500 leading-relaxed mt-0.5">
-                  Tech Park, Sector 62, Noida, NCR, India - 201309
+                  Tech Park, Cyber City, Tech Hub • Global Operations
                 </p>
               </div>
             </div>

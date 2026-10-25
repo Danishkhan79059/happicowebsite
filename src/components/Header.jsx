@@ -25,34 +25,34 @@ const NAV_LINKS = [
   {
     label: "Home",
     href: "/",
-    desc: "Landing page & ecosystem overview",
+    desc: "Platform & social GTM overview",
     icon: Sparkles,
   },
   {
     label: "Solutions",
     href: "/solutions",
-    desc: "Communities, events & DevRel programs",
+    desc: "Social engagement, amplification & GTM",
     icon: Layers,
     badge: "Popular",
   },
   {
     label: "About Us",
     href: "/about",
-    desc: "Leadership, honors & company vision",
+    desc: "Vision, mission & leadership",
     icon: Users,
     badge: "Champion",
   },
   {
     label: "Pricing",
     href: "/pricing",
-    desc: "Community tiers & flexible plans",
+    desc: "Engagement tiers & SaaS plans",
     icon: Zap,
     badge: "Save 20%",
   },
   {
     label: "Contact Us",
     href: "/contact",
-    desc: "Technical consultation & 24/7 help",
+    desc: "GTM strategy & 24/7 assistance",
     icon: MessageSquare,
   },
 ];
@@ -131,11 +131,11 @@ export default function Header() {
           {/* Right Micro Links */}
           <div className="flex items-center gap-5 text-xs">
             <a
-              href="mailto:contact@happico.com"
+              href="mailto:contact@buzzoraa.com"
               className="inline-flex items-center gap-1.5 hover:text-white transition-colors"
             >
               <Mail className="h-3.5 w-3.5" style={{ color: "var(--secondary)" }} />
-              <span>contact@happico.com</span>
+              <span>contact@buzzoraa.com</span>
             </a>
 
             <span className="text-white/20">|</span>
@@ -180,27 +180,19 @@ export default function Header() {
             <GooeyNav
               items={[
                 {
-                  label: "Happico",
+                  label: "Buzzoraa",
                   href: "/",
                   icon: (
                     <span
-                      className="h-6 w-6 rounded-lg flex items-center justify-center text-white shrink-0 shadow-sm"
+                      className="h-6 w-6 rounded-lg flex items-center justify-center text-white shrink-0 shadow-sm font-black text-xs"
                       style={{
                         background: "linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)",
                       }}
                     >
-                      <svg viewBox="0 0 24 24" fill="none" className="w-3.5 h-3.5 text-white">
-                        <path d="M6 4V20M18 4V20M6 12H18" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" />
-                        <circle cx="12" cy="7" r="1.5" fill="currentColor" />
-                      </svg>
+                      B
                     </span>
                   ),
                 },
-                // {
-                //   label: "Solutions",
-                //   href: "/",
-                //   icon: <Sparkles className="h-3.5 w-3.5 text-amber-400" />,
-                // },
               ]}
               initialActiveIndex={0}
               theme="light"
@@ -247,7 +239,7 @@ export default function Header() {
                 {
                   label: "Login",
                   target: "_blank",
-                  href: "https://dev.happico.com",
+                  href: "https://buzzoraa.com",
                   icon: <LogIn className="h-3.5 w-3.5" />,
                 },
                 {
@@ -312,33 +304,20 @@ export default function Header() {
               className="flex items-center gap-2.5"
             >
               <div
-                className="h-9 w-9 rounded-xl flex items-center justify-center shadow-md text-white"
+                className="h-9 w-9 rounded-xl flex items-center justify-center shadow-md text-white font-black text-sm"
                 style={{
                   background:
                     "linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)",
                 }}
               >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="w-5 h-5 text-white"
-                >
-                  <path
-                    d="M6 4V20M18 4V20M6 12H18"
-                    stroke="currentColor"
-                    strokeWidth="2.7"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <circle cx="12" cy="7" r="1.5" fill="currentColor" />
-                </svg>
+                B
               </div>
               <div className="flex flex-col">
                 <span className="text-lg font-black text-slate-900 leading-none">
-                  Happico<span style={{ color: "var(--primary)" }}>.</span>
+                  Buzzoraa<span style={{ color: "var(--primary)" }}>.</span>
                 </span>
                 <span className="text-[9px] font-semibold text-slate-400 uppercase tracking-widest mt-0.5">
-                  Modern Solutions
+                  Social Engagement &amp; GTM SaaS
                 </span>
               </div>
             </Link>
@@ -366,8 +345,8 @@ export default function Header() {
                   <Sparkles className="h-3.5 w-3.5" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold">Happico 3.0 Platform</div>
-                  <div className="text-[10px] text-slate-300">Live community &amp; event engine</div>
+                  <div className="text-xs font-bold">Buzzoraa SaaS Platform</div>
+                  <div className="text-[10px] text-slate-300">Turn Conversations Into Growth</div>
                 </div>
               </div>
               <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center gap-1 shrink-0">
@@ -483,7 +462,7 @@ export default function Header() {
               </Link>
 
               <Link
-                href="https://dev.happico.com"
+                href="https://buzzoraa.com"
                 target="_blank"
                 onClick={() => setIsOpen(false)}
                 className="flex items-center justify-center gap-2 w-full py-3 px-5 rounded-2xl text-sm font-semibold border border-slate-200 bg-slate-50 text-slate-800 hover:bg-slate-100 transition-colors"
@@ -515,7 +494,7 @@ export default function Header() {
                 </a>
 
                 <a
-                  href="mailto:contact@happico.com"
+                  href="mailto:contact@buzzoraa.com"
                   className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-800 hover:bg-slate-100 transition-colors shadow-2xs"
                 >
                   <Mail className="h-3.5 w-3.5 text-blue-600" />

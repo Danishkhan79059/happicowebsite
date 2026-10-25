@@ -28,29 +28,29 @@ import {
   ExternalLink,
 } from "lucide-react";
 
-// Top Pricing Plans Data from HappioCo
+// Top Pricing Plans Data from Buzzoraa
 const PLANS = [
   {
     id: "individuals-startups",
-    name: "For Individuals & Startups",
-    badge: "Independent & Early-Stage",
-    tagline: "Build and grow your developer communities at an accelerated pace.",
+    name: "Buzzoraa Starter",
+    badge: "For Founders & Startups",
+    tagline: "Turn conversations into growth at an accelerated pace.",
     description:
-      "Drive events, hackathons, newsletters and more with unlimited members.",
+      "Drive social engagement, community activation, and content amplification with unlimited reach.",
     priceMonthly: 149,
     priceAnnual: 119,
     originalMonthly: 149,
     originalAnnual: 149,
     discountBadge: "Save 20%",
-    priceSubtitle: "per community/month billed",
+    priceSubtitle: "per workspace/month billed",
     keyFeatures: [
-      "Online & Offline Events",
-      "HappioCo Stage with YouTube Streaming",
-      "Hackathons with Multi-tracks",
-      "Community Newsletters",
-      "Custom Page Builder",
-      "Community Channels & Forums",
-      "Paid Ticketing for Events**",
+      "Social Conversation Telemetry",
+      "Buzzoraa Multi-Channel Streaming",
+      "Community Activation Sprints",
+      "Content Amplification Engine",
+      "Custom GTM Landing Builder",
+      "Social Channels & Advocate Forums",
+      "Paid Monetization & Ticketing**",
       "Survey Forms & Feedback Collection",
     ],
     ctaText: "Buy Now",
@@ -62,25 +62,25 @@ const PLANS = [
   },
   {
     id: "enterprises",
-    name: "HappioCo for Enterprises",
-    badge: "Most Popular • Multi-Community",
-    tagline: "Create a hub of communities with a branded organization hub.",
+    name: "Buzzoraa for Growth & Brands",
+    badge: "Most Popular • Multi-Brand",
+    tagline: "Create unified social engagement with a branded organization hub.",
     description:
-      "Drive multiple developer programs with deep analytics and dedicated management.",
+      "Accelerate GTM pipeline with deep conversation analytics, advocate activation, and dedicated management.",
     priceMonthly: 199,
     priceAnnual: 179,
     originalMonthly: 199,
     originalAnnual: 199,
     discountBadge: "Save 10%",
-    priceSubtitle: "per community/month billed",
+    priceSubtitle: "per workspace/month billed",
     keyFeatures: [
       "Branded Organization Hub",
-      "Minimum 5 communities included",
-      "Member Analytics Across Organization",
+      "Minimum 5 community hubs included",
+      "Conversation Analytics Across Networks",
       "Unlimited Community Organizers",
-      "Organization Newsletters, Channels & Forums",
-      "Key Account Manager - HappioCo Specialist",
-      "Custom Insights Dashboard*",
+      "Automated Advocate Newsletters & Forums",
+      "Key Account Manager - Buzzoraa Specialist",
+      "Custom GTM Insights Dashboard*",
       "Advanced Page Builder & API Access",
     ],
     ctaText: "Buy Now",
@@ -92,25 +92,25 @@ const PLANS = [
   },
   {
     id: "devrel-agencies",
-    name: "HappioCo for DevRel Agencies",
-    badge: "For Agency Partners",
-    tagline: "Manage developer programs for your clients & build their brand.",
+    name: "Buzzoraa for Enterprise Ecosystems",
+    badge: "For Agency & Enterprise Partners",
+    tagline: "Manage social engagement and GTM programs for your clients & brand.",
     description:
-      "HappioCo is your platform engine to boost engagements across client hubs.",
+      "Buzzoraa is your platform engine to turn conversations into growth across client hubs.",
     priceMonthly: null,
     priceAnnual: null,
     isCustom: true,
     customPriceText: "Let's Talk",
     priceSubtitle: "Contact us for best pricing",
     keyFeatures: [
-      "Branded Organization Hubs",
+      "Branded Enterprise Hubs",
       "Custom Reporting For Each Client",
-      "Key Account Manager - HappioCo Specialist",
-      "Customized Platform Engine",
+      "Key Account Manager - Buzzoraa Specialist",
+      "Customized GTM Platform Engine",
       "Unlimited Admin Team & Organizers",
       "Unlimited Members Across Client Hubs",
-      "Exclusive Access To Emerging Features",
-      "HappioCo Newsletter & Ad Slot Credits",
+      "Exclusive Access To Emerging AI Features",
+      "Buzzoraa Content Amplification Credits",
     ],
     ctaText: "Get Onboarded",
     ctaLink: "/contact",
@@ -182,7 +182,7 @@ const COMPARISON_CATEGORIES = [
         agency: true,
       },
       {
-        name: "HappioCo Expert Consultations",
+        name: "Buzzoraa Expert Consultations",
         individuals: false,
         enterprise: true,
         agency: true,
@@ -249,7 +249,7 @@ const COMPARISON_CATEGORIES = [
         agency: true,
       },
       {
-        name: "HappioCo Stage with YouTube Streaming",
+        name: "Buzzoraa Stage with Multi-Streaming",
         individuals: true,
         enterprise: true,
         agency: true,
@@ -333,7 +333,7 @@ const COMPARISON_CATEGORIES = [
     ],
   },
   {
-    title: "HappioCo Stage",
+    title: "Buzzoraa Stage",
     icon: Video,
     features: [
       {
@@ -543,7 +543,7 @@ const COMPARISON_CATEGORIES = [
   },
 ];
 
-// Featured Communities Already On HappioCo
+// Featured Communities Already On Buzzoraa
 const COMMUNITIES = [
   {
     name: "Google Developer Groups",
@@ -583,46 +583,46 @@ const COMMUNITIES = [
   },
 ];
 
-// Complete 10 HappioCo FAQs with exact verified answers
+// Complete 10 Buzzoraa FAQs with exact verified answers
 const FAQS = [
   {
-    q: "Do I need to purchase any other platform when I setup a Community on HappioCo?",
-    a: "We don't think so, the Developer Communities on HappioCo are able to manage all their activities here. From event ticketing and online stages to forums and hackathons, everything is integrated into one unified workspace.",
+    q: "Do I need to purchase any other platform when I setup on Buzzoraa?",
+    a: "We don't think so, brands and communities on Buzzoraa are able to manage all their activities here. From social engagement and community activation to content amplification and conversation-led GTM funnels, everything is integrated into one unified workspace.",
   },
   {
-    q: "How many Communities can I host on HappioCo?",
-    a: "You can host your complete Developer Ecosystem with 100's of Communities on HappioCo. We have an organization page too. You have access to all the data and stats you need to govern and scale multiple chapters smoothly.",
+    q: "How many communities or brand hubs can I host on Buzzoraa?",
+    a: "You can host your complete brand ecosystem with multiple hubs and chapters on Buzzoraa. You have access to all the conversation telemetry, member analytics, and GTM data you need to govern and scale smoothly.",
   },
   {
-    q: "I'm looking to build a career in DevRel, how can HappioCo be useful in that?",
-    a: "As a DevRel, it's important to have an experience of building and growing your own Developer Community. Some folks are at leading DevRel positions who started by building their own Community here.",
+    q: "How does Buzzoraa turn conversations into growth?",
+    a: "Buzzoraa unites social engagement, community activation, and content amplification. By tracking high-intent conversations across social networks and activating advocates, it converts audience interactions into qualified pipeline and revenue.",
   },
   {
-    q: "I want to display activities from HappioCo on my website, is it possible?",
-    a: "Yes! From Startup plan and upwards you get access to our API's which can be used to display summary of your communities' activities on your own web page seamlessly.",
+    q: "I want to display activities from Buzzoraa on my website, is it possible?",
+    a: "Yes! From Growth plan and upwards you get access to our APIs and embed widgets which can be used to display summary of your activities on your own web page seamlessly.",
   },
   {
     q: "Will you help me migrate from other platforms?",
     a: "Yes! And it's very easy. Our support and onboarding team assists you step-by-step in importing your members, historical events, and community data without downtime.",
   },
   {
-    q: "I lead a Design Community, is HappioCo for me?",
-    a: "Absolutely, a few Design Communities are already using HappioCo. The event tools, attendee management, portfolios, and engagement workflows work seamlessly for creative and design groups.",
+    q: "I lead a startup or community, is Buzzoraa right for me?",
+    a: "Absolutely! Buzzoraa is built specifically for brands, startups, founders, and communities who want to build meaningful connections, amplify their presence, and grow through conversations.",
   },
   {
-    q: "Does HappioCo support paid ticketing for my community events?",
-    a: "Yes, HappioCo supports paid tickets in events. Community organizers can access this feature from their community admin dashboard with full ticketing analytics.",
+    q: "Does Buzzoraa support paid ticketing and community monetization?",
+    a: "Yes, Buzzoraa supports paid tickets, paid community tiers, and sponsorships with full analytics.",
   },
   {
-    q: "What are the charges for payments received through payment gateway on HappioCo?",
-    a: "For every ticket sale, the payment gateway charges a fee per transaction and there is a platform fee charged by HappioCo. Transparent breakdown is provided directly in your billing reports.",
+    q: "What are the charges for payments received through payment gateway on Buzzoraa?",
+    a: "For every ticket or membership sale, the payment gateway charges a standard fee per transaction and there is a transparent platform fee charged by Buzzoraa. Transparent breakdown is provided directly in your billing reports.",
   },
   {
     q: "Will I get access to new features which are rolled out after I pay for my subscription?",
-    a: "Yes, unless it's a premium feature, it will be a part of your existing subscription, we will notify you in advance whenever new enhancements launch.",
+    a: "Yes, unless it's an enterprise custom module, it will be a part of your existing subscription, and we will notify you in advance whenever new enhancements launch.",
   },
   {
-    q: "Is HappioCo the right platform for my global community members?",
+    q: "Is Buzzoraa the right platform for my global audience and members?",
     a: "Yes, our users extend across the world. With support for global time zones, multi-track streams, and worldwide email deliverability, international communities thrive here.",
   },
 ];
@@ -951,7 +951,7 @@ export default function PricingPage() {
       </section>
 
       {/* =========================================================================
-          QUOTE BANNER (From HappioCo)
+          QUOTE BANNER (Buzzoraa Platform)
           ========================================================================= */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center">
         <div className="relative p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-indigo-50/70 via-white to-cyan-50/70 border border-slate-200/80 shadow-sm">
@@ -1138,7 +1138,7 @@ export default function PricingPage() {
       </section>
 
       {/* =========================================================================
-          NON-PROFIT COMMUNITIES CARD (From HappioCo)
+          NON-PROFIT COMMUNITIES CARD (Buzzoraa Platform)
           ========================================================================= */}
       <section className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="relative rounded-3xl overflow-hidden border border-indigo-200/80 bg-gradient-to-br from-white via-indigo-50/40 to-slate-100 p-8 sm:p-12 shadow-xl">
@@ -1158,7 +1158,7 @@ export default function PricingPage() {
 
               <div className="space-y-2">
                 <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
-                  HappioCo for Non-profit Communities
+                  Buzzoraa for Non-profit Communities &amp; Startups
                 </h3>
                 <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl">
                   Get a dedicated community space for all your members, their
@@ -1249,21 +1249,20 @@ export default function PricingPage() {
       </section>
 
       {/* =========================================================================
-          COMMUNITIES ALREADY ON HappioCo (Social Proof & Interaction Avenues)
+          COMMUNITIES ALREADY ON Buzzoraa (Social Proof & Interaction Avenues)
           ========================================================================= */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="text-center space-y-3 mb-12">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight">
-            More avenues to interact with Developers on HappioCo
+            More avenues to interact with Brands &amp; Builders on Buzzoraa
           </h2>
           <p className="text-sm sm:text-base text-slate-600 max-w-3xl mx-auto">
-            Sponsor badges, sessions, run content campaigns with labs & builds,
-            get a sponsored slot in our sponsored emailers through community
-            organizers.
+            Social engagement, advocacy campaigns, content amplification with member loops,
+            and high-intent conversation pipelines.
           </p>
           <div className="pt-4">
             <span className="text-xs font-black uppercase tracking-widest text-slate-400">
-              Communities Already on HappioCo
+              Communities &amp; Brands Already on Buzzoraa
             </span>
           </div>
         </div>
@@ -1302,7 +1301,7 @@ export default function PricingPage() {
       </section>
 
       {/* =========================================================================
-          FAQS ACCORDION SECTION (All 10 Questions from HappioCo)
+          FAQS ACCORDION SECTION (All 10 Questions for Buzzoraa)
           ========================================================================= */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
         <div className="text-center space-y-3 mb-10">

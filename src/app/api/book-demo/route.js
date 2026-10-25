@@ -107,7 +107,7 @@ export async function POST(request) {
       notes: notes.trim(),
       status: "confirmed",
       meetingType: "Google Meet",
-      meetingLink: "https://meet.google.com/happico-demo-live",
+      meetingLink: "https://meet.google.com/buzzoraa-demo-live",
     };
 
     let savedBooking = null;

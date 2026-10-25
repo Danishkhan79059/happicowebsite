@@ -71,12 +71,12 @@ export async function sendDemoBookingNotification(booking) {
   } = booking;
 
   const transporter = getTransporter();
-  const fromEmail = process.env.EMAIL_FROM || '"Happico Team" <demo@happico.com>';
-  const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL || process.env.EMAIL_USER || "admin@happico.com";
+  const fromEmail = process.env.EMAIL_FROM || '"Buzzoraa Team" <demo@buzzoraa.com>';
+  const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL || process.env.EMAIL_USER || "admin@buzzoraa.com";
 
   const googleCalUrl = createGoogleCalendarUrl({
-    title: `Happico 1-on-1 Product Demo with ${fullName}`,
-    description: `Personalized walkthrough of Happico platform.\nMeeting Link: ${meetingLink}\nBooked for: ${fullName} (${email})`,
+    title: `Buzzoraa 1-on-1 Product Demo with ${fullName}`,
+    description: `Personalized walkthrough of Buzzoraa platform.\nMeeting Link: ${meetingLink}\nBooked for: ${fullName} (${email})`,
     location: meetingLink,
     dateStr: bookingDateStr,
     timeSlot,
@@ -110,12 +110,12 @@ export async function sendDemoBookingNotification(booking) {
         <div class="container">
           <div class="header">
             <h1>Demo Session Confirmed! 🎉</h1>
-            <p>Your personalized Happico walkthrough is scheduled.</p>
+            <p>Your personalized Buzzoraa walkthrough is scheduled.</p>
           </div>
           <div class="content">
             <div class="greeting">Hi ${fullName},</div>
             <p style="color: #475569; line-height: 1.6;">
-              Thank you for booking a demo with Happico. We're excited to show you how our platform can streamline your workflows, automate customer experiences, and accelerate business growth.
+              Thank you for booking a demo with Buzzoraa. We're excited to show you how our Social Engagement &amp; Go-to-Market (GTM) SaaS platform turns conversations into sustainable growth.
             </p>
 
             <div class="card">
@@ -150,7 +150,7 @@ export async function sendDemoBookingNotification(booking) {
             </div>
           </div>
           <div class="footer">
-            Happico Inc. • Elevating Next-Gen Digital Experiences<br/>
+            Buzzoraa Inc. • Social Engagement &amp; Go-to-Market (GTM) SaaS<br/>
             Need to reschedule? Simply reply to this email.
           </div>
         </div>
@@ -166,7 +166,7 @@ export async function sendDemoBookingNotification(booking) {
         <div style="max-width: 580px; margin: auto; background: white; border-radius: 16px; overflow: hidden; border: 1px solid #cbd5e1;">
           <div style="background: #0f172a; padding: 24px; color: white;">
             <h2 style="margin: 0; font-size: 20px; color: #67e8f9;">🚀 New Demo Booking Received</h2>
-            <p style="margin: 6px 0 0; color: #94a3b8; font-size: 14px;">Happico Website Lead Generation</p>
+            <p style="margin: 6px 0 0; color: #94a3b8; font-size: 14px;">Buzzoraa Website Lead Generation</p>
           </div>
           <div style="padding: 24px;">
             <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
@@ -209,7 +209,7 @@ export async function sendDemoBookingNotification(booking) {
     const clientPromise = transporter.sendMail({
       from: fromEmail,
       to: email,
-      subject: `✨ Confirmed: Your Happico Demo on ${bookingDateStr} at ${timeSlot}`,
+      subject: `✨ Confirmed: Your Buzzoraa Demo on ${bookingDateStr} at ${timeSlot}`,
       html: clientHtml,
     });
 
@@ -246,11 +246,11 @@ export async function sendContactNotification({
   message,
 }) {
   const transporter = getTransporter();
-  const fromEmail = process.env.EMAIL_FROM || "Happico <no-reply@happico.com>";
+  const fromEmail = process.env.EMAIL_FROM || "Buzzoraa <no-reply@buzzoraa.com>";
   const adminEmail =
     process.env.ADMIN_NOTIFICATION_EMAIL ||
     process.env.EMAIL_USER ||
-    "contact@happico.com";
+    "contact@buzzoraa.com";
 
   const adminHtml = `
     <!DOCTYPE html>
@@ -259,7 +259,7 @@ export async function sendContactNotification({
         <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden;">
           <div style="background: #6366f1; padding: 24px; color: #ffffff;">
             <h2 style="margin: 0; font-size: 20px;">🎯 New Contact Inquiry Received</h2>
-            <p style="margin: 4px 0 0 0; font-size: 13px; opacity: 0.9;">Happico & Vivaansh Consulting Event Strategy</p>
+            <p style="margin: 4px 0 0 0; font-size: 13px; opacity: 0.9;">Buzzoraa Social Engagement &amp; GTM Strategy</p>
           </div>
           <div style="padding: 24px;">
             <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
@@ -288,7 +288,7 @@ export async function sendContactNotification({
         <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden;">
           <div style="background: #6366f1; padding: 24px; color: #ffffff;">
             <h2 style="margin: 0; font-size: 20px;">👋 We've Received Your Inquiry</h2>
-            <p style="margin: 4px 0 0 0; font-size: 13px; opacity: 0.9;">Happico • Event Marketing & Ecosystem Strategy</p>
+            <p style="margin: 4px 0 0 0; font-size: 13px; opacity: 0.9;">Buzzoraa • Social Engagement &amp; GTM SaaS</p>
           </div>
           <div style="padding: 24px;">
             <p style="font-size: 14px; line-height: 1.6;">Hello <strong>${fullName}</strong>,</p>
@@ -324,7 +324,7 @@ export async function sendContactNotification({
     const clientPromise = transporter.sendMail({
       from: fromEmail,
       to: email,
-      subject: `✨ We've Received Your Inquiry - Happico & Vivaansh Consulting`,
+      subject: `✨ We've Received Your Inquiry - Buzzoraa`,
       html: clientHtml,
     });
 

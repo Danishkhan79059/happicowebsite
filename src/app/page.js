@@ -10,6 +10,9 @@ import SwarmCursor from "@/components/SwarmCursor";
 import MagicBento from "@/components/MagicBento";
 import AccordionGallery from "@/components/AccordionGallery";
 import LogoLoop from "@/components/LogoLoop";
+import Iridescence from "@/components/Iridescence";
+import ScrollStack, { ScrollStackItem } from "@/components/ScrollStack";
+import DepthCarousel from "@/components/DepthCarousel";
 import {
   FaSalesforce,
   FaSlack,
@@ -34,33 +37,75 @@ import {
 const ACCORDION_GALLERY_ITEMS = [
   {
     image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80",
-    label: "Global Tech Summits",
+    label: "Social Engagement Summits",
     link: "/book-demo",
-    alt: "Global Developer & Tech Summits",
+    alt: "Social Engagement & GTM Summits",
   },
   {
     image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=1200&q=80",
-    label: "Developer Hackathons",
+    label: "Community Activation Sprints",
     link: "/book-demo",
-    alt: "Collaborative Multi-Track Hackathons",
+    alt: "Advocate & Community Activation Sprints",
   },
   {
     image: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80",
-    label: "Live Stage Streaming",
+    label: "Content Amplification Live",
     link: "/book-demo",
-    alt: "Happico Live Stage Production & Broadcasts",
+    alt: "Buzzoraa Content Amplification & Broadcasts",
   },
   {
     image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
-    label: "Community Chapters",
+    label: "Founder & Brand Networks",
     link: "/book-demo",
-    alt: "Local Meetups & Developer Chapters",
+    alt: "Founder & Brand Thought Leadership Hubs",
   },
   {
     image: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80",
-    label: "Ecosystem Collaborations",
+    label: "GTM Growth Pipelines",
     link: "/book-demo",
-    alt: "Ecosystem Networking and Partner Alliances",
+    alt: "Conversation-Led GTM Pipelines",
+  },
+];
+
+// =============================================================================
+// 🎴 DEPTH CAROUSEL ITEMS (React Bits Component - 3D Perspective Experience)
+// =============================================================================
+const BUZZORAA_DEPTH_CAROUSEL_ITEMS = [
+  {
+    image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
+    alt: "Social Listening & Real-Time Intent Intelligence",
+    title: "Social Listening Engine",
+    subtitle: "AI Intent Scoring & Real-Time Alerts",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
+    alt: "Advocate & Super-Fan Mobilization",
+    title: "Advocate Mobilization",
+    subtitle: "Gamified Bounties & Ambassador Perks",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80",
+    alt: "Global Social Engagement Summits",
+    title: "Global Engagement Summits",
+    subtitle: "Worldwide Community Thought Leadership",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=800&q=80",
+    alt: "Developer Hackathons & Arena Competitions",
+    title: "Developer Arena Sprints",
+    subtitle: "Automated Evaluation & Leaderboard",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80",
+    alt: "Multi-Network Content Amplification Loops",
+    title: "Content Amplification",
+    subtitle: "Cross-Platform Syndication & Timing",
+  },
+  {
+    image: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=800&q=80",
+    alt: "High-Intent GTM Pipeline Engine",
+    title: "GTM Pipeline Sync",
+    subtitle: "Sub-Second Salesforce & HubSpot Routing",
   },
 ];
 
@@ -84,56 +129,160 @@ const ECOSYSTEM_LOGOS = [
 ];
 
 // =============================================================================
-// 🍱 MAGIC BENTO GRID ITEMS (Happico Community & Event Platform Content)
+// 🍱 MAGIC BENTO GRID ITEMS (Buzzoraa Social Engagement & GTM SaaS Content)
 // =============================================================================
-const HAPPICO_BENTO_ITEMS = [
+const BUZZORAA_BENTO_ITEMS = [
   {
-    label: "Campaign Analytics",
-    title: "Real-Time Event & Marketing ROI",
-    description: "Measure live registration conversions, social reach, attendee sentiment, and sponsor ROI in real time.",
+    label: "Social Engagement",
+    title: "Real-Time Conversation Intelligence",
+    description: "Turn every mention, comment, and discussion across social networks into meaningful customer relationships.",
     visual: "analytics",
     colSpan: 1,
     rowSpan: 1,
   },
   {
-    label: "DevRel Growth",
-    title: "Developer Community Scale",
-    description: "Track active practitioner retention, chapter meetups, engagement velocity, and ecosystem growth.",
+    label: "Community Activation",
+    title: "Advocate & Super-Fan Mobilization",
+    description: "Mobilize super-fans, power users, and community champions to fuel organic advocacy and virality.",
     visual: "dashboard",
     colSpan: 1,
     rowSpan: 1,
   },
   {
-    label: "Live Stage Operations",
-    title: "Hackathon & Summit Orchestration",
-    description: "Orchestrate multi-track stages, speaker agendas, sponsor collaterals, and attendee live chat with zero friction.",
+    label: "Content Amplification",
+    title: "Multi-Network Viral Syndication",
+    description: "Amplify brand stories, launch updates, and product announcements across social networks with automated distribution loops.",
     visual: "collaboration",
     colSpan: 2,
     rowSpan: 2,
   },
   {
-    label: "AI & Ecosystem Workflows",
-    title: "Salesforce, Slack & Agentforce Automations",
-    description: "Connect CRM pipelines, automated RSVP notifications, attendee badge approvals, and AI matchmaking sub-second.",
+    label: "GTM Growth Engine",
+    title: "Conversations to High-Intent Pipeline",
+    description: "Bridge social touchpoints directly into CRM pipelines, automated lead scoring, and closed-won deals sub-second.",
     visual: "automation",
     colSpan: 2,
     rowSpan: 2,
   },
   {
-    label: "Platform Integrations",
-    title: "Sync Salesforce, Slack, GitHub & Tableau",
-    description: "Bi-directional pipelines keeping community channels, code repositories, and enterprise analytics synchronized.",
+    label: "Social Networking Hub",
+    title: "Sync LinkedIn, X, Slack, Discord & Reddit",
+    description: "Bi-directional pipelines keeping social discussions, community channels, and enterprise analytics synchronized.",
     visual: "integration",
     colSpan: 1,
     rowSpan: 1,
   },
   {
     label: "Enterprise Governance",
-    title: "Bank-Grade SSO & Attendee Privacy",
-    description: "Enterprise access management, GDPR & data privacy compliance, 2FA protocols, and secure attendee identity.",
+    title: "Bank-Grade SSO & Telemetry Privacy",
+    description: "Enterprise conversation telemetry, GDPR compliance, 2FA protocols, and secure brand data architecture.",
     visual: "security",
     colSpan: 1,
     rowSpan: 1,
+  },
+];
+
+// =============================================================================
+// 📚 SCROLL STACK CARDS: 4 CORE PILLARS OF BUZZORAA (React Bits Component)
+// 👉 NOTE FOR USER: Isme images nahi lagayi gayi hain. Baad me images add karne
+//    ke liye har card ke visual slot me <Image /> ka code laga sakte hain!
+// =============================================================================
+const BUZZORAA_STACK_CARDS = [
+  {
+    step: "01",
+    pillar: "Pillar 01",
+    tag: "Social Intelligence",
+    title: "Real-Time Conversation Listening & Intent Scoring",
+    description:
+      "Capture multi-channel discussions across LinkedIn, X, Slack, Discord, and Reddit in real-time. Buzzoraa's AI decodes buying signals, sentiment shifts, and competitor mentions in sub-seconds.",
+    badge: "Real-Time Telemetry",
+    accent: "#6366f1",
+    features: [
+      "Omnichannel Signal Stream Sync (LinkedIn, X, Slack, Discord)",
+      "AI High-Intent Buyer Lead Scoring & Classification",
+      "Real-Time Sentiment Velocity & Trend Anomaly Alerts",
+      "Zero-Loss Real-Time Stream Ingestion Engine",
+    ],
+    stats: [
+      { label: "Signals / Day", value: "2.4M+" },
+      { label: "Intent Accuracy", value: "99.4%" },
+      { label: "Alert Latency", value: "< 250ms" },
+    ],
+    ctaText: "Explore Social Intelligence",
+    ctaLink: "/solutions",
+    codeOrSlotNote: "Signal Ingestion: 8,420 Active Signals / min",
+  },
+  {
+    step: "02",
+    pillar: "Pillar 02",
+    tag: "Community Activation",
+    title: "Advocate & Super-Fan Mobilization Engine",
+    description:
+      "Transform community advocates into your most powerful go-to-market distribution channel. Mobilize super-fans with automated bounties, gamified sprints, and verified leaderboards.",
+    badge: "Advocacy Velocity",
+    accent: "#06b6d4",
+    features: [
+      "Automated Power-User Identification & Scoring",
+      "Gamified Referral Sprints & Community Bounties",
+      "Dynamic Leaderboard Telemetry & Verified Ranks",
+      "Tiered Digital Credentials & Ambassador Perks",
+    ],
+    stats: [
+      { label: "Active Advocates", value: "14,800+" },
+      { label: "Peer Conversion", value: "4.8x" },
+      { label: "Retention Rate", value: "92%" },
+    ],
+    ctaText: "Discover Community Sprints",
+    ctaLink: "/solutions",
+    codeOrSlotNote: "Advocate Network: 14.8k Active Champions",
+  },
+  {
+    step: "03",
+    pillar: "Pillar 03",
+    tag: "Content Amplification",
+    title: "Multi-Network Viral Syndication & Automated Loops",
+    description:
+      "Amplify your product announcements, launches, and founder stories with automated cross-platform syndication, optimal algorithmic timing, and dynamic snippet generation.",
+    badge: "Viral Syndication",
+    accent: "#ec4899",
+    features: [
+      "1-Click Cross-Platform Omnichannel Broadcast",
+      "Algorithmic Peak-Engagement Optimal Timing",
+      "Smart Multi-Format Snippet & Thread Repurposing",
+      "Predictive Reach Modeling & Virality Scoring",
+    ],
+    stats: [
+      { label: "Organic Reach", value: "+340%" },
+      { label: "Weekly Saved", value: "18 hrs" },
+      { label: "Viral Depth", value: "6.2x" },
+    ],
+    ctaText: "Explore Content Loops",
+    ctaLink: "/solutions",
+    codeOrSlotNote: "Broadcast Engine: Multi-Network Syndication Active",
+  },
+  {
+    step: "04",
+    pillar: "Pillar 04",
+    tag: "Revenue Engine",
+    title: "Conversations to High-Intent Pipeline & CRM Sync",
+    description:
+      "Bridge social touchpoints directly into Salesforce, HubSpot, and executive channels. Automatically enrich inbound social leads, attribute revenue to advocate touchpoints, and accelerate deal cycles.",
+    badge: "Enterprise GTM",
+    accent: "#10b981",
+    features: [
+      "Sub-Second CRM Lead Routing & Opportunity Mapping",
+      "Multi-Touch Social Attribution & Deal Attribution",
+      "Automated Account Enrichment & Buying Committee Mapping",
+      "Executive Revenue Telemetry & Closed-Won Dashboards",
+    ],
+    stats: [
+      { label: "Influenced ARR", value: "$12.4M" },
+      { label: "Routing Latency", value: "< 30s" },
+      { label: "Win Rate Lift", value: "+38%" },
+    ],
+    ctaText: "Book a Pipeline Demo",
+    ctaLink: "/Bookdemo",
+    codeOrSlotNote: "CRM Telemetry: Sub-Second Bi-directional Sync Active",
   },
 ];
 
@@ -224,7 +373,7 @@ function HeroInteractiveVisual() {
             </div>
             <div className="text-[11px] font-mono text-slate-400 flex items-center gap-1.5">
               <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" />
-              <span>happico.com/ecosystem</span>
+              <span>buzzoraa.com/platform</span>
             </div>
             <span
               data-swarm-target
@@ -234,7 +383,7 @@ function HeroInteractiveVisual() {
                 color: "var(--primary)",
               }}
             >
-              Live Stage
+              Live Engine
             </span>
           </div>
 
@@ -243,7 +392,7 @@ function HeroInteractiveVisual() {
             {!imageError ? (
               <Image
                 src="/community-event-stage.jpg"
-                alt="Happico Community & Event Stage"
+                alt="Buzzoraa Social Engagement & GTM Platform"
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px)"
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -358,10 +507,10 @@ function HackathonInteractiveVisual() {
           </div>
           <div className="text-[11px] font-mono text-slate-400 flex items-center gap-1.5">
             <Code2 className="h-3.5 w-3.5 text-cyan-500" />
-            <span>happico.com/hackathons/live</span>
+            <span>buzzoraa.com/community/activation</span>
           </div>
           <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-50 text-cyan-700 border border-cyan-200/60">
-            Multi-Track
+            Activation Sprints
           </span>
         </div>
 
@@ -370,7 +519,7 @@ function HackathonInteractiveVisual() {
           {!imageError ? (
             <Image
               src="/hackathon-dashboard.jpg"
-              alt="Happico Hackathon Dashboard"
+              alt="Buzzoraa Community Activation Dashboard"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px)"
               className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -465,7 +614,7 @@ function EventCampaignInteractiveVisual() {
           </div>
           <div className="text-[11px] font-mono text-slate-400 flex items-center gap-1.5">
             <BarChart3 className="h-3.5 w-3.5 text-indigo-500" />
-            <span>happico.com/campaigns/funnels</span>
+            <span>buzzoraa.com/gtm/growth</span>
           </div>
           <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/60">
             Real-Time ROI
@@ -477,7 +626,7 @@ function EventCampaignInteractiveVisual() {
           {!imageError ? (
             <Image
               src="/community-analytics.jpg"
-              alt="Happico Event Marketing Funnels"
+              alt="Buzzoraa Content Amplification Funnels"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px)"
               className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -597,7 +746,7 @@ function EcosystemIntegrationVisual() {
           </div>
           <div className="text-[11px] font-mono text-slate-400 flex items-center gap-1.5">
             <Cpu className="h-3.5 w-3.5 text-indigo-500" />
-            <span>happico.com/ecosystem/integrations</span>
+            <span>buzzoraa.com/integrations</span>
           </div>
           <span
             className="text-[10px] font-bold px-2 py-0.5 rounded-full"
@@ -719,7 +868,7 @@ function LeadershipImpactVisual() {
           </div>
           <div className="text-[11px] font-mono text-slate-400 flex items-center gap-1.5">
             <Award className="h-3.5 w-3.5 text-amber-500" />
-            <span>happico.com/about/tarun-gupta</span>
+            <span>buzzoraa.com/about</span>
           </div>
           <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200/60">
             Ambassador
@@ -807,36 +956,57 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-slate-50 min-h-screen">
+    <div className="relative min-h-screen">
       {/* =======================================================================
-          SECTION 0: Hero Section (Layout: Content Left | Visual Right)
+          GLOBAL FULL-PAGE IRIDESCENCE BACKGROUND (React Bits)
+          Fixed across entire viewport from top to bottom
          ======================================================================= */}
-      <section className="relative overflow-hidden bg-slate-50/70 border-b border-slate-200/60">
-        {/* Subtle grid background */}
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.4]"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, #d7e2e9 1px, transparent 1px), linear-gradient(to bottom, #d7e2e9 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-          }}
+      <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
+        <Iridescence
+          color={selectedTheme?.primary || "#6366f1"}
+          hueShift={0}
+          saturation={1}
+          brightness={1.3}
+          contrast={1.1}
+          speed={0.7}
+          scale={1}
+          detail={8}
+          warp={1}
+          rotation={0}
+          mouseReact={true}
+          amplitude={0.12}
+          stir={0.45}
+          sheen={0.3}
+          clickSwirl={true}
+          grain={0.02}
+          fade={0}
         />
+        {/* Soft frosted glass overlay for high text contrast across the entire page */}
+        <div className="absolute inset-0 bg-white/70 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-white/60" />
+      </div>
 
-        {/* Ambient radial color glow */}
+      {/* =======================================================================
+          SECTION 0: Hero Section (Centered Layout)
+         ======================================================================= */}
+      <section className="relative overflow-hidden border-b border-slate-200/50 py-20 sm:py-28 lg:py-32">
+        {/* Ambient subtle radial glow matching theme */}
         <div
-          className="pointer-events-none absolute top-12 left-1/3 -translate-x-1/2 h-80 w-80 rounded-full opacity-20 blur-3xl transition-colors duration-500"
+          className="pointer-events-none absolute top-12 left-1/2 -translate-x-1/2 h-96 w-96 rounded-full opacity-20 blur-3xl transition-colors duration-500 z-1"
           style={{ backgroundColor: "var(--primary)" }}
         />
 
-        <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 py-16 sm:px-8 lg:grid-cols-2 lg:gap-16 lg:py-24">
-          {/* Left column - content wrapped in FadeContent */}
-          <FadeContent effect="fade" blur={true} duration={1} delay={0.05} trigger="mount">
-            <div>
+        {/* Centered Main Container */}
+        <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+          {/* Centered Content wrapped in FadeContent */}
+          <FadeContent effect="fade" blur={true} duration={1} delay={0.05} trigger="mount" className="w-full flex flex-col items-center">
+            <div className="flex flex-col items-center max-w-4xl mx-auto">
+              {/* Top Pill Badge */}
               <div
-                className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold shadow-2xs backdrop-blur-sm transition-colors"
+                className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs sm:text-sm font-bold shadow-xs backdrop-blur-md transition-colors"
                 style={{
-                  borderColor: "color-mix(in srgb, var(--primary) 30%, transparent)",
-                  backgroundColor: "color-mix(in srgb, var(--primary) 8%, white)",
+                  borderColor: "color-mix(in srgb, var(--primary) 35%, transparent)",
+                  backgroundColor: "color-mix(in srgb, var(--primary) 10%, white)",
                   color: "var(--primary)",
                 }}
               >
@@ -846,11 +1016,12 @@ export default function Home() {
                 >
                   <Zap className="h-2.5 w-2.5 fill-current" />
                 </span>
-                One Platform. Infinite Community Impact.
+                <span>Social Engagement &amp; Go-to-Market (GTM) SaaS</span>
               </div>
 
-              <h1 className="mt-5 text-4xl font-black leading-[1.08] tracking-tight text-blue-950 sm:text-6xl lg:text-7xl">
-                Scale Your Community.
+              {/* Main Headline */}
+              <h1 className="mt-6 text-4xl sm:text-6xl lg:text-7xl font-black leading-[1.08] tracking-tight text-slate-950">
+                Turn Conversations
                 <br />
                 <span
                   className="text-transparent bg-clip-text transition-all duration-300"
@@ -859,21 +1030,20 @@ export default function Home() {
                       "linear-gradient(135deg, var(--primary) 0%, #8b5cf6 50%, var(--secondary) 100%)",
                   }}
                 >
-                  Host Impactful Events &amp; Hackathons.
+                  Into Sustainable Growth.
                 </span>
               </h1>
 
-              <p className="mt-6 max-w-lg text-lg sm:text-xl leading-relaxed text-slate-600">
-                Happico unites India&apos;s premier developer networks, high-impact
-                event marketing, and ecosystem activation into one seamless
-                platform, helping you save time, drive registrations, and grow
-                with confidence.
+              {/* Subtitle / Description */}
+              <p className="mt-6 max-w-2xl text-base sm:text-xl leading-relaxed text-slate-700 font-normal">
+                <strong className="text-slate-900 font-semibold">Buzzoraa</strong> is a Social Engagement &amp; Go-to-Market (GTM) SaaS platform designed to turn conversations into growth. Our vision is to bring social engagement, community activation, content amplification, and GTM growth together in one unified platform.
               </p>
 
-              <div className="mt-8 flex flex-wrap items-center gap-4">
+              {/* Action Buttons */}
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
                 <Link
                   href="/Bookdemo"
-                  className="cursor-pointer rounded-xl px-7 py-3.5 text-base font-bold text-white shadow-md transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2"
+                  className="cursor-pointer rounded-xl px-7 py-3.5 text-base font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2"
                   style={{
                     backgroundColor: "var(--primary)",
                     boxShadow: "0 10px 24px var(--primary-glow)",
@@ -885,45 +1055,45 @@ export default function Home() {
                     e.currentTarget.style.backgroundColor = "var(--primary)";
                   }}
                 >
-                  Book a Live Demo
+                  <span>Book a Live Demo</span>
                   <ArrowUpRight className="h-5 w-5" />
                 </Link>
 
                 <Link
                   href="/contact"
-                  className="cursor-pointer rounded-xl border border-slate-300 bg-white px-6 py-3.5 text-base font-bold text-slate-800 transition-colors hover:bg-slate-100 flex items-center gap-2"
+                  className="cursor-pointer rounded-xl border border-slate-300 bg-white/90 backdrop-blur-md px-6 py-3.5 text-base font-bold text-slate-800 transition-colors hover:bg-white flex items-center gap-2 shadow-2xs"
                 >
                   Talk to Support
                 </Link>
 
                 <Link
                   href="/pricing"
-                  className="cursor-pointer rounded-xl border border-slate-200 bg-white/70 px-5 py-3.5 text-base font-semibold text-slate-600 transition-colors hover:text-slate-900 hover:bg-white"
+                  className="cursor-pointer rounded-xl border border-slate-200 bg-white/80 backdrop-blur-md px-5 py-3.5 text-base font-semibold text-slate-700 transition-colors hover:text-slate-900 hover:bg-white shadow-2xs"
                 >
                   Explore Pricing
                 </Link>
               </div>
 
-              {/* Micro trust indicators */}
-              <div className="mt-8 flex flex-wrap items-center gap-5 text-xs font-medium text-slate-500">
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+              {/* Micro Trust Indicators */}
+              <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm font-semibold text-slate-600">
+                <div className="flex items-center gap-2 bg-white/80 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-slate-200/80 shadow-2xs">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-600" />
                   <span>No credit card needed</span>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+                <div className="flex items-center gap-2 bg-white/80 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-slate-200/80 shadow-2xs">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-600" />
                   <span>Instant 7-day free trial</span>
                 </div>
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-500" />
+                <div className="flex items-center gap-2 bg-white/80 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-slate-200/80 shadow-2xs">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-600" />
                   <span>Enterprise &amp; AI ready</span>
                 </div>
               </div>
             </div>
           </FadeContent>
 
-          {/* Right column - Hero Interactive Visual with 3D Parallax & Animated Badges */}
-          <FadeContent effect="focus" blur={true} duration={1.2} delay={0.15} trigger="mount">
+          {/* Centered Product Visual Mockup */}
+          <FadeContent effect="focus" blur={true} duration={1.2} delay={0.2} trigger="mount" className="w-full mt-12 sm:mt-16 max-w-4xl">
             <HeroInteractiveVisual />
           </FadeContent>
         </div>
@@ -932,7 +1102,7 @@ export default function Home() {
       {/* =======================================================================
           SECTION 1: Hackathons & Developer Arena (Layout: Visual Left | Content Right)
          ======================================================================= */}
-      <section className="relative overflow-hidden bg-white border-b border-slate-200/60 py-16 sm:py-24">
+      <section className="relative overflow-hidden bg-white/50 backdrop-blur-xs border-b border-slate-200/50 py-16 sm:py-24">
         {/* Soft background ambient light */}
         <div
           className="pointer-events-none absolute top-1/2 left-0 -translate-y-1/2 w-96 h-96 rounded-full opacity-15 blur-3xl"
@@ -1008,7 +1178,7 @@ export default function Home() {
       {/* =======================================================================
           SECTION 2: High-Impact Event Marketing (Layout: Content Left | Visual Right)
          ======================================================================= */}
-      <section className="relative overflow-hidden bg-slate-50/70 border-b border-slate-200/60 py-16 sm:py-24">
+      <section className="relative overflow-hidden bg-slate-50/40 backdrop-blur-xs border-b border-slate-200/50 py-16 sm:py-24">
         {/* Subtle grid background */}
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.35]"
@@ -1055,7 +1225,7 @@ export default function Home() {
               </h2>
 
               <p className="mt-5 text-base sm:text-lg leading-relaxed text-slate-600">
-                When you organize an enterprise summit, developer meetup, or tech conference, generic registration forms lose 70% of potential attendees. Happico builds hype engines that convert curiosity into sold-out registrations.
+                When scaling your presence, fragmented outreach and generic social posts lose 70% of potential buyers. Buzzoraa builds social engagement and content amplification engines that convert conversations into active advocates and pipeline.
               </p>
 
               {/* Campaign Pillar Cards */}
@@ -1110,7 +1280,7 @@ export default function Home() {
       {/* =======================================================================
           SECTION 3: Enterprise Architecture & AI (Layout: Visual Left | Content Right)
          ======================================================================= */}
-      <section className="relative overflow-hidden bg-white border-b border-slate-200/60 py-16 sm:py-24">
+      <section className="relative overflow-hidden bg-white/50 backdrop-blur-xs border-b border-slate-200/50 py-16 sm:py-24">
         {/* Soft background glow */}
         <div
           className="pointer-events-none absolute bottom-0 right-0 w-96 h-96 rounded-full opacity-15 blur-3xl"
@@ -1142,7 +1312,7 @@ export default function Home() {
               </h2>
 
               <p className="mt-5 text-base sm:text-lg leading-relaxed text-slate-600">
-                Backed by enterprise IT consulting expertise at Vivaansh Consulting, we integrate your CRM, messaging channels, and Agentforce AI workflows to automate campaign pipelines end-to-end without manual friction.
+                Backed by enterprise architecture, Buzzoraa integrates your CRM, social networks, messaging hubs, and AI workflows to automate engagement pipelines end-to-end without manual friction.
               </p>
 
               <div className="mt-6 space-y-3">
@@ -1186,7 +1356,7 @@ export default function Home() {
       {/* =======================================================================
           SECTION 4: Leadership & Ecosystem Trust (Layout: Content Left | Visual Right)
          ======================================================================= */}
-      <section className="relative overflow-hidden bg-slate-50/70 border-b border-slate-200/60 py-16 sm:py-24">
+      <section className="relative overflow-hidden bg-slate-50/40 backdrop-blur-xs border-b border-slate-200/50 py-16 sm:py-24">
         {/* Subtle grid background */}
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.35]"
@@ -1217,7 +1387,7 @@ export default function Home() {
               </h2>
 
               <p className="mt-5 text-base sm:text-lg leading-relaxed text-slate-600">
-                Happico isn&apos;t just software—it is steered by Tarun Gupta, a 2x Tableau Ambassador, Salesforce Champion, and CMX Global Advisor with over 15 years leading enterprise solutions and global developer movements.
+                Buzzoraa isn&apos;t just software—it is steered by industry practitioners with over 15 years leading enterprise solutions, social networking platforms, and global community movements.
               </p>
 
               {/* Honors Badges */}
@@ -1268,7 +1438,7 @@ export default function Home() {
                   href="/contact"
                   className="cursor-pointer rounded-xl border border-slate-300 bg-white px-6 py-3.5 text-sm font-bold text-slate-800 transition-colors hover:bg-slate-100"
                 >
-                  Partner With Happico
+                  Partner With Buzzoraa
                 </Link>
               </div>
             </div>
@@ -1284,7 +1454,7 @@ export default function Home() {
       {/* =======================================================================
           REACT BITS: MASKED HEADING SHOWCASE SECTION
          ======================================================================= */}
-      <section className="relative overflow-hidden bg-slate-950 text-white py-20 sm:py-28 border-b border-slate-800">
+      <section className="relative overflow-hidden bg-slate-950/85 backdrop-blur-md text-white py-20 sm:py-28 border-b border-slate-800/80">
         {/* Subtle grid pattern */}
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.15]"
@@ -1324,7 +1494,7 @@ export default function Home() {
           {/* The Live MaskedHeading Component */}
           <div className="py-8 sm:py-12 border-y border-slate-800/80 bg-slate-900/40 rounded-3xl backdrop-blur-xs px-4">
             <MaskedHeading
-              text="EXPERIENCE HAPPICO"
+              text="EXPERIENCE BUZZORAA"
               mediaType="image"
               src="/community-event-stage.jpg"
               fillScale={1.3}
@@ -1389,7 +1559,7 @@ export default function Home() {
       {/* =======================================================================
           PLATFORM PILLARS: ENTERPRISE HACKATHON & EVENT AUTOMATION
          ======================================================================= */}
-      <section className="relative overflow-hidden bg-slate-900 text-white py-20 sm:py-28 border-b border-slate-800">
+      <section className="relative overflow-hidden bg-slate-900/85 backdrop-blur-md text-white py-20 sm:py-28 border-b border-slate-800/80">
         {/* Subtle grid pattern */}
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.1]"
@@ -1420,7 +1590,7 @@ export default function Home() {
               Automate Every Phase of Your Hackathon &amp; Tech Summit
             </h2>
             <p className="max-w-2xl mx-auto text-xs sm:text-sm text-slate-400 leading-relaxed">
-              From developer acquisition and campus outreach to automated project submissions, fraud-proof judging, and verified sponsor ROI reporting — Happico orchestrates high-stakes developer gatherings with effortless precision.
+              From social engagement and advocate activation to automated content syndication, lead attribution, and verified GTM analytics — Buzzoraa orchestrates modern conversation-driven growth with effortless precision.
             </p>
           </FadeContent>
 
@@ -1543,7 +1713,7 @@ export default function Home() {
       {/* =======================================================================
           ECOSYSTEM SOLUTIONS: TAILORED STAKEHOLDER ARCHITECTURE
          ======================================================================= */}
-      <section className="relative overflow-hidden bg-slate-950 text-white py-20 sm:py-28 border-b border-slate-800">
+      <section className="relative overflow-hidden bg-slate-950/85 backdrop-blur-md text-white py-20 sm:py-28 border-b border-slate-800/80">
         {/* Subtle grid pattern */}
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.1]"
@@ -1573,7 +1743,7 @@ export default function Home() {
               Tailored Solutions for Every Community Stakeholder
             </h2>
             <p className="max-w-2xl mx-auto text-xs sm:text-sm text-slate-400 leading-relaxed">
-              Explore how Happico fuels acquisition, sponsorship impact, and community engagement across every segment of the tech ecosystem.
+              Explore how Buzzoraa fuels acquisition, social engagement, and community activation across every segment of the modern ecosystem.
             </p>
           </FadeContent>
 
@@ -1709,7 +1879,7 @@ export default function Home() {
                   fadeOut={true}
                   fadeOutWidth={0.15}
                   labels="hover"
-                  ariaLabel="Happico Ecosystem Partners"
+                  ariaLabel="Buzzoraa Ecosystem Partners"
                 />
               </div>
             </div>
@@ -1726,7 +1896,7 @@ export default function Home() {
                   boxShadow: "0 10px 24px var(--primary-glow)",
                 }}
               >
-                <span>Launch Your Event on Happico</span>
+                <span>Launch Your Growth on Buzzoraa</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
@@ -1740,17 +1910,226 @@ export default function Home() {
         </div>
       </section>
 
+      {/* =========================================================================
+          INTERACTIVE SCROLL STACK SECTION (React Bits Component)
+          The 4 Core Growth Pillars of Buzzoraa GTM
+          ========================================================================= */}
+      <section className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden border-t border-slate-200/60 bg-gradient-to-b from-slate-50/70 via-white/80 to-slate-50/70 backdrop-blur-xs">
+        {/* Soft Ambient Light Glows */}
+        <div
+          className="absolute -top-32 left-1/3 h-96 w-96 rounded-full blur-[140px] opacity-15 pointer-events-none"
+          style={{ backgroundColor: selectedTheme.primary || "#6366f1" }}
+        />
+        <div
+          className="absolute -bottom-32 right-1/4 h-96 w-96 rounded-full blur-[140px] opacity-15 pointer-events-none"
+          style={{ backgroundColor: selectedTheme.secondary || "#06b6d4" }}
+        />
 
+        <div className="relative max-w-6xl mx-auto space-y-12">
+          {/* Header */}
+          <FadeContent effect="fade" duration={0.8} threshold={0.15} className="text-center max-w-3xl mx-auto space-y-4">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-indigo-50 text-indigo-600 border border-indigo-100 shadow-xs">
+              <Sparkles className="h-3.5 w-3.5 text-indigo-500" />
+              <span>Interactive Architecture Stack</span>
+            </div>
 
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight leading-tight">
+              The Engine Powering Every Conversation
+            </h2>
 
+            <p className="text-base text-slate-600 leading-relaxed font-normal">
+              Scroll through the interactive card deck below to explore how Buzzoraa unifies listening, advocate mobilization, content amplification, and GTM revenue attribution.
+            </p>
+          </FadeContent>
+
+          {/* Interactive ScrollStack Showcase Frame */}
+          <div className="w-full mx-auto max-w-5xl">
+            <div className="relative rounded-3xl border border-slate-200/90 bg-white/70 backdrop-blur-xl shadow-2xl p-2 sm:p-4">
+              {/* Top Window Bar Controls */}
+              <div className="flex items-center justify-between pb-3 px-3 sm:px-4 border-b border-slate-200/70 text-slate-500">
+                <div className="flex items-center gap-1.5">
+                  <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
+                  <span className="ml-2 text-[11px] font-mono text-slate-400 hidden sm:inline">
+                    buzzoraa.com/architecture-stack
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-100">
+                    <span className="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse" />
+                    Scroll / Drag Stack
+                  </span>
+                </div>
+              </div>
+
+              {/* ScrollStack Component (React Bits) */}
+              <div style={{ height: 640 }} className="w-full relative mt-3">
+                <ScrollStack
+                  itemDistance={130}
+                  itemStackDistance={26}
+                  stackPosition="8%"
+                  itemScale={0.04}
+                  baseScale={0.88}
+                  dimAmount={0.14}
+                  blurAmount={0}
+                  tiltAmount={3}
+                  rotationAmount={1.2}
+                  holdDistance={200}
+                  smoothScroll={true}
+                  snap={true}
+                >
+                  {BUZZORAA_STACK_CARDS.map((card) => (
+                    <ScrollStackItem
+                      key={card.step}
+                      itemClassName="!h-auto !min-h-[22rem] sm:!min-h-[20rem] !p-6 sm:!p-8 rounded-3xl border border-slate-200/90 bg-white/95 text-slate-900 shadow-xl backdrop-blur-md"
+                    >
+                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+                        {/* Left Column: Rich Content */}
+                        <div className="lg:col-span-7 flex flex-col justify-between space-y-4">
+                          <div>
+                            {/* Badges */}
+                            <div className="flex flex-wrap items-center gap-2 mb-3">
+                              <span
+                                className="text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full text-white shadow-xs"
+                                style={{ backgroundColor: card.accent }}
+                              >
+                                {card.pillar}
+                              </span>
+                              <span className="text-[11px] font-semibold text-slate-600 px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200/60">
+                                {card.tag}
+                              </span>
+                              <span className="text-[11px] font-mono font-medium text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100 flex items-center gap-1">
+                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                {card.badge}
+                              </span>
+                            </div>
+
+                            {/* Title */}
+                            <h3 className="text-xl sm:text-2xl font-black text-slate-950 tracking-tight leading-snug">
+                              {card.title}
+                            </h3>
+
+                            {/* Description */}
+                            <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                              {card.description}
+                            </p>
+                          </div>
+
+                          {/* Feature Highlights */}
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                            {card.features.map((feat, fIdx) => (
+                              <div key={fIdx} className="flex items-start gap-2 text-xs text-slate-700">
+                                <CheckCircle2
+                                  className="h-3.5 w-3.5 shrink-0 mt-0.5"
+                                  style={{ color: card.accent }}
+                                />
+                                <span className="leading-snug">{feat}</span>
+                              </div>
+                            ))}
+                          </div>
+
+                          {/* Action CTA */}
+                          <div className="pt-2 flex items-center gap-4">
+                            <Link
+                              href={card.ctaLink}
+                              className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-white px-5 py-2.5 rounded-xl shadow-md transition-all hover:scale-105 active:scale-95"
+                              style={{ backgroundColor: card.accent }}
+                            >
+                              <span>{card.ctaText}</span>
+                              <ArrowRight className="h-4 w-4" />
+                            </Link>
+                          </div>
+                        </div>
+
+                        {/* Right Column: Visual Telemetry Slot (NO Images used; ready for user image later) */}
+                        <div className="lg:col-span-5 w-full">
+                          {/* 
+                            =======================================================================
+                            🖼️ IMAGE SLOT PLACEHOLDER (USER NOTE):
+                            Agar aap baad mein image lagana chahein, to is visual box ki jagah
+                            apni <Image /> tag laga sakte hain:
+                            <Image src="/your-image.jpg" alt={card.title} width={500} height={320} className="rounded-2xl object-cover" />
+                            =======================================================================
+                          */}
+                          <div className="rounded-2xl border border-dashed border-slate-300 bg-gradient-to-br from-slate-50 via-white to-slate-100 p-4 sm:p-5 shadow-xs relative overflow-hidden group">
+                            {/* Box Header */}
+                            <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 mb-3">
+                              <div className="flex items-center gap-2">
+                                <div
+                                  className="h-7 w-7 rounded-lg flex items-center justify-center text-white text-xs font-black shadow-xs"
+                                  style={{ backgroundColor: card.accent }}
+                                >
+                                  {card.step}
+                                </div>
+                                <div>
+                                  <p className="text-[11px] font-bold text-slate-800 leading-none">
+                                    Architecture Telemetry
+                                  </p>
+                                  <p className="text-[9px] font-mono text-slate-400 mt-0.5">
+                                    buzzoraa.engine.v1
+                                  </p>
+                                </div>
+                              </div>
+                              <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-600 font-semibold border border-emerald-100 flex items-center gap-1">
+                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                                Live
+                              </span>
+                            </div>
+
+                            {/* 3 Metrics */}
+                            <div className="grid grid-cols-3 gap-2 mb-3">
+                              {card.stats.map((st, sIdx) => (
+                                <div
+                                  key={sIdx}
+                                  className="p-2 sm:p-2.5 rounded-xl bg-white border border-slate-200/70 text-center shadow-2xs"
+                                >
+                                  <div
+                                    className="text-sm sm:text-base font-black tracking-tight"
+                                    style={{ color: card.accent }}
+                                  >
+                                    {st.value}
+                                  </div>
+                                  <div className="text-[10px] text-slate-500 font-medium truncate mt-0.5">
+                                    {st.label}
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+
+                            {/* Status Activity Row */}
+                            <div className="p-2.5 rounded-xl bg-slate-900 text-white flex items-center justify-between text-[11px]">
+                              <div className="flex items-center gap-2 truncate">
+                                <TrendingUp className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                                <span className="font-mono text-[10px] sm:text-[11px] text-slate-200 truncate">
+                                  {card.codeOrSlotNote}
+                                </span>
+                              </div>
+                              <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded bg-indigo-500/30 text-indigo-300 shrink-0">
+                                Synced
+                              </span>
+                            </div>
+
+                            {/* Developer Hint */}
+                            <div className="mt-2.5 text-center text-[10px] font-medium text-slate-400 italic">
+                              Image slot ready for future custom visual
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ScrollStackItem>
+                  ))}
+                </ScrollStack>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* =========================================================================
           MAGIC BENTO GRID: ECOSYSTEM & PLATFORM ARCHITECTURE (DARK THEME)
           ========================================================================= */}
-      <section
-        className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 text-white relative overflow-hidden border-t border-slate-800"
-        style={{ backgroundColor: "var(--footer-bg, #090d16)" }}
-      >
+      <section className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 text-white relative overflow-hidden border-t border-slate-800/80 bg-slate-950/85 backdrop-blur-md">
         {/* Ambient Dark Glows */}
         <div
           className="absolute -top-32 -left-32 h-96 w-96 rounded-full blur-[140px] opacity-25 pointer-events-none"
@@ -1779,7 +2158,7 @@ export default function Home() {
 
           <div className="w-full">
             <MagicBento
-              items={HAPPICO_BENTO_ITEMS}
+              items={BUZZORAA_BENTO_ITEMS}
               columns={4}
               rowHeight={230}
               gap={16}
@@ -1804,7 +2183,7 @@ export default function Home() {
       {/* =========================================================================
           INTERACTIVE ACCORDION GALLERY SECTION (React Bits Component - Light Theme)
           ========================================================================= */}
-      <section className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 bg-white text-slate-900 relative overflow-hidden border-t border-slate-100">
+      <section className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 bg-white/60 backdrop-blur-xs text-slate-900 relative overflow-hidden border-t border-slate-200/60">
         {/* Soft Ambient Light Glows */}
         <div
           className="absolute -top-32 right-1/4 h-96 w-96 rounded-full blur-[140px] opacity-10 pointer-events-none"
@@ -1845,6 +2224,64 @@ export default function Home() {
               textColor="#ffffff"
               grayscale={false}
               showLabels={true}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          INTERACTIVE 3D DEPTH CAROUSEL SECTION (React Bits Component)
+          ========================================================================= */}
+      <section className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 text-white relative overflow-hidden border-t border-slate-800/80 bg-slate-950/90 backdrop-blur-md">
+        {/* Ambient Dark Glows */}
+        <div
+          className="absolute -top-32 left-1/4 h-96 w-96 rounded-full blur-[140px] opacity-25 pointer-events-none"
+          style={{ backgroundColor: selectedTheme.primary || "#6366f1" }}
+        />
+        <div
+          className="absolute -bottom-32 right-1/4 h-96 w-96 rounded-full blur-[140px] opacity-20 pointer-events-none"
+          style={{ backgroundColor: selectedTheme.secondary || "#06b6d4" }}
+        />
+
+        <div className="relative max-w-7xl mx-auto space-y-12">
+          <FadeContent effect="fade" duration={0.8} threshold={0.15} className="text-center max-w-3xl mx-auto space-y-4">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/10 text-indigo-300 border border-white/10 shadow-sm backdrop-blur-md">
+              <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
+              <span>3D Interactive Depth Deck</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
+              Experience Buzzoraa in Multi-Dimensional Depth
+            </h2>
+
+            <p className="text-base text-slate-300 leading-relaxed font-normal">
+              Swipe, drag, or scroll through our 3D perspective stack. Explore real-time social listening, advocate mobilization, content amplification, and closed-loop GTM execution with fluid physics.
+            </p>
+          </FadeContent>
+
+          {/* Depth Carousel Stage Container */}
+          <div className="w-full relative flex items-center justify-center py-6" style={{ height: "540px" }}>
+            <DepthCarousel
+              items={BUZZORAA_DEPTH_CAROUSEL_ITEMS}
+              cardWidth={310}
+              cardHeight={390}
+              radius={20}
+              tint="#030712"
+              depth={220}
+              spread={95}
+              tilt={22}
+              tiltDirection="right"
+              perspective={1400}
+              visibleCards={4}
+              falloff={0.2}
+              blur={6}
+              duration={700}
+              ease="power3.out"
+              autoplay={true}
+              autoplayDelay={3400}
+              loop={true}
+              showControls={true}
+              showIndicators={true}
             />
           </div>
         </div>

@@ -76,7 +76,7 @@ const DemoBookingSchema = new mongoose.Schema(
     },
     meetingLink: {
       type: String,
-      default: "https://meet.google.com/happico-demo-session",
+      default: "https://meet.google.com/buzzoraa-demo-session",
     },
   },
   {

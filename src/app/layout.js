@@ -14,19 +14,22 @@ const poppins = Poppins({
 
 export const metadata = {
   title: {
-    default: "Happico - Modern Digital Solutions & Workflow Platform",
-    template: "%s | Happico",
+    default: "Buzzoraa - Social Engagement & Go-to-Market (GTM) SaaS Platform",
+    template: "%s | Buzzoraa",
   },
   description:
-    "Happico is the all-in-one modern platform engineered to empower growth, automate operations, and deliver delightful customer experiences.",
+    "Buzzoraa is a Social Engagement & Go-to-Market (GTM) SaaS platform designed to turn conversations into growth. Engage. Amplify. Grow.",
   keywords: [
-    "Happico",
-    "Customer Experience",
-    "Workflow Automation",
-    "SaaS Platform",
-    "Modern Web Solutions",
-    "Enterprise Software",
+    "Buzzoraa",
+    "Social Engagement",
+    "Go-to-Market SaaS",
+    "GTM Platform",
+    "Community Activation",
+    "Content Amplification",
+    "Social Networking Platforms",
+    "Turn Conversations into Growth",
   ],
+  metadataBase: new URL("https://buzzoraa.com"),
 };
 
 export default function RootLayout({ children }) {

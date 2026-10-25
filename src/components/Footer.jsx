@@ -22,7 +22,7 @@ const PRODUCT_LINKS = [
 ];
 
 const COMPANY_LINKS = [
-  { label: "About Happico", href: "/about" },
+  { label: "About Buzzoraa", href: "/about" },
   { label: "Platform Solutions", href: "/solutions" },
   { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Terms & Services", href: "/terms-and-services" },
@@ -91,36 +91,22 @@ export default function Footer() {
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 w-fit group">
               <div
-                className="h-10 w-10 rounded-2xl flex items-center justify-center shadow-lg transition-transform group-hover:scale-105"
+                className="h-10 w-10 rounded-2xl flex items-center justify-center shadow-lg transition-transform group-hover:scale-105 text-white font-black text-base"
                 style={{
                   background: "linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)",
                   boxShadow: "0 8px 20px var(--primary-glow)",
                 }}
               >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="w-5 h-5 text-white"
-                >
-                  <path
-                    d="M6 4V20M18 4V20M6 12H18"
-                    stroke="currentColor"
-                    strokeWidth="2.7"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <circle cx="12" cy="7" r="1.5" fill="currentColor" />
-                </svg>
+                B
               </div>
 
               <span className="text-2xl font-black tracking-tight text-white">
-                Happico<span style={{ color: "var(--primary)" }}>.</span>
+                Buzzoraa<span style={{ color: "var(--primary)" }}>.</span>
               </span>
             </Link>
 
             <p className="text-sm leading-relaxed text-slate-300 max-w-sm">
-              Happico is designed to elevate your digital experience with modern workflows, intuitive interfaces, and unified customer-centric solutions.
+              Buzzoraa is a Social Engagement &amp; Go-to-Market (GTM) SaaS platform designed to turn conversations into growth. Our vision is to bring social engagement, community activation, content amplification, and GTM growth together in one unified platform.
             </p>
 
             {/* Trust Badges */}
@@ -271,11 +257,11 @@ export default function Footer() {
               }}
             >
               <a
-                href="mailto:contact@happico.com"
+                href="mailto:contact@buzzoraa.com"
                 className="flex items-center gap-2 hover:text-white transition-colors"
               >
                 <Mail className="h-4 w-4 shrink-0" style={{ color: "var(--secondary)" }} />
-                <span>contact@happico.com</span>
+                <span>contact@buzzoraa.com</span>
               </a>
 
               <a
@@ -288,7 +274,7 @@ export default function Footer() {
 
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 shrink-0" style={{ color: "var(--secondary)" }} />
-                <span>Happico Headquarters, Cyber City, Tech Hub</span>
+                <span>Buzzoraa Headquarters, Cyber City, Tech Hub</span>
               </div>
             </div>
           </div>
@@ -306,11 +292,11 @@ export default function Footer() {
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 sm:flex-row sm:px-6 lg:px-8">
           {/* Copyright */}
           <p className="text-xs text-slate-400 text-center sm:text-left flex items-center gap-1 flex-wrap justify-center">
-            <span>© 2026 Happico Inc. All rights reserved.</span>
+            <span>© 2026 Buzzoraa Inc. All rights reserved.</span>
             <span className="hidden sm:inline text-slate-600">•</span>
             <span>Crafted with</span>
             <Heart className="h-3 w-3 text-red-500 fill-red-500 inline" />
-            <span>for seamless customer experiences.</span>
+            <span>for social engagement &amp; GTM growth.</span>
           </p>
 
           {/* Quick Legal Links & Status */}

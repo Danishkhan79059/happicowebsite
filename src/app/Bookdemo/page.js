@@ -349,9 +349,9 @@ function BookDemoContent() {
         d.toISOString().replace(/-|:|\.\d\d\d/g, "");
 
       const dates = `${formatGDate(start)}/${formatGDate(end)}`;
-      const title = encodeURIComponent("Happico 1-on-1 Product Demo");
+      const title = encodeURIComponent("Buzzoraa 1-on-1 Product Demo");
       const details = encodeURIComponent(
-        `Personalized walkthrough of Happico platform.\nMeeting Link: ${confirmedBooking.meetingLink}`
+        `Personalized walkthrough of Buzzoraa platform.\nMeeting Link: ${confirmedBooking.meetingLink}`
       );
       const location = encodeURIComponent(confirmedBooking.meetingLink || "Google Meet");
 
@@ -382,14 +382,14 @@ function BookDemoContent() {
               style={{ backgroundColor: "var(--primary, #6366f1)" }}
             />
             <span className="text-xs font-bold text-slate-800">
-              Happico Live Product Walkthrough
+              Buzzoraa Live Product Walkthrough
             </span>
             <span className="text-slate-300">|</span>
             <span
               className="text-xs font-semibold"
               style={{ color: "var(--primary, #6366f1)" }}
             >
-              Calendly-Powered Experience
+              Social Engagement &amp; GTM SaaS
             </span>
           </div>
 
@@ -402,14 +402,14 @@ function BookDemoContent() {
                   "linear-gradient(135deg, var(--primary, #6366f1) 0%, var(--secondary, #06b6d4) 100%)",
               }}
             >
-              Happico
+              Buzzoraa
             </span>{" "}
             in Real Action.
           </h1>
 
           <p className="text-sm sm:text-base text-slate-600 leading-relaxed font-normal max-w-2xl mx-auto">
-            Book an interactive 1-on-1 session tailored to your workflows. Pick your
-            preferred date & time slot below, and get immediate instant calendar
+            Book an interactive 1-on-1 session to see how Buzzoraa turns conversations into growth. Pick your
+            preferred date &amp; time slot below, and get immediate instant calendar
             confirmation with meeting invite.
           </p>
 
@@ -441,18 +441,18 @@ function BookDemoContent() {
                         "linear-gradient(135deg, var(--primary, #6366f1) 0%, var(--secondary, #06b6d4) 100%)",
                     }}
                   >
-                    <span>HP</span>
+                    <span>BZ</span>
                     <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-emerald-500 border-2 border-white rounded-full" />
                   </div>
                   <div>
                     <div className="flex items-center gap-1.5">
                       <h2 className="text-base font-bold text-slate-900">
-                        Happico Demo Team
+                        Buzzoraa Demo Team
                       </h2>
                       <ShieldCheck className="w-4 h-4 text-emerald-500" />
                     </div>
                     <p className="text-xs text-slate-500 font-medium">
-                      Product Architecture & Solutions
+                      Social Engagement &amp; GTM Specialists
                     </p>
                   </div>
                 </div>
@@ -483,7 +483,7 @@ function BookDemoContent() {
                   <ul className="space-y-2.5 text-xs text-slate-600">
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                      <span>Live walkthrough of Happico core modules & capabilities</span>
+                      <span>Live walkthrough of Buzzoraa core modules &amp; capabilities</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
@@ -889,7 +889,7 @@ function BookDemoContent() {
                         rows={2}
                         value={notes}
                         onChange={(e) => setNotes(e.target.value)}
-                        placeholder="Tell us about your current challenges or what you want to achieve with Happico..."
+                        placeholder="Tell us about your current challenges or what you want to achieve with Buzzoraa..."
                         className="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none"
                       />
                     </div>
@@ -1084,7 +1084,7 @@ export default function BookDemoPage() {
         <div className="min-h-screen flex items-center justify-center bg-slate-50">
           <div className="flex items-center gap-3 text-slate-500 font-semibold text-sm">
             <Loader2 className="w-5 h-5 animate-spin text-indigo-600" />
-            <span>Loading Happico Scheduler...</span>
+            <span>Loading Buzzoraa Scheduler...</span>
           </div>
         </div>
       }

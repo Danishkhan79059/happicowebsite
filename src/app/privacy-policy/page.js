@@ -15,9 +15,9 @@ import {
 } from "lucide-react";
 
 export const metadata = {
-  title: "Privacy Policy | Happico",
+  title: "Privacy Policy | Buzzoraa",
   description:
-    "Learn how Happico and Vivaansh Consulting collect, protect, and use your personal and event data with enterprise-grade privacy and security standards.",
+    "Learn how Buzzoraa collects, protects, and uses your personal and platform data with enterprise-grade privacy and security standards.",
 };
 
 const SECTIONS = [
@@ -27,7 +27,7 @@ const SECTIONS = [
     content: (
       <>
         <p className="text-slate-600 leading-relaxed mb-4">
-          Happico (&ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;), operated in association with Vivaansh Consulting, respects your privacy and is dedicated to protecting the personal information you share with us. This Privacy Policy outlines our standards and practices regarding the collection, storage, usage, and disclosure of your data when you visit our website, use our community platform, book demos, or engage our event marketing services.
+          Buzzoraa (&ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;) respects your privacy and is dedicated to protecting the personal information you share with us. This Privacy Policy outlines our standards and practices regarding the collection, storage, usage, and disclosure of your data when you visit our website, use our Social Engagement &amp; GTM SaaS platform, or book demos.
         </p>
         <p className="text-slate-600 leading-relaxed">
           We adhere to globally recognized privacy standards including GDPR and applicable Indian Information Technology (IT) regulations. We never sell your personal information to third-party data brokers.
@@ -177,9 +177,9 @@ const SECTIONS = [
           If you have questions, concerns, or requests regarding this Privacy Policy or your data, please contact our Data Protection Office:
         </p>
         <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-sm text-slate-800 space-y-1">
-          <p className="font-bold text-slate-900">Happico & Vivaansh Consulting Privacy Desk</p>
-          <p>Email: <a href="mailto:privacy@happico.com" className="text-indigo-600 font-semibold hover:underline">privacy@happico.com</a> / <a href="mailto:contact@happico.com" className="text-indigo-600 font-semibold hover:underline">contact@happico.com</a></p>
-          <p>Address: Tech Park, Sector 62, Noida, NCR, India - 201309</p>
+          <p className="font-bold text-slate-900">Buzzoraa Privacy &amp; Data Protection Desk</p>
+          <p>Email: <a href="mailto:privacy@buzzoraa.com" className="text-indigo-600 font-semibold hover:underline">privacy@buzzoraa.com</a> / <a href="mailto:contact@buzzoraa.com" className="text-indigo-600 font-semibold hover:underline">contact@buzzoraa.com</a></p>
+          <p>Website: <a href="https://buzzoraa.com" target="_blank" className="text-indigo-600 font-semibold hover:underline">https://buzzoraa.com</a></p>
           <p>Response SLA: Within 48 business hours</p>
         </div>
       </>
@@ -208,7 +208,7 @@ export default function PrivacyPolicyPage() {
           </h1>
 
           <p className="mx-auto max-w-2xl text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-            Your trust is our highest priority. Learn how we collect, protect, and respect your personal information across all Happico and Vivaansh Consulting services.
+            Your trust is our highest priority. Learn how we collect, protect, and respect your personal information across all Buzzoraa services.
           </p>
 
           <div className="pt-2 flex items-center justify-center gap-4 text-xs text-slate-500">

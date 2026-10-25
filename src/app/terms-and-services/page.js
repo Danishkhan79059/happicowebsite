@@ -14,9 +14,9 @@ import {
 } from "lucide-react";
 
 export const metadata = {
-  title: "Terms & Services | Happico",
+  title: "Terms & Services | Buzzoraa",
   description:
-    "Review the terms and conditions governing the use of Happico's community platform, event marketing services, and IT consulting solutions.",
+    "Review the terms and conditions governing the use of Buzzoraa's Social Engagement & Go-to-Market (GTM) SaaS platform.",
 };
 
 const TERMS_SECTIONS = [
@@ -26,10 +26,10 @@ const TERMS_SECTIONS = [
     content: (
       <>
         <p className="text-slate-600 leading-relaxed mb-3">
-          By accessing or using the Happico website, community platform, event marketing tools, or scheduling consulting sessions with Vivaansh Consulting (&ldquo;Services&rdquo;), you acknowledge that you have read, understood, and agree to be bound by these Terms of Service (&ldquo;Terms&rdquo;).
+          By accessing or using the Buzzoraa website, SaaS platform, social engagement tools, or scheduling product demos (&ldquo;Services&rdquo;), you acknowledge that you have read, understood, and agree to be bound by these Terms of Service (&ldquo;Terms&rdquo;).
         </p>
         <p className="text-slate-600 leading-relaxed">
-          If you are entering into these Terms on behalf of an organization, community, or company, you represent that you have the authority to legally bind that entity to these Terms.
+          If you are entering into these Terms on behalf of an organization, brand, or startup, you represent that you have the authority to legally bind that entity to these Terms.
         </p>
       </>
     ),
@@ -40,13 +40,14 @@ const TERMS_SECTIONS = [
     content: (
       <>
         <p className="text-slate-600 leading-relaxed mb-3">
-          Happico provides a modern digital platform and service ecosystem that includes:
+          Buzzoraa provides an all-in-one Social Engagement &amp; Go-to-Market (GTM) SaaS platform that includes:
         </p>
         <ul className="space-y-2 text-slate-600 text-sm list-disc pl-5 mb-4">
-          <li>End-to-end event marketing campaign strategy, attendee acquisition funnels, and promoter collateral kits.</li>
-          <li>Community management infrastructure, hackathon hosting tools, and stage streaming integration.</li>
-          <li>Enterprise IT, Salesforce, Slack, Tableau, and AI workflow consulting spearheaded by Tarun Gupta and Vivaansh Consulting.</li>
-          <li>Demo booking, schedule reservation, and customer support desks.</li>
+          <li>Social engagement tools, conversation tracking, and social interaction management.</li>
+          <li>Community activation workflows, advocate management, and peer-to-peer engagement loops.</li>
+          <li>Content amplification pipelines, viral reach distribution, and multi-network syndication.</li>
+          <li>GTM conversation-to-pipeline attribution, lead generation, and CRM synchronization.</li>
+          <li>Demo scheduling, client onboarding, and dedicated technical support.</li>
         </ul>
         <p className="text-slate-600 leading-relaxed text-sm">
           We continually enhance our services and reserve the right to modify, upgrade, or temporarily suspend specific features to maintain optimal performance and security.
@@ -65,7 +66,7 @@ const TERMS_SECTIONS = [
         <ul className="space-y-2 text-slate-600 text-sm list-disc pl-5">
           <li>You agree to provide true, accurate, current, and complete registration information.</li>
           <li>You are responsible for safeguarding your login credentials and maintaining the confidentiality of your account.</li>
-          <li>You must notify us immediately at <code className="bg-slate-100 text-slate-800 px-1 py-0.5 rounded text-xs font-mono font-bold">contact@happico.com</code> of any unauthorized use or security compromise.</li>
+          <li>You must notify us immediately at <code className="bg-slate-100 text-slate-800 px-1 py-0.5 rounded text-xs font-mono font-bold">contact@buzzoraa.com</code> of any unauthorized use or security compromise.</li>
         </ul>
       </>
     ),
@@ -137,7 +138,7 @@ const TERMS_SECTIONS = [
     content: (
       <>
         <p className="text-slate-600 leading-relaxed mb-3">
-          Happico retains all proprietary rights, trademarks, software code, and platform designs. You retain all ownership rights in your community content, trademarks, logos, and attendee data. You grant us a limited, revocable license to utilize your logos solely for executing authorized campaign collateral.
+          Buzzoraa retains all proprietary rights, trademarks, software code, and platform designs. You retain all ownership rights in your community content, trademarks, logos, and attendee data. You grant us a limited, revocable license to utilize your logos solely for executing authorized campaign collateral.
         </p>
       </>
     ),
@@ -148,10 +149,10 @@ const TERMS_SECTIONS = [
     content: (
       <>
         <p className="text-slate-600 leading-relaxed text-sm mb-3">
-          To the maximum extent permitted by applicable law, in no event shall Happico, Vivaansh Consulting, or its directors, employees, or partners be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or goodwill arising out of or related to your use of the Services.
+          To the maximum extent permitted by applicable law, in no event shall Buzzoraa Inc., or its directors, employees, or partners be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or goodwill arising out of or related to your use of the Services.
         </p>
         <p className="text-slate-600 leading-relaxed text-sm">
-          Our aggregate liability for all claims arising out of or related to these Terms shall not exceed the total amount paid by you to Happico during the twelve (12) months preceding the event giving rise to liability.
+          Our aggregate liability for all claims arising out of or related to these Terms shall not exceed the total amount paid by you to Buzzoraa during the twelve (12) months preceding the event giving rise to liability.
         </p>
       </>
     ),
@@ -176,10 +177,10 @@ const TERMS_SECTIONS = [
           If you have questions about these Terms of Service or need customized enterprise agreements, please get in touch:
         </p>
         <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-sm text-slate-800 space-y-1">
-          <p className="font-bold text-slate-900">Happico Legal & Compliance Desk</p>
-          <p>Email: <a href="mailto:legal@happico.com" className="text-indigo-600 font-semibold hover:underline">legal@happico.com</a> / <a href="mailto:contact@happico.com" className="text-indigo-600 font-semibold hover:underline">contact@happico.com</a></p>
+          <p className="font-bold text-slate-900">Buzzoraa Legal &amp; Compliance Desk</p>
+          <p>Email: <a href="mailto:legal@buzzoraa.com" className="text-indigo-600 font-semibold hover:underline">legal@buzzoraa.com</a> / <a href="mailto:contact@buzzoraa.com" className="text-indigo-600 font-semibold hover:underline">contact@buzzoraa.com</a></p>
           <p>Phone: +91 98765 43210 (Mon – Sat, 9am – 7pm IST)</p>
-          <p>Address: Tech Park, Sector 62, Noida, NCR, India - 201309</p>
+          <p>Website: <a href="https://buzzoraa.com" target="_blank" className="text-indigo-600 font-semibold hover:underline">https://buzzoraa.com</a></p>
         </div>
       </>
     ),
@@ -207,7 +208,7 @@ export default function TermsAndServicesPage() {
           </h1>
 
           <p className="mx-auto max-w-2xl text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
-            Please review these terms and conditions governing the access and usage of Happico&apos;s digital platform, community infrastructure, and event marketing campaigns.
+            Please review these terms and conditions governing the access and usage of Buzzoraa&apos;s Social Engagement &amp; GTM SaaS platform.
           </p>
 
           <div className="pt-2 flex items-center justify-center gap-4 text-xs text-slate-500">

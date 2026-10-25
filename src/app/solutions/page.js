@@ -72,7 +72,7 @@ const ECOSYSTEM_LOGOS = [
 ];
 
 // =============================================================================
-// 🌟 6 CORE SOLUTIONS DATA (Tailored to Happico Community & Event Engine)
+// 🌟 6 CORE SOLUTIONS DATA (Tailored to Buzzoraa Social Engagement & GTM Engine)
 // =============================================================================
 const SOLUTIONS_DATA = [
   {
@@ -171,7 +171,7 @@ const SOLUTIONS_DATA = [
       { label: "Submission Rate", value: "72%" },
       { label: "Check-in Velocity", value: "< 90s" },
     ],
-    supportedPlatforms: ["Devpost", "GitHub", "YouTube Live", "Zoom Pro", "Happico Stage"],
+    supportedPlatforms: ["Devpost", "GitHub", "YouTube Live", "Zoom Pro", "Buzzoraa Stage"],
   },
   {
     id: "event-promotion",
@@ -367,7 +367,7 @@ const SOLUTIONS_DATA = [
       { label: "Brand Retention", value: "96%" },
       { label: "Partner Network", value: "85+ Brands" },
     ],
-    supportedPlatforms: ["Enterprise CRM", "LinkedIn Outreach", "Happico Sponsor Portal", "Analytics"],
+    supportedPlatforms: ["Enterprise CRM", "LinkedIn Outreach", "Buzzoraa Sponsor Portal", "Analytics"],
   },
 ];
 
@@ -421,14 +421,14 @@ const FAQS = [
   },
   {
     q: "Hackathons online aur offline dono format me organize kar sakte hain?",
-    a: "Haan! Happico online virtual hackathons, physical in-person coding challenges, aur hybrid formats teeno ko end-to-end manage karta hai — including stage, AV, portals, judging, aur prizes.",
+    a: "Haan! Buzzoraa online virtual hackathons, physical in-person coding challenges, aur hybrid formats teeno ko end-to-end manage karta hai — including stage, AV, portals, judging, aur prizes.",
   },
   {
     q: "Product launch me relevant developers aur early users kaise laate hain?",
     a: "Hamare paas 100K+ verified developers, campus ambassador networks, aur 50+ partnered tech clubs ka direct access hai. Iske alawa targeted Product Hunt, Twitter/X tech campaigns, aur beta cohorts se high-intent builders onboard hote hain.",
   },
   {
-    q: "Sponsorships laane me Happico kaise madad karta hai?",
+    q: "Sponsorships laane me Buzzoraa kaise madad karta hai?",
     a: "Hum customized sponsorship pitch decks banate hain, leading tech brands aur startups ke saath matchmaking karte hain, sponsor coordination karte hain, aur post-event detailed ROI reports deliver karte hain.",
   },
   {
@@ -469,7 +469,7 @@ export default function SolutionsPage() {
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider bg-indigo-50 text-indigo-600 border border-indigo-100 shadow-sm animate-fade-in">
             <Sparkles className="h-4 w-4 text-indigo-500" />
-            <span>Happico End-to-End Solutions</span>
+            <span>Buzzoraa End-to-End Solutions</span>
           </div>
 
           {/* Heading */}
@@ -482,14 +482,14 @@ export default function SolutionsPage() {
                   "linear-gradient(135deg, var(--primary, #6366f1) 0%, #a855f7 50%, var(--secondary, #06b6d4) 100%)",
               }}
             >
-              Developer Communities
+              Social Engagement
             </span>
-            , Hackathons & Product Growth
+            , Community Activation &amp; GTM Growth
           </h1>
 
           {/* Subtitle */}
           <p className="max-w-3xl mx-auto text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-            Whether you want to build an active developer community from scratch, organize a world-class hackathon, amplify a product launch, or secure high-value brand sponsorships — Happico provides the complete blueprint and execution engine.
+            Buzzoraa is a Social Engagement &amp; Go-to-Market (GTM) SaaS platform designed to turn conversations into growth. We bring social engagement, community activation, content amplification, and GTM growth together in one platform.
           </p>
 
           {/* Dual CTAs */}
@@ -576,7 +576,7 @@ export default function SolutionsPage() {
             fadeOut={true}
             fadeOutWidth={0.15}
             labels="hover"
-            ariaLabel="Happico Ecosystem & Solution Partners"
+            ariaLabel="Buzzoraa Ecosystem & Solution Partners"
           />
         </div>
       </section>
@@ -632,7 +632,7 @@ export default function SolutionsPage() {
                 <span className="h-3 w-3 rounded-full bg-amber-500/80 inline-block" />
                 <span className="h-3 w-3 rounded-full bg-emerald-500/80 inline-block" />
                 <span className="ml-2 font-mono font-bold text-slate-300 hidden sm:inline">
-                  happico-engine // telemetry: active
+                  buzzoraa-engine // telemetry: active
                 </span>
               </div>
 
@@ -649,11 +649,10 @@ export default function SolutionsPage() {
                     <button
                       key={tab.id}
                       onClick={() => setDashboardView(tab.id)}
-                      className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                        isSelected
-                          ? "bg-indigo-600 text-white shadow-sm"
-                          : "text-slate-400 hover:text-white hover:bg-white/5"
-                      }`}
+                      className={`px-3 py-1 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${isSelected
+                        ? "bg-indigo-600 text-white shadow-sm"
+                        : "text-slate-400 hover:text-white hover:bg-white/5"
+                        }`}
                     >
                       <TabIcon className="h-3.5 w-3.5" />
                       <span>{tab.label}</span>
@@ -746,7 +745,7 @@ export default function SolutionsPage() {
                       <span>Stage & AV Broadcasting</span>
                       <Code2 className="h-4 w-4 text-cyan-400" />
                     </div>
-                    <div className="text-2xl font-black text-cyan-400">Happico Stage</div>
+                    <div className="text-2xl font-black text-cyan-400">Buzzoraa Stage</div>
                     <p className="text-[11px] text-slate-400">
                       Multi-speaker keynote streaming, live sponsor breakout rooms & judging.
                     </p>
@@ -890,11 +889,10 @@ export default function SolutionsPage() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-                    isActive
-                      ? "bg-slate-900 text-white shadow-md"
-                      : "bg-slate-100 text-slate-600 hover:bg-slate-200/80 hover:text-slate-900"
-                  }`}
+                  className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${isActive
+                    ? "bg-slate-900 text-white shadow-md"
+                    : "bg-slate-100 text-slate-600 hover:bg-slate-200/80 hover:text-slate-900"
+                    }`}
                 >
                   {tab.label}
                 </button>
@@ -1097,7 +1095,7 @@ export default function SolutionsPage() {
       </section>
 
       {/* =========================================================================
-          THE HAPPICO 4-STEP DELIVERY FRAMEWORK
+          THE BUZZORAA 4-STEP DELIVERY FRAMEWORK
           ========================================================================= */}
       <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-slate-50/80 border-t border-slate-200/80 relative overflow-hidden">
         <div className="max-w-7xl mx-auto space-y-16">
@@ -1109,7 +1107,7 @@ export default function SolutionsPage() {
             </div>
 
             <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
-              The Happico 4-Stage Execution Engine
+              The Buzzoraa 4-Stage Execution Engine
             </h2>
 
             <p className="text-base text-slate-600 leading-relaxed font-normal">
@@ -1190,9 +1188,8 @@ export default function SolutionsPage() {
                 >
                   <span>{faq.q}</span>
                   <ChevronDown
-                    className={`h-5 w-5 text-slate-400 shrink-0 transition-transform duration-300 ${
-                      isOpen ? "rotate-180 text-indigo-600" : ""
-                    }`}
+                    className={`h-5 w-5 text-slate-400 shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180 text-indigo-600" : ""
+                      }`}
                   />
                 </button>
                 {isOpen && (

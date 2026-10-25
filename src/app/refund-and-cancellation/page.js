@@ -15,9 +15,9 @@ import {
 } from "lucide-react";
 
 export const metadata = {
-  title: "Refund & Cancellation Policy | Happico",
+  title: "Refund & Cancellation Policy | Buzzoraa",
   description:
-    "Happico's clear and transparent refund, cancellation, and rescheduling policies for platform subscriptions, event campaigns, and consulting engagements.",
+    "Buzzoraa's clear and transparent refund, cancellation, and rescheduling policies for platform subscriptions and SaaS plans.",
 };
 
 const REFUND_SECTIONS = [
@@ -27,7 +27,7 @@ const REFUND_SECTIONS = [
     content: (
       <>
         <p className="text-slate-600 leading-relaxed mb-3">
-          At Happico and Vivaansh Consulting, we believe in long-term relationships built on value, trust, and transparency. Whether you are subscribing to our community management software, launching a multi-channel event marketing campaign, or scheduling a strategy session, our refund and cancellation policies are crafted to be fair to both parties.
+          At Buzzoraa, we believe in long-term relationships built on value, trust, and transparency. Whether you are subscribing to our Social Engagement &amp; GTM SaaS platform or scheduling a product demo, our refund and cancellation policies are crafted to be fair to both parties.
         </p>
       </>
     ),
@@ -50,7 +50,7 @@ const REFUND_SECTIONS = [
           <div>
             <h4 className="text-sm font-bold text-slate-900 mb-2">Monthly Subscriptions</h4>
             <p className="text-slate-600 text-sm leading-relaxed mb-2">
-              You can cancel your monthly subscription at any time directly through your account dashboard or by emailing <code className="bg-slate-100 text-slate-800 px-1 py-0.5 rounded text-xs font-mono font-bold">support@happico.com</code>.
+              You can cancel your monthly subscription at any time directly through your account dashboard or by emailing <code className="bg-slate-100 text-slate-800 px-1 py-0.5 rounded text-xs font-mono font-bold">support@buzzoraa.com</code>.
             </p>
             <p className="text-slate-600 text-sm leading-relaxed">
               Upon cancellation, your subscription remains active until the end of the current paid billing cycle. No further recurring charges will be incurred. Partial month refunds are generally not issued once the billing cycle has started.
@@ -60,7 +60,7 @@ const REFUND_SECTIONS = [
           <div>
             <h4 className="text-sm font-bold text-slate-900 mb-2">Annual Subscriptions (14-Day Cooling Period)</h4>
             <p className="text-slate-600 text-sm leading-relaxed">
-              If you purchase an annual subscription plan and find that Happico does not fulfill your requirements, you may request a <strong>100% full refund within 14 calendar days</strong> of initial payment. After 14 days, annual plans are non-refundable, but access will persist through the remainder of the annual contract.
+              If you purchase an annual subscription plan and find that Buzzoraa does not fulfill your requirements, you may request a <strong>100% full refund within 14 calendar days</strong> of initial payment. After 14 days, annual plans are non-refundable, but access will persist through the remainder of the annual contract.
             </p>
           </div>
         </div>
@@ -73,7 +73,7 @@ const REFUND_SECTIONS = [
     content: (
       <>
         <p className="text-slate-600 leading-relaxed mb-3">
-          When engaging Happico for managed event marketing campaigns, hackathons, or custom attendee acquisition:
+          When engaging Buzzoraa for custom enterprise onboarding, community activation programs, or dedicated GTM setups:
         </p>
         <ul className="space-y-2.5 text-slate-600 text-sm list-disc pl-5 mb-4">
           <li>
@@ -139,8 +139,8 @@ const REFUND_SECTIONS = [
           To initiate a cancellation or refund request, please email our billing department with your order details:
         </p>
         <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-sm text-slate-800 space-y-1">
-          <p className="font-bold text-slate-900">Happico Billing & Accounts Desk</p>
-          <p>Email: <a href="mailto:refunds@happico.com" className="text-indigo-600 font-semibold hover:underline">refunds@happico.com</a> / <a href="mailto:contact@happico.com" className="text-indigo-600 font-semibold hover:underline">contact@happico.com</a></p>
+          <p className="font-bold text-slate-900">Buzzoraa Billing &amp; Accounts Desk</p>
+          <p>Email: <a href="mailto:refunds@buzzoraa.com" className="text-indigo-600 font-semibold hover:underline">refunds@buzzoraa.com</a> / <a href="mailto:contact@buzzoraa.com" className="text-indigo-600 font-semibold hover:underline">contact@buzzoraa.com</a></p>
           <p>Required Details: Account email, invoice/transaction ID, and a brief description of the reason for cancellation.</p>
           <p>Response Time: We review and respond to all refund requests within <strong>24 to 48 business hours</strong>.</p>
         </div>
@@ -193,7 +193,7 @@ export default function RefundAndCancellationPage() {
             </div>
             <h3 className="text-sm font-bold text-slate-900 mb-1">7-Day Free Trial</h3>
             <p className="text-xs text-slate-500 leading-relaxed">
-              Explore the full power of Happico without upfront billing or surprise charges.
+              Explore the full power of Buzzoraa without upfront billing or surprise charges.
             </p>
           </div>
 

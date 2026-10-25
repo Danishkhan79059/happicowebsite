@@ -326,7 +326,7 @@ export default function AboutPage() {
                 style={{ backgroundColor: "var(--primary)" }}
               />
               <span className="text-xs font-bold text-slate-800 tracking-wide">
-                Event Marketing • Community Strategy • Tech Ecosystems
+                Social Engagement • Community Activation • GTM SaaS
               </span>
             </div>
           </div>
@@ -334,7 +334,7 @@ export default function AboutPage() {
           {/* Main Title & Subtitle */}
           <div className="text-center max-w-4xl mx-auto space-y-6">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.15]">
-              Connecting Communities,{" "}
+              Turning Conversations Into{" "}
               <span
                 className="bg-clip-text text-transparent"
                 style={{
@@ -342,17 +342,12 @@ export default function AboutPage() {
                     "linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)",
                 }}
               >
-                Scaling Events & Marketing
-              </span>{" "}
-              Modern Tech Platforms.
+                Sustainable Growth.
+              </span>
             </h1>
 
-            <p className="text-base sm:text-xl text-slate-600 leading-relaxed font-normal">
-              Jab koi <strong className="text-slate-800 font-semibold">community</strong> ya{" "}
-              <strong className="text-slate-800 font-semibold">event organizer</strong> apna summit
-              ya hackathon organize karna chahta hai, ya koi tech company apna product market karna
-              chahti hai—hum unke liye end-to-end, data-driven marketing campaigns, ecosystem
-              technology, aur scalable community engagement deliver karte hain.
+            <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+              <strong className="text-slate-900 font-semibold">Buzzoraa</strong> is a Social Engagement &amp; Go-to-Market (GTM) SaaS platform designed to turn conversations into growth. Our vision is to bring social engagement, community activation, content amplification, and GTM growth together in one unified platform. We help brands, startups, founders, and communities build meaningful connections, amplify their presence, and grow through conversations. <span className="font-semibold text-slate-900">Engage. Amplify. Grow.</span>
             </p>
 
             {/* Quick Action Buttons */}
@@ -366,14 +361,14 @@ export default function AboutPage() {
                 }}
               >
                 <CalendarCheck2 className="h-4 w-4" />
-                <span>Launch Your Event Campaign</span>
+                <span>Book a Buzzoraa Demo</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
-                href="#founder-story"
+                href="/solutions"
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-2xl text-sm font-bold text-slate-700 bg-white border border-slate-200 shadow-2xs hover:bg-slate-100/80 transition-colors"
               >
-                <span>Meet Founder & CTO</span>
+                <span>Explore Solutions</span>
                 <ChevronRight className="h-4 w-4 text-slate-400" />
               </Link>
             </div>
@@ -384,7 +379,7 @@ export default function AboutPage() {
             <div className="relative aspect-video sm:aspect-[21/9] w-full overflow-hidden">
               <Image
                 src="/community-event-stage.jpg"
-                alt="Happico Event Marketing & Developer Conference Hub"
+                alt="Buzzoraa Social Engagement & GTM SaaS Platform"
                 fill
                 priority
                 className="object-cover object-center opacity-95 hover:scale-105 transition-transform duration-700"
@@ -396,16 +391,16 @@ export default function AboutPage() {
                 <div className="space-y-1">
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/20 backdrop-blur-md text-xs font-bold text-white">
                     <Sparkles className="h-3.5 w-3.5 text-yellow-300" />
-                    <span>Real-Time Community Stage & Campaign Engine</span>
+                    <span>Real-Time Conversation &amp; GTM Engine</span>
                   </div>
                   <p className="text-xs sm:text-sm text-slate-200 font-medium hidden sm:block">
-                    From developer hackathons to enterprise summits — turning attendees into lifelong community advocates.
+                    Engage. Amplify. Grow. — Turning every interaction into active advocates and pipeline.
                   </p>
                 </div>
 
                 <div className="flex items-center gap-2 bg-black/40 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-white/10 text-xs font-semibold">
                   <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
-                  <span>Active Campaigns Running</span>
+                  <span>Buzzoraa Platform Active</span>
                 </div>
               </div>
             </div>

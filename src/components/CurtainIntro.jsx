@@ -171,7 +171,7 @@ export default function CurtainIntro() {
           FOUR CORNER TELEMETRY ANNOTATIONS (DevFest Noida 2026 Style)
           ========================================================================= */}
       <div className="curtain-corner-tag curtain-corner-tag--tl" aria-hidden="true">
-        <span>HAPPICO PLATFORM</span>
+        <span>BUZZORAA PLATFORM</span>
       </div>
 
 
@@ -206,7 +206,7 @@ export default function CurtainIntro() {
           </svg>
         </div>
 
-        {/* Central Core: Emblem + Happico Brand Name + Split Capsule */}
+        {/* Central Core: Emblem + Buzzoraa Brand Name + Split Capsule */}
         <div className="curtain-center-cluster">
           {/* THE BRAND CORE: This element flies & docks right into Header! */}
           <div
@@ -215,27 +215,18 @@ export default function CurtainIntro() {
             className={`curtain-brand-core ${isOpen ? "curtain-brand-core--flying" : ""}`}
           >
             {/* Glowing Brand Icon Emblem */}
-            <div className="curtain-brand-icon">
-              <svg viewBox="0 0 24 24" fill="none" className="curtain-icon-svg">
-                <path
-                  d="M6 4V20M18 4V20M6 12H18"
-                  stroke="currentColor"
-                  strokeWidth="2.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <circle cx="12" cy="7" r="1.5" fill="currentColor" />
-              </svg>
+            <div className="curtain-brand-icon flex items-center justify-center font-black text-white text-base">
+              B
             </div>
 
             {/* Large Brand Typography */}
-            <span className="curtain-brand-wordmark">Happico</span>
+            <span className="curtain-brand-wordmark">Buzzoraa</span>
           </div>
 
-          {/* DevFest-Style Split Capsule: [ Platform | 2026 ] */}
+          {/* Split Capsule: [ Social GTM | 2026 ] */}
           <div className="curtain-split-capsule" aria-hidden="true">
             <div className="curtain-capsule-side curtain-capsule-side--left">
-              <span>Platform</span>
+              <span>Social GTM</span>
             </div>
             <div className="curtain-capsule-side curtain-capsule-side--right">
               <span>2026</span>
