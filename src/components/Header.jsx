@@ -28,13 +28,13 @@ const NAV_LINKS = [
     desc: "Platform & social GTM overview",
     icon: Sparkles,
   },
-  {
-    label: "Solutions",
-    href: "/solutions",
-    desc: "Social engagement, amplification & GTM",
-    icon: Layers,
-    badge: "Popular",
-  },
+  // {
+  //   label: "Solutions",
+  //   href: "/solutions",
+  //   desc: "Social engagement, amplification & GTM",
+  //   icon: Layers,
+  //   badge: "Popular",
+  // },
   {
     label: "About Us",
     href: "/about",
@@ -118,13 +118,7 @@ export default function Header() {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Left Announcement */}
           <div className="flex items-center gap-3">
-            <span
-              className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[11px] font-semibold text-white"
-              style={{ backgroundColor: "var(--primary)" }}
-            >
-              <Sparkles className="h-3 w-3" />
-              New in 2026
-            </span>
+
 
           </div>
 

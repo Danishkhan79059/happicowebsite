@@ -387,7 +387,7 @@ function HeroInteractiveVisual() {
             </span>
           </div>
 
-          {/* 📸 HERO IMAGE SLOT */}
+          {/* 📸 HERO IMAGE SLOT danish*/}
           <div className="relative mt-3 aspect-[16/10] sm:aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-slate-100 via-indigo-50/30 to-slate-100 border border-slate-100 group">
             {!imageError ? (
               <Image
@@ -514,7 +514,7 @@ function HackathonInteractiveVisual() {
           </span>
         </div>
 
-        {/* 📸 IMAGE SLOT */}
+        {/* 📸 IMAGE SLOTdanish */}
         <div className="relative mt-3 aspect-[16/10] sm:aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-200/60">
           {!imageError ? (
             <Image
@@ -621,7 +621,7 @@ function EventCampaignInteractiveVisual() {
           </span>
         </div>
 
-        {/* 📸 IMAGE SLOT */}
+        {/* 📸 IMAGE SLOT danish */}
         <div className="relative mt-3 aspect-[16/10] sm:aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-200/60">
           {!imageError ? (
             <Image
@@ -1910,221 +1910,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* =========================================================================
-          INTERACTIVE SCROLL STACK SECTION (React Bits Component)
-          The 4 Core Growth Pillars of Buzzoraa GTM
-          ========================================================================= */}
-      <section className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden border-t border-slate-200/60 bg-gradient-to-b from-slate-50/70 via-white/80 to-slate-50/70 backdrop-blur-xs">
-        {/* Soft Ambient Light Glows */}
-        <div
-          className="absolute -top-32 left-1/3 h-96 w-96 rounded-full blur-[140px] opacity-15 pointer-events-none"
-          style={{ backgroundColor: selectedTheme.primary || "#6366f1" }}
-        />
-        <div
-          className="absolute -bottom-32 right-1/4 h-96 w-96 rounded-full blur-[140px] opacity-15 pointer-events-none"
-          style={{ backgroundColor: selectedTheme.secondary || "#06b6d4" }}
-        />
 
-        <div className="relative max-w-6xl mx-auto space-y-12">
-          {/* Header */}
-          <FadeContent effect="fade" duration={0.8} threshold={0.15} className="text-center max-w-3xl mx-auto space-y-4">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-indigo-50 text-indigo-600 border border-indigo-100 shadow-xs">
-              <Sparkles className="h-3.5 w-3.5 text-indigo-500" />
-              <span>Interactive Architecture Stack</span>
-            </div>
-
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight leading-tight">
-              The Engine Powering Every Conversation
-            </h2>
-
-            <p className="text-base text-slate-600 leading-relaxed font-normal">
-              Scroll through the interactive card deck below to explore how Buzzoraa unifies listening, advocate mobilization, content amplification, and GTM revenue attribution.
-            </p>
-          </FadeContent>
-
-          {/* Interactive ScrollStack Showcase Frame */}
-          <div className="w-full mx-auto max-w-5xl">
-            <div className="relative rounded-3xl border border-slate-200/90 bg-white/70 backdrop-blur-xl shadow-2xl p-2 sm:p-4">
-              {/* Top Window Bar Controls */}
-              <div className="flex items-center justify-between pb-3 px-3 sm:px-4 border-b border-slate-200/70 text-slate-500">
-                <div className="flex items-center gap-1.5">
-                  <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
-                  <span className="ml-2 text-[11px] font-mono text-slate-400 hidden sm:inline">
-                    buzzoraa.com/architecture-stack
-                  </span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full border border-indigo-100">
-                    <span className="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse" />
-                    Scroll / Drag Stack
-                  </span>
-                </div>
-              </div>
-
-              {/* ScrollStack Component (React Bits) */}
-              <div style={{ height: 640 }} className="w-full relative mt-3">
-                <ScrollStack
-                  itemDistance={130}
-                  itemStackDistance={26}
-                  stackPosition="8%"
-                  itemScale={0.04}
-                  baseScale={0.88}
-                  dimAmount={0.14}
-                  blurAmount={0}
-                  tiltAmount={3}
-                  rotationAmount={1.2}
-                  holdDistance={200}
-                  smoothScroll={true}
-                  snap={true}
-                >
-                  {BUZZORAA_STACK_CARDS.map((card) => (
-                    <ScrollStackItem
-                      key={card.step}
-                      itemClassName="!h-auto !min-h-[22rem] sm:!min-h-[20rem] !p-6 sm:!p-8 rounded-3xl border border-slate-200/90 bg-white/95 text-slate-900 shadow-xl backdrop-blur-md"
-                    >
-                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-                        {/* Left Column: Rich Content */}
-                        <div className="lg:col-span-7 flex flex-col justify-between space-y-4">
-                          <div>
-                            {/* Badges */}
-                            <div className="flex flex-wrap items-center gap-2 mb-3">
-                              <span
-                                className="text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full text-white shadow-xs"
-                                style={{ backgroundColor: card.accent }}
-                              >
-                                {card.pillar}
-                              </span>
-                              <span className="text-[11px] font-semibold text-slate-600 px-2.5 py-1 rounded-full bg-slate-100 border border-slate-200/60">
-                                {card.tag}
-                              </span>
-                              <span className="text-[11px] font-mono font-medium text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100 flex items-center gap-1">
-                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                {card.badge}
-                              </span>
-                            </div>
-
-                            {/* Title */}
-                            <h3 className="text-xl sm:text-2xl font-black text-slate-950 tracking-tight leading-snug">
-                              {card.title}
-                            </h3>
-
-                            {/* Description */}
-                            <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
-                              {card.description}
-                            </p>
-                          </div>
-
-                          {/* Feature Highlights */}
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-                            {card.features.map((feat, fIdx) => (
-                              <div key={fIdx} className="flex items-start gap-2 text-xs text-slate-700">
-                                <CheckCircle2
-                                  className="h-3.5 w-3.5 shrink-0 mt-0.5"
-                                  style={{ color: card.accent }}
-                                />
-                                <span className="leading-snug">{feat}</span>
-                              </div>
-                            ))}
-                          </div>
-
-                          {/* Action CTA */}
-                          <div className="pt-2 flex items-center gap-4">
-                            <Link
-                              href={card.ctaLink}
-                              className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-white px-5 py-2.5 rounded-xl shadow-md transition-all hover:scale-105 active:scale-95"
-                              style={{ backgroundColor: card.accent }}
-                            >
-                              <span>{card.ctaText}</span>
-                              <ArrowRight className="h-4 w-4" />
-                            </Link>
-                          </div>
-                        </div>
-
-                        {/* Right Column: Visual Telemetry Slot (NO Images used; ready for user image later) */}
-                        <div className="lg:col-span-5 w-full">
-                          {/* 
-                            =======================================================================
-                            🖼️ IMAGE SLOT PLACEHOLDER (USER NOTE):
-                            Agar aap baad mein image lagana chahein, to is visual box ki jagah
-                            apni <Image /> tag laga sakte hain:
-                            <Image src="/your-image.jpg" alt={card.title} width={500} height={320} className="rounded-2xl object-cover" />
-                            =======================================================================
-                          */}
-                          <div className="rounded-2xl border border-dashed border-slate-300 bg-gradient-to-br from-slate-50 via-white to-slate-100 p-4 sm:p-5 shadow-xs relative overflow-hidden group">
-                            {/* Box Header */}
-                            <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 mb-3">
-                              <div className="flex items-center gap-2">
-                                <div
-                                  className="h-7 w-7 rounded-lg flex items-center justify-center text-white text-xs font-black shadow-xs"
-                                  style={{ backgroundColor: card.accent }}
-                                >
-                                  {card.step}
-                                </div>
-                                <div>
-                                  <p className="text-[11px] font-bold text-slate-800 leading-none">
-                                    Architecture Telemetry
-                                  </p>
-                                  <p className="text-[9px] font-mono text-slate-400 mt-0.5">
-                                    buzzoraa.engine.v1
-                                  </p>
-                                </div>
-                              </div>
-                              <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-600 font-semibold border border-emerald-100 flex items-center gap-1">
-                                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                                Live
-                              </span>
-                            </div>
-
-                            {/* 3 Metrics */}
-                            <div className="grid grid-cols-3 gap-2 mb-3">
-                              {card.stats.map((st, sIdx) => (
-                                <div
-                                  key={sIdx}
-                                  className="p-2 sm:p-2.5 rounded-xl bg-white border border-slate-200/70 text-center shadow-2xs"
-                                >
-                                  <div
-                                    className="text-sm sm:text-base font-black tracking-tight"
-                                    style={{ color: card.accent }}
-                                  >
-                                    {st.value}
-                                  </div>
-                                  <div className="text-[10px] text-slate-500 font-medium truncate mt-0.5">
-                                    {st.label}
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-
-                            {/* Status Activity Row */}
-                            <div className="p-2.5 rounded-xl bg-slate-900 text-white flex items-center justify-between text-[11px]">
-                              <div className="flex items-center gap-2 truncate">
-                                <TrendingUp className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
-                                <span className="font-mono text-[10px] sm:text-[11px] text-slate-200 truncate">
-                                  {card.codeOrSlotNote}
-                                </span>
-                              </div>
-                              <span className="text-[9px] font-bold uppercase px-1.5 py-0.5 rounded bg-indigo-500/30 text-indigo-300 shrink-0">
-                                Synced
-                              </span>
-                            </div>
-
-                            {/* Developer Hint */}
-                            <div className="mt-2.5 text-center text-[10px] font-medium text-slate-400 italic">
-                              Image slot ready for future custom visual
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </ScrollStackItem>
-                  ))}
-                </ScrollStack>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* =========================================================================
           MAGIC BENTO GRID: ECOSYSTEM & PLATFORM ARCHITECTURE (DARK THEME)

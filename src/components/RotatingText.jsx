@@ -166,17 +166,17 @@ const RotatingText = forwardRef((props, ref) => {
     }));
   }, [texts, activeIndex, splitBy]);
 
-// Deterministic pseudo-random shuffle to prevent Next.js prerender Math.random() warnings & hydration mismatch
-const pseudoRandomShuffle = (array, seed = 42) => {
-  const result = [...array];
-  let s = seed;
-  for (let i = result.length - 1; i > 0; i--) {
-    s = (s * 9301 + 49297) % 233280;
-    const j = Math.floor((s / 233280) * (i + 1));
-    [result[i], result[j]] = [result[j], result[i]];
-  }
-  return result;
-};
+  // Deterministic pseudo-random shuffle to prevent Next.js prerender Math.random() warnings & hydration mismatch
+  const pseudoRandomShuffle = (array, seed = 42) => {
+    const result = [...array];
+    let s = seed;
+    for (let i = result.length - 1; i > 0; i--) {
+      s = (s * 9301 + 49297) % 233280;
+      const j = Math.floor((s / 233280) * (i + 1));
+      [result[i], result[j]] = [result[j], result[i]];
+    }
+    return result;
+  };
 
   const order = useMemo(() => {
     const total = elements.reduce((sum, word) => sum + word.characters.length, 0);
