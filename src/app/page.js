@@ -319,143 +319,150 @@ function HeroInteractiveVisual() {
   const [imageError, setImageError] = useState(false);
 
   return (
-    <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
+    <div className="relative mx-auto w-full max-w-[620px] sm:max-w-[700px] lg:max-w-[800px] h-[520px] sm:h-[620px] lg:h-[700px] flex items-center justify-center">
       {/* Decorative ambient radial glow */}
       <div
-        className="pointer-events-none absolute -inset-4 rounded-3xl opacity-30 blur-2xl transition-all duration-700"
+        className="pointer-events-none absolute inset-4 rounded-full opacity-40 blur-3xl transition-all duration-700"
         style={{
           background:
-            "radial-gradient(circle at 50% 50%, var(--primary) 0%, var(--secondary) 60%, transparent 80%)",
+            "radial-gradient(circle at 55% 50%, var(--primary) 0%, var(--secondary, #8b5cf6) 60%, transparent 80%)",
         }}
       />
 
-      {/* React Bits SwarmCursor Live Interactive Particle Background */}
-      <SwarmCursor
-        count={850}
-        size={3.2}
-        spread={140}
-        speed={1.1}
-        swirl={0.65}
-        color="#6366f1"
-        accentColor="#06b6d4"
-        clickEffect="burst"
-        idle="roam"
-        lightMode={true}
-        targets="a, button, [data-swarm-target]"
-        className="relative rounded-3xl p-4 sm:p-6 -m-4 sm:-m-6"
-        style={{ overflow: "visible" }}
-      >
-        {/* Main Glassmorphic Visual Frame */}
-        <div className="relative rounded-3xl border border-slate-200/80 bg-white/85 p-3 sm:p-4 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:shadow-indigo-500/10 hover:-translate-y-0.5">
-          {/* Top Window Bar (Mockup Controls) */}
-          <div className="flex items-center justify-between pb-3 px-2 border-b border-slate-100">
-            <div className="flex items-center gap-1.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
-              <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
-              <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
-            </div>
-            <div className="text-[11px] font-mono text-slate-400 flex items-center gap-1.5">
-              <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" />
-              <span>buzzoraa.com/platform</span>
-            </div>
-            <span
-              data-swarm-target
-              className="text-[10px] font-bold px-2 py-0.5 rounded-full cursor-pointer transition-transform hover:scale-105"
+      {/* Main Hero Image Slot with logohome.png - TALL & PROMINENT */}
+      <div className="relative z-10 h-full w-full flex items-center justify-center">
+        {!imageError ? (
+          <Image
+            src="/logohome.png"
+            alt="Buzzoraa Social Engagement & GTM Platform"
+            width={1200}
+            height={900}
+            sizes="(max-width: 640px) 95vw, (max-width: 1024px) 65vw, 850px)"
+            className="relative z-10 h-full w-auto max-w-none object-contain drop-shadow-2xl transition-transform duration-700 hover:scale-[1.01]"
+            onError={() => setImageError(true)}
+            priority
+          />
+        ) : (
+          <div className="flex aspect-[4/3] w-full flex-col items-center justify-center rounded-3xl border border-slate-200/80 bg-white/80 p-8 text-center shadow-xl backdrop-blur-md">
+            <div
+              className="h-14 w-14 rounded-2xl flex items-center justify-center mb-3 shadow-inner"
               style={{
                 backgroundColor: "var(--primary-light)",
                 color: "var(--primary)",
               }}
             >
-              Live Engine
-            </span>
-          </div>
-
-          {/* 📸 HERO IMAGE SLOT danish*/}
-          <div className="relative mt-3 aspect-[16/10] sm:aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-slate-100 via-indigo-50/30 to-slate-100 border border-slate-100 group">
-            {!imageError ? (
-              <Image
-                src="/anish.jpg"
-                alt="Buzzoraa Social Engagement & GTM Platform"
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px)"
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-                onError={() => setImageError(true)}
-                priority
-              />
-            ) : (
-              <div className="flex h-full w-full flex-col items-center justify-center p-8 text-center bg-slate-50">
-                <div
-                  className="h-14 w-14 rounded-2xl flex items-center justify-center mb-3 shadow-inner"
-                  style={{
-                    backgroundColor: "var(--primary-light)",
-                    color: "var(--primary)",
-                  }}
-                >
-                  <Sparkles className="h-7 w-7" />
-                </div>
-                <p className="text-sm font-bold text-slate-800">Hero Image Slot</p>
-                <p className="text-xs text-slate-500 mt-1 max-w-xs">
-                  Aap baad me yahan apni image laga sakte hain (<code className="text-indigo-600 font-mono">public/your-image.jpg</code>)
-                </p>
-              </div>
-            )}
-
-            {/* Bottom subtle gradient overlay */}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/20 to-transparent" />
-
-            {/* Overlay details */}
-            <div className="absolute bottom-3 left-3 right-3 text-white flex items-end justify-between gap-2">
-              <div>
-                <p className="text-xs sm:text-sm font-bold text-white drop-shadow-sm">
-                  Global Tech Community &amp; Live Hackathons
-                </p>
-                <p className="text-[11px] text-slate-200">
-                  Full-Funnel Attendee Acquisition &amp; Developer Growth
-                </p>
-              </div>
-              <span className="inline-flex items-center gap-1.5 text-[11px] font-bold px-2.5 py-1 rounded-lg bg-emerald-500/90 text-white shadow-sm backdrop-blur-xs shrink-0">
-                <span className="h-1.5 w-1.5 rounded-full bg-white animate-ping" />
-                Active
-              </span>
+              <Sparkles className="h-7 w-7" />
             </div>
+            <p className="text-sm font-bold text-slate-800">Buzzoraa Platform</p>
+            <p className="text-xs text-slate-500 mt-1 max-w-xs">
+              Place <code className="text-indigo-600 font-mono">public/logohome.png</code> to view visual.
+            </p>
           </div>
+        )}
+      </div>
 
-          {/* Floating Animated Badge 1 - Top Right */}
-          <div
-            data-swarm-target
-            className="absolute -top-4 -right-2 sm:-right-4 rounded-2xl border border-slate-200/90 bg-white/95 p-2.5 sm:p-3 shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer"
-          >
-            <div className="flex items-center gap-2.5">
-              <div
-                className="flex h-9 w-9 items-center justify-center rounded-xl text-white shadow-md"
-                style={{ backgroundColor: "var(--primary)" }}
-              >
-                <Users className="h-5 w-5" />
-              </div>
-              <div>
-                <div className="text-xs font-black text-slate-900">50,000+</div>
-                <div className="text-[10px] font-medium text-slate-500">Tech Members</div>
-              </div>
-            </div>
-          </div>
+      {/* Floating Stat & Notification Badges - Snugly Hugging the Hero Image */}
 
-          {/* Floating Animated Badge 2 - Bottom Left */}
-          <div
-            data-swarm-target
-            className="absolute -bottom-4 -left-2 sm:-left-4 rounded-2xl border border-slate-200/90 bg-white/95 p-2.5 sm:p-3 shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer"
-          >
-            <div className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500 text-white shadow-md">
-                <CalendarCheck2 className="h-5 w-5" />
-              </div>
-              <div>
-                <div className="text-xs font-black text-slate-900">100+ Events</div>
-                <div className="text-[10px] font-medium text-slate-500">Sold-Out Campaigns</div>
-              </div>
-            </div>
-          </div>
+      {/* 1. Top-Left: EASY / GTM PLATFORM (Beside raised fist) */}
+      <div
+        data-swarm-target
+        className="absolute top-[12%] sm:top-[14%] left-[16%] sm:left-[20%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer text-center"
+      >
+        <div
+          className="text-xs sm:text-sm font-black tracking-tight"
+          style={{ color: "var(--primary)" }}
+        >
+          EASY
         </div>
-      </SwarmCursor>
+        <div className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500">
+          GTM PLATFORM
+        </div>
+      </div>
+
+      {/* 2. Middle-Left: 100+ / LEADING BRANDS (Beside laptop) */}
+      <div
+        data-swarm-target
+        className="absolute top-[40%] sm:top-[42%] left-[10%] sm:left-[14%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer text-center"
+      >
+        <div
+          className="text-xs sm:text-sm font-black tracking-tight"
+          style={{ color: "var(--primary)" }}
+        >
+          100+
+        </div>
+        <div className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500">
+          LEADING BRANDS
+        </div>
+      </div>
+
+      {/* 3. Bottom-Left: 200+ / GTM PIPELINES (Under laptop) */}
+      <div
+        data-swarm-target
+        className="absolute bottom-[14%] sm:bottom-[16%] left-[14%] sm:left-[18%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer text-center"
+      >
+        <div
+          className="text-xs sm:text-sm font-black tracking-tight"
+          style={{ color: "var(--primary)" }}
+        >
+          200+
+        </div>
+        <div className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500">
+          GTM PIPELINES
+        </div>
+      </div>
+
+      {/* 4. Top-Right: 95% / INTENT VISIBILITY (Above head/shoulder) */}
+      <div
+        data-swarm-target
+        className="absolute top-[10%] sm:top-[12%] right-[14%] sm:right-[18%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer text-center"
+      >
+        <div
+          className="text-xs sm:text-sm font-black tracking-tight"
+          style={{ color: "var(--primary)" }}
+        >
+          95%
+        </div>
+        <div className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500">
+          INTENT VISIBILITY
+        </div>
+      </div>
+
+      {/* 5. Middle-Right: WhatsApp/Chat Style Notification (Beside chest/arm) */}
+      <div
+        data-swarm-target
+        className="absolute top-[42%] sm:top-[44%] right-[2%] sm:right-[6%] z-20 rounded-full border border-slate-200/90 bg-white/95 px-3.5 sm:px-4 py-2 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer flex items-center gap-2"
+      >
+        <div className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-emerald-500 text-white shadow-xs shrink-0">
+          <MessageSquare className="h-3 w-3 sm:h-3.5 sm:w-3.5 fill-white text-white" />
+        </div>
+        <span className="text-[10px] sm:text-xs font-semibold text-slate-800 whitespace-nowrap">
+          Your campaign is active today
+        </span>
+      </div>
+
+      {/* 6. Bottom-Right: Live Telemetry / Dispatch-style Card (Lower torso overlay) */}
+      <div
+        data-swarm-target
+        className="absolute bottom-[6%] sm:bottom-[8%] right-[8%] sm:right-[12%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 p-3.5 sm:p-4 shadow-[0_16px_36px_rgba(0,0,0,0.1)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer max-w-[210px] sm:max-w-[250px] text-left"
+      >
+        <div className="flex items-center justify-between gap-2 mb-1.5">
+          <span className="text-[10px] sm:text-xs font-bold text-slate-800">Live Signals</span>
+          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 text-[9px] sm:text-[10px] font-bold text-emerald-600">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            Active
+          </span>
+        </div>
+        <p className="text-[10px] sm:text-[11px] leading-snug text-slate-600 mb-2">
+          High-intent buying discussions identified across social networks.
+        </p>
+        <div
+          className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-bold"
+          style={{ color: "var(--primary)" }}
+        >
+          <span>Track Pipeline</span>
+          <ArrowUpRight className="h-3 w-3" />
+        </div>
+      </div>
     </div>
   );
 }
@@ -465,97 +472,125 @@ function HackathonInteractiveVisual() {
   const [imageError, setImageError] = useState(false);
 
   return (
-    <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
-      {/* Glow */}
+    <div className="relative mx-auto w-full max-w-[620px] sm:max-w-[700px] lg:max-w-[800px] h-[520px] sm:h-[620px] lg:h-[700px] flex items-center justify-center">
+      {/* Decorative ambient radial glow */}
       <div
-        className="pointer-events-none absolute -inset-4 rounded-3xl opacity-25 blur-2xl transition-all duration-700"
+        className="pointer-events-none absolute inset-4 rounded-full opacity-40 blur-3xl transition-all duration-700"
         style={{
           background:
-            "radial-gradient(circle at 40% 40%, var(--secondary) 0%, var(--primary) 70%, transparent 80%)",
+            "radial-gradient(circle at 55% 50%, #06b6d4 0%, var(--primary) 60%, transparent 80%)",
         }}
       />
 
-      <div className="relative rounded-3xl border border-slate-200/80 bg-white/90 p-3 sm:p-4 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:shadow-cyan-500/10 hover:-translate-y-0.5 group">
-        {/* Window controls */}
-        <div className="flex items-center justify-between pb-3 px-2 border-b border-slate-100">
-          <div className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
-            <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
-            <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
+      {/* Main Hero Image Slot with logohome.png - TALL & PROMINENT */}
+      <div className="relative z-10 h-full w-full flex items-center justify-center">
+        {!imageError ? (
+          <Image
+            src="/logohome.png"
+            alt="Buzzoraa Community Activation Arena"
+            width={1200}
+            height={900}
+            sizes="(max-width: 640px) 95vw, (max-width: 1024px) 65vw, 850px)"
+            className="relative z-10 h-full w-auto max-w-none object-contain drop-shadow-2xl transition-transform duration-700 hover:scale-[1.01]"
+            onError={() => setImageError(true)}
+            priority
+          />
+        ) : (
+          <div className="flex aspect-[4/3] w-full flex-col items-center justify-center rounded-3xl border border-slate-200/80 bg-white/80 p-8 text-center shadow-xl backdrop-blur-md">
+            <Trophy className="h-10 w-10 text-amber-500 mb-2" />
+            <p className="text-sm font-bold text-slate-800">Hackathon Arena</p>
           </div>
-          <div className="text-[11px] font-mono text-slate-400 flex items-center gap-1.5">
-            <Code2 className="h-3.5 w-3.5 text-cyan-500" />
-            <span>buzzoraa.com/community/activation</span>
-          </div>
-          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-50 text-cyan-700 border border-cyan-200/60">
-            Activation Sprints
+        )}
+      </div>
+
+      {/* Floating Badges hugging the visual */}
+      {/* 1. Top-Left Badge: 1,200+ Teams */}
+      <div
+        data-swarm-target
+        className="absolute top-[12%] sm:top-[14%] left-[16%] sm:left-[20%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer text-center"
+      >
+        <div className="text-xs sm:text-sm font-black tracking-tight text-amber-500">
+          1,200+
+        </div>
+        <div className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500">
+          ACTIVE TEAMS
+        </div>
+      </div>
+
+      {/* 2. Middle-Left Badge: Code Sprint Evaluation */}
+      <div
+        data-swarm-target
+        className="absolute top-[40%] sm:top-[42%] left-[10%] sm:left-[14%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer flex items-center gap-2"
+      >
+        <div className="flex h-7 w-7 items-center justify-center rounded-xl bg-amber-500 text-white shadow-xs shrink-0">
+          <Trophy className="h-4 w-4" />
+        </div>
+        <div>
+          <div className="text-xs font-black text-slate-900">AI Judging</div>
+          <div className="text-[9px] font-semibold text-slate-500">Automated Scoring</div>
+        </div>
+      </div>
+
+      {/* 3. Bottom-Left Badge: Multi-Track Prizes */}
+      <div
+        data-swarm-target
+        className="absolute bottom-[14%] sm:bottom-[16%] left-[14%] sm:left-[18%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer text-center"
+      >
+        <div
+          className="text-xs sm:text-sm font-black tracking-tight"
+          style={{ color: "var(--primary)" }}
+        >
+          $50,000+
+        </div>
+        <div className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500">
+          MULTI-TRACK PRIZES
+        </div>
+      </div>
+
+      {/* 4. Top-Right Badge: Submission Rate */}
+      <div
+        data-swarm-target
+        className="absolute top-[10%] sm:top-[12%] right-[14%] sm:right-[18%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer text-center"
+      >
+        <div className="text-xs sm:text-sm font-black tracking-tight text-cyan-600">
+          99.4%
+        </div>
+        <div className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500">
+          SUBMISSION RATE
+        </div>
+      </div>
+
+      {/* 5. Middle-Right Badge: Notification pill */}
+      <div
+        data-swarm-target
+        className="absolute top-[42%] sm:top-[44%] right-[2%] sm:right-[6%] z-20 rounded-full border border-slate-200/90 bg-white/95 px-3.5 sm:px-4 py-2 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer flex items-center gap-2"
+      >
+        <div className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-cyan-500 text-white shadow-xs shrink-0">
+          <Code2 className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-white" />
+        </div>
+        <span className="text-[10px] sm:text-xs font-semibold text-slate-800 whitespace-nowrap">
+          48 projects evaluated live
+        </span>
+      </div>
+
+      {/* 6. Bottom-Right Card: Live Telemetry */}
+      <div
+        data-swarm-target
+        className="absolute bottom-[6%] sm:bottom-[8%] right-[8%] sm:right-[12%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 p-3.5 sm:p-4 shadow-[0_16px_36px_rgba(0,0,0,0.1)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer max-w-[210px] sm:max-w-[250px] text-left"
+      >
+        <div className="flex items-center justify-between gap-2 mb-1.5">
+          <span className="text-[10px] sm:text-xs font-bold text-slate-800">Live Leaderboard</span>
+          <span className="inline-flex items-center gap-1 rounded-full bg-cyan-50 border border-cyan-200/80 px-2 py-0.5 text-[9px] sm:text-[10px] font-bold text-cyan-700">
+            <span className="h-1.5 w-1.5 rounded-full bg-cyan-500 animate-pulse" />
+            Active
           </span>
         </div>
-
-        {/* 📸 IMAGE SLOTdanish */}
-        <div className="relative mt-3 aspect-[16/10] sm:aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-200/60">
-          {!imageError ? (
-            <Image
-              src="/hackathon-dasfgdfghbodfgdfgdfard.jpg"
-              alt="Buzzoraa Community Activation Dashboard"
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px)"
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-              onError={() => setImageError(true)}
-            />
-          ) : (
-            <div className="flex h-full w-full flex-col items-center justify-center p-8 text-center bg-slate-900 text-white">
-              <Trophy className="h-10 w-10 text-amber-400 mb-2" />
-              <p className="text-sm font-bold">Hackathon Visual Slot</p>
-              <p className="text-xs text-slate-400 mt-1">Image: public/hackathon-dashboard.jpg</p>
-            </div>
-          )}
-
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-
-          <div className="absolute bottom-3 left-3 right-3 text-white flex items-end justify-between gap-2">
-            <div>
-              <p className="text-xs sm:text-sm font-bold text-white drop-shadow-sm">
-                AI &amp; Cloud Innovation Arena
-              </p>
-              <p className="text-[11px] text-slate-300">
-                Live Submissions, Automated Judging &amp; Instant Leaderboard
-              </p>
-            </div>
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-bold px-2.5 py-1 rounded-lg bg-cyan-500 text-white shadow-sm shrink-0">
-              <span className="h-1.5 w-1.5 rounded-full bg-white animate-ping" />
-              Live Arena
-            </span>
-          </div>
-        </div>
-
-        {/* Floating Badge 1 - Top Left */}
-        <div className="absolute -top-4 -left-2 sm:-left-4 rounded-2xl border border-slate-200/90 bg-white/95 p-2.5 sm:p-3 shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-105">
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-500 text-white shadow-md">
-              <Trophy className="h-5 w-5" />
-            </div>
-            <div>
-              <div className="text-xs font-black text-slate-900">1,200+ Teams</div>
-              <div className="text-[10px] font-medium text-slate-500">Live Code Evaluations</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Floating Badge 2 - Bottom Right */}
-        <div className="absolute -bottom-4 -right-2 sm:-right-4 rounded-2xl border border-slate-200/90 bg-white/95 p-2.5 sm:p-3 shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-105">
-          <div className="flex items-center gap-2.5">
-            <div
-              className="flex h-9 w-9 items-center justify-center rounded-xl text-white shadow-md"
-              style={{ backgroundColor: "var(--primary)" }}
-            >
-              <Sparkles className="h-5 w-5" />
-            </div>
-            <div>
-              <div className="text-xs font-black text-slate-900">Multi-Track Prizes</div>
-              <div className="text-[10px] font-medium text-slate-500">Holographic Awards</div>
-            </div>
-          </div>
+        <p className="text-[10px] sm:text-[11px] leading-snug text-slate-600 mb-2">
+          Automated judging &amp; holographic awards active across all sprint tracks.
+        </p>
+        <div className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-bold text-cyan-600">
+          <span>View Leaderboard</span>
+          <ArrowUpRight className="h-3 w-3" />
         </div>
       </div>
     </div>
@@ -567,94 +602,125 @@ function EventCampaignInteractiveVisual() {
   const [imageError, setImageError] = useState(false);
 
   return (
-    <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
-      {/* Glow */}
+    <div className="relative mx-auto w-full max-w-[620px] sm:max-w-[700px] lg:max-w-[800px] h-[520px] sm:h-[620px] lg:h-[700px] flex items-center justify-center">
+      {/* Decorative ambient radial glow */}
       <div
-        className="pointer-events-none absolute -inset-4 rounded-3xl opacity-25 blur-2xl transition-all duration-700"
+        className="pointer-events-none absolute inset-4 rounded-full opacity-40 blur-3xl transition-all duration-700"
         style={{
           background:
-            "radial-gradient(circle at 60% 50%, var(--primary) 0%, #ec4899 60%, transparent 80%)",
+            "radial-gradient(circle at 55% 50%, #ec4899 0%, var(--primary) 60%, transparent 80%)",
         }}
       />
 
-      <div className="relative rounded-3xl border border-slate-200/80 bg-white/90 p-3 sm:p-4 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:shadow-indigo-500/10 hover:-translate-y-0.5 group">
-        {/* Window controls */}
-        <div className="flex items-center justify-between pb-3 px-2 border-b border-slate-100">
-          <div className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
-            <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
-            <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
+      {/* Main Hero Image Slot with logohome.png - TALL & PROMINENT */}
+      <div className="relative z-10 h-full w-full flex items-center justify-center">
+        {!imageError ? (
+          <Image
+            src="/logohome.png"
+            alt="Buzzoraa Content Amplification Funnels"
+            width={1200}
+            height={900}
+            sizes="(max-width: 640px) 95vw, (max-width: 1024px) 65vw, 850px)"
+            className="relative z-10 h-full w-auto max-w-none object-contain drop-shadow-2xl transition-transform duration-700 hover:scale-[1.01]"
+            onError={() => setImageError(true)}
+            priority
+          />
+        ) : (
+          <div className="flex aspect-[4/3] w-full flex-col items-center justify-center rounded-3xl border border-slate-200/80 bg-white/80 p-8 text-center shadow-xl backdrop-blur-md">
+            <Megaphone className="h-10 w-10 text-pink-500 mb-2" />
+            <p className="text-sm font-bold text-slate-800">Event Marketing</p>
           </div>
-          <div className="text-[11px] font-mono text-slate-400 flex items-center gap-1.5">
-            <BarChart3 className="h-3.5 w-3.5 text-indigo-500" />
-            <span>buzzoraa.com/gtm/growth</span>
-          </div>
-          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200/60">
-            Real-Time ROI
+        )}
+      </div>
+
+      {/* Floating Badges hugging the visual */}
+      {/* 1. Top-Left Badge: 98% Turnout */}
+      <div
+        data-swarm-target
+        className="absolute top-[12%] sm:top-[14%] left-[16%] sm:left-[20%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer text-center"
+      >
+        <div className="text-xs sm:text-sm font-black tracking-tight text-indigo-600">
+          98%
+        </div>
+        <div className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500">
+          TURNOUT RATE
+        </div>
+      </div>
+
+      {/* 2. Middle-Left Badge: 100+ Campaigns */}
+      <div
+        data-swarm-target
+        className="absolute top-[40%] sm:top-[42%] left-[10%] sm:left-[14%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer flex items-center gap-2"
+      >
+        <div className="flex h-7 w-7 items-center justify-center rounded-xl bg-pink-500 text-white shadow-xs shrink-0">
+          <Megaphone className="h-4 w-4" />
+        </div>
+        <div>
+          <div className="text-xs font-black text-slate-900">100+ Campaigns</div>
+          <div className="text-[9px] font-semibold text-slate-500">Viral Speaker Kits</div>
+        </div>
+      </div>
+
+      {/* 3. Bottom-Left Badge: 4.8x ROI */}
+      <div
+        data-swarm-target
+        className="absolute bottom-[14%] sm:bottom-[16%] left-[14%] sm:left-[18%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer text-center"
+      >
+        <div className="text-xs sm:text-sm font-black tracking-tight text-emerald-600">
+          4.8x ROI
+        </div>
+        <div className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500">
+          SPONSOR REVENUE
+        </div>
+      </div>
+
+      {/* 4. Top-Right Badge: 25,000+ Attendees */}
+      <div
+        data-swarm-target
+        className="absolute top-[10%] sm:top-[12%] right-[14%] sm:right-[18%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer text-center"
+      >
+        <div
+          className="text-xs sm:text-sm font-black tracking-tight"
+          style={{ color: "var(--primary)" }}
+        >
+          25,000+
+        </div>
+        <div className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500">
+          ACQUIRED ATTENDEES
+        </div>
+      </div>
+
+      {/* 5. Middle-Right Badge: Notification pill */}
+      <div
+        data-swarm-target
+        className="absolute top-[42%] sm:top-[44%] right-[2%] sm:right-[6%] z-20 rounded-full border border-slate-200/90 bg-white/95 px-3.5 sm:px-4 py-2 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer flex items-center gap-2"
+      >
+        <div className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-emerald-500 text-white shadow-xs shrink-0">
+          <TrendingUp className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-white" />
+        </div>
+        <span className="text-[10px] sm:text-xs font-semibold text-slate-800 whitespace-nowrap">
+          Sold-out registration spike
+        </span>
+      </div>
+
+      {/* 6. Bottom-Right Card: Conversion Funnel */}
+      <div
+        data-swarm-target
+        className="absolute bottom-[6%] sm:bottom-[8%] right-[8%] sm:right-[12%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 p-3.5 sm:p-4 shadow-[0_16px_36px_rgba(0,0,0,0.1)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer max-w-[210px] sm:max-w-[250px] text-left"
+      >
+        <div className="flex items-center justify-between gap-2 mb-1.5">
+          <span className="text-[10px] sm:text-xs font-bold text-slate-800">Conversion Funnel</span>
+          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 text-[9px] sm:text-[10px] font-bold text-emerald-600">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            Live Tracking
           </span>
         </div>
-
-        {/* 📸 IMAGE SLOT danish */}
-        <div className="relative mt-3 aspect-[16/10] sm:aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-200/60">
-          {!imageError ? (
-            <Image
-              src="/community-anahhhfhglytics.jpg"
-              alt="Buzzoraa Content Amplification Funnels"
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px)"
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-              onError={() => setImageError(true)}
-            />
-          ) : (
-            <div className="flex h-full w-full flex-col items-center justify-center p-8 text-center bg-slate-900 text-white">
-              <Megaphone className="h-10 w-10 text-indigo-400 mb-2" />
-              <p className="text-sm font-bold">Event Marketing Visual Slot</p>
-              <p className="text-xs text-slate-400 mt-1">Image: public/community-analytics.jpg</p>
-            </div>
-          )}
-
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-
-          <div className="absolute bottom-3 left-3 right-3 text-white flex items-end justify-between gap-2">
-            <div>
-              <p className="text-xs sm:text-sm font-bold text-white drop-shadow-sm">
-                Full-Funnel Attendee Acquisition
-              </p>
-              <p className="text-[11px] text-slate-300">
-                Awareness → Consideration → Sold-Out Registrations
-              </p>
-            </div>
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-bold px-2.5 py-1 rounded-lg bg-emerald-500 text-white shadow-sm shrink-0">
-              <span className="h-1.5 w-1.5 rounded-full bg-white animate-ping" />
-              Live Funnel
-            </span>
-          </div>
-        </div>
-
-        {/* Floating Badge 1 - Top Right */}
-        <div className="absolute -top-4 -right-2 sm:-right-4 rounded-2xl border border-slate-200/90 bg-white/95 p-2.5 sm:p-3 shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-105">
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-600 text-white shadow-md">
-              <TrendingUp className="h-5 w-5" />
-            </div>
-            <div>
-              <div className="text-xs font-black text-slate-900">98% Turnout</div>
-              <div className="text-[10px] font-medium text-slate-500">Attendee Show-up Rate</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Floating Badge 2 - Bottom Left */}
-        <div className="absolute -bottom-4 -left-2 sm:-left-4 rounded-2xl border border-slate-200/90 bg-white/95 p-2.5 sm:p-3 shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-105">
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-pink-500 text-white shadow-md">
-              <Megaphone className="h-5 w-5" />
-            </div>
-            <div>
-              <div className="text-xs font-black text-slate-900">100+ Campaigns</div>
-              <div className="text-[10px] font-medium text-slate-500">Viral Speaker Kits</div>
-            </div>
-          </div>
+        <p className="text-[10px] sm:text-[11px] leading-snug text-slate-600 mb-2">
+          Full-funnel attendee acquisition active across all campaigns.
+        </p>
+        <div className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-bold text-indigo-600">
+          <span>View Funnel Analytics</span>
+          <ArrowUpRight className="h-3 w-3" />
         </div>
       </div>
     </div>
@@ -663,144 +729,131 @@ function EventCampaignInteractiveVisual() {
 
 
 function EcosystemIntegrationVisual() {
-  const integrations = [
-    {
-      name: "Salesforce Data Cloud",
-      badge: "Real-Time Sync",
-      desc: "Instant lead ingestion, attendee scoring & pipeline attribution",
-      color: "#00a1e0",
-      status: "Connected",
-    },
-    {
-      name: "Slack Automated Channels",
-      badge: "Sub-Second Bots",
-      desc: "Automated onboarding, community matchmaking & instant event alerts",
-      color: "#e01e5a",
-      status: "Active",
-    },
-    {
-      name: "Tableau Executive Analytics",
-      badge: "ROI Dashboards",
-      desc: "Live sponsor performance, churn analytics & sentiment metrics",
-      color: "#e97627",
-      status: "Live Feed",
-    },
-    {
-      name: "Agentforce & GenAI Agents",
-      badge: "Autonomous",
-      desc: "24/7 intelligent attendee matchmaking & ticketing assistance",
-      color: "#8b5cf6",
-      status: "AI Enabled",
-    },
-  ];
+  const [imageError, setImageError] = useState(false);
 
   return (
-    <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
-      {/* Ambient Glow */}
+    <div className="relative mx-auto w-full max-w-[620px] sm:max-w-[700px] lg:max-w-[800px] h-[520px] sm:h-[620px] lg:h-[700px] flex items-center justify-center">
+      {/* Decorative ambient radial glow */}
       <div
-        className="pointer-events-none absolute -inset-4 rounded-3xl opacity-25 blur-2xl transition-all duration-700"
+        className="pointer-events-none absolute inset-4 rounded-full opacity-40 blur-3xl transition-all duration-700"
         style={{
           background:
-            "radial-gradient(circle at 50% 50%, var(--primary) 0%, var(--secondary) 60%, transparent 80%)",
+            "radial-gradient(circle at 55% 50%, var(--primary) 0%, #00a1e0 60%, transparent 80%)",
         }}
       />
 
-      <div className="relative rounded-3xl border border-slate-200/80 bg-white/95 p-4 sm:p-5 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:shadow-indigo-500/10">
-        {/* Window Bar */}
-        <div className="flex items-center justify-between pb-3 px-1 border-b border-slate-100">
-          <div className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
-            <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
-            <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
+      {/* Main Hero Image Slot with logohome.png - TALL & PROMINENT */}
+      <div className="relative z-10 h-full w-full flex items-center justify-center">
+        {!imageError ? (
+          <Image
+            src="/logohome.png"
+            alt="Buzzoraa Ecosystem & Integration Mesh"
+            width={1200}
+            height={900}
+            sizes="(max-width: 640px) 95vw, (max-width: 1024px) 65vw, 850px)"
+            className="relative z-10 h-full w-auto max-w-none object-contain drop-shadow-2xl transition-transform duration-700 hover:scale-[1.01]"
+            onError={() => setImageError(true)}
+            priority
+          />
+        ) : (
+          <div className="flex aspect-[4/3] w-full flex-col items-center justify-center rounded-3xl border border-slate-200/80 bg-white/80 p-8 text-center shadow-xl backdrop-blur-md">
+            <Cpu className="h-10 w-10 text-cyan-600 mb-2" />
+            <p className="text-sm font-bold text-slate-800">Ecosystem Mesh</p>
           </div>
-          <div className="text-[11px] font-mono text-slate-400 flex items-center gap-1.5">
-            <Cpu className="h-3.5 w-3.5 text-indigo-500" />
-            <span>buzzoraa.com/integrations</span>
-          </div>
-          <span
-            className="text-[10px] font-bold px-2 py-0.5 rounded-full"
-            style={{
-              backgroundColor: "var(--primary-light)",
-              color: "var(--primary)",
-            }}
-          >
-            Enterprise Ready
+        )}
+      </div>
+
+      {/* Floating Badges hugging the visual */}
+      {/* 1. Top-Left Badge: < 150ms Sync */}
+      <div
+        data-swarm-target
+        className="absolute top-[12%] sm:top-[14%] left-[16%] sm:left-[20%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer text-center"
+      >
+        <div className="text-xs sm:text-sm font-black tracking-tight text-cyan-600">
+          &lt; 150ms
+        </div>
+        <div className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500">
+          ZERO DATA LATENCY
+        </div>
+      </div>
+
+      {/* 2. Middle-Left Badge: SOC2 & GDPR */}
+      <div
+        data-swarm-target
+        className="absolute top-[40%] sm:top-[42%] left-[10%] sm:left-[14%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer flex items-center gap-2"
+      >
+        <div className="flex h-7 w-7 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-xs shrink-0">
+          <ShieldCheck className="h-4 w-4" />
+        </div>
+        <div>
+          <div className="text-xs font-black text-slate-900">SOC2 &amp; GDPR</div>
+          <div className="text-[9px] font-semibold text-slate-500">Enterprise Certified</div>
+        </div>
+      </div>
+
+      {/* 3. Bottom-Left Badge: 200+ Native Connectors */}
+      <div
+        data-swarm-target
+        className="absolute bottom-[14%] sm:bottom-[16%] left-[14%] sm:left-[18%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer text-center"
+      >
+        <div
+          className="text-xs sm:text-sm font-black tracking-tight"
+          style={{ color: "var(--primary)" }}
+        >
+          200+
+        </div>
+        <div className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500">
+          NATIVE CONNECTORS
+        </div>
+      </div>
+
+      {/* 4. Top-Right Badge: 99.99% SLA */}
+      <div
+        data-swarm-target
+        className="absolute top-[10%] sm:top-[12%] right-[14%] sm:right-[18%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer text-center"
+      >
+        <div className="text-xs sm:text-sm font-black tracking-tight text-emerald-600">
+          99.99%
+        </div>
+        <div className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500">
+          SYSTEM UPTIME SLA
+        </div>
+      </div>
+
+      {/* 5. Middle-Right Badge: Salesforce telemetry synced */}
+      <div
+        data-swarm-target
+        className="absolute top-[42%] sm:top-[44%] right-[2%] sm:right-[6%] z-20 rounded-full border border-slate-200/90 bg-white/95 px-3.5 sm:px-4 py-2 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer flex items-center gap-2"
+      >
+        <div className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-cyan-600 text-white shadow-xs shrink-0">
+          <Cpu className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-white" />
+        </div>
+        <span className="text-[10px] sm:text-xs font-semibold text-slate-800 whitespace-nowrap">
+          Salesforce &amp; Slack synced
+        </span>
+      </div>
+
+      {/* 6. Bottom-Right Card: Mesh Health */}
+      <div
+        data-swarm-target
+        className="absolute bottom-[6%] sm:bottom-[8%] right-[8%] sm:right-[12%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 p-3.5 sm:p-4 shadow-[0_16px_36px_rgba(0,0,0,0.1)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer max-w-[210px] sm:max-w-[250px] text-left"
+      >
+        <div className="flex items-center justify-between gap-2 mb-1.5">
+          <span className="text-[10px] sm:text-xs font-bold text-slate-800">Mesh Telemetry</span>
+          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 text-[9px] sm:text-[10px] font-bold text-emerald-600">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            Connected
           </span>
         </div>
-
-        {/* Interactive Hub Grid */}
-        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {integrations.map((item, idx) => (
-            <div
-              key={idx}
-              className="p-3.5 rounded-2xl border border-slate-100 bg-gradient-to-br from-slate-50/80 to-white hover:border-slate-300 hover:shadow-md transition-all group/card flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span
-                    className="h-2.5 w-2.5 rounded-full"
-                    style={{ backgroundColor: item.color }}
-                  />
-                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 group-hover/card:bg-slate-200 transition-colors">
-                    {item.status}
-                  </span>
-                </div>
-                <h4 className="text-xs font-bold text-slate-900 group-hover/card:text-indigo-600 transition-colors">
-                  {item.name}
-                </h4>
-                <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
-                  {item.desc}
-                </p>
-              </div>
-
-              <div className="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] font-semibold text-slate-400">
-                <span>{item.badge}</span>
-                <Check className="h-3.5 w-3.5 text-emerald-500" />
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Bottom Hub Summary */}
-        <div className="mt-4 p-3 rounded-2xl bg-slate-900 text-white flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="h-8 w-8 rounded-xl bg-indigo-500/20 border border-indigo-400/40 flex items-center justify-center text-indigo-300">
-              <Network className="h-4 w-4" />
-            </div>
-            <div>
-              <p className="text-xs font-bold">Sub-Second Bi-directional Sync</p>
-              <p className="text-[10px] text-slate-400">Vivaansh Consulting Enterprise Architecture</p>
-            </div>
-          </div>
-          <span className="text-[10px] font-mono px-2 py-1 rounded bg-emerald-500/20 text-emerald-400 font-bold">
-            99.99% SLA
-          </span>
-        </div>
-
-        {/* Floating Badge 1 - Top Left */}
-        <div className="absolute -top-4 -left-2 sm:-left-4 rounded-2xl border border-slate-200/90 bg-white/95 p-2.5 sm:p-3 shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-105">
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-cyan-600 text-white shadow-md">
-              <Cpu className="h-5 w-5" />
-            </div>
-            <div>
-              <div className="text-xs font-black text-slate-900">&lt; 150ms Sync</div>
-              <div className="text-[10px] font-medium text-slate-500">Zero Data Latency</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Floating Badge 2 - Bottom Right */}
-        <div className="absolute -bottom-4 -right-2 sm:-right-4 rounded-2xl border border-slate-200/90 bg-white/95 p-2.5 sm:p-3 shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-105">
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-600 text-white shadow-md">
-              <ShieldCheck className="h-5 w-5" />
-            </div>
-            <div>
-              <div className="text-xs font-black text-slate-900">SOC2 &amp; GDPR</div>
-              <div className="text-[10px] font-medium text-slate-500">Enterprise Certified</div>
-            </div>
-          </div>
+        <p className="text-[10px] sm:text-[11px] leading-snug text-slate-600 mb-2">
+          Bi-directional Salesforce, Slack &amp; Tableau streaming active.
+        </p>
+        <div
+          className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-bold"
+          style={{ color: "var(--primary)" }}
+        >
+          <span>View Integrations</span>
+          <ArrowUpRight className="h-3 w-3" />
         </div>
       </div>
     </div>
@@ -812,94 +865,125 @@ function LeadershipImpactVisual() {
   const [imageError, setImageError] = useState(false);
 
   return (
-    <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
-      {/* Glow */}
+    <div className="relative mx-auto w-full max-w-[620px] sm:max-w-[700px] lg:max-w-[800px] h-[520px] sm:h-[620px] lg:h-[700px] flex items-center justify-center">
+      {/* Decorative ambient radial glow */}
       <div
-        className="pointer-events-none absolute -inset-4 rounded-3xl opacity-25 blur-2xl transition-all duration-700"
+        className="pointer-events-none absolute inset-4 rounded-full opacity-40 blur-3xl transition-all duration-700"
         style={{
           background:
-            "radial-gradient(circle at 50% 50%, var(--primary) 0%, #eab308 60%, transparent 80%)",
+            "radial-gradient(circle at 55% 50%, #eab308 0%, var(--primary) 60%, transparent 80%)",
         }}
       />
 
-      <div className="relative rounded-3xl border border-slate-200/80 bg-white/90 p-3 sm:p-4 shadow-2xl backdrop-blur-xl transition-all duration-500 hover:shadow-indigo-500/10 hover:-translate-y-0.5 group">
-        {/* Window controls */}
-        <div className="flex items-center justify-between pb-3 px-2 border-b border-slate-100">
-          <div className="flex items-center gap-1.5">
-            <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
-            <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
-            <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
+      {/* Main Hero Image Slot with logohome.png - TALL & PROMINENT */}
+      <div className="relative z-10 h-full w-full flex items-center justify-center">
+        {!imageError ? (
+          <Image
+            src="/logohome.png"
+            alt="Buzzoraa Leadership & Ecosystem Architecture"
+            width={1200}
+            height={900}
+            sizes="(max-width: 640px) 95vw, (max-width: 1024px) 65vw, 850px)"
+            className="relative z-10 h-full w-auto max-w-none object-contain drop-shadow-2xl transition-transform duration-700 hover:scale-[1.01]"
+            onError={() => setImageError(true)}
+            priority
+          />
+        ) : (
+          <div className="flex aspect-[4/3] w-full flex-col items-center justify-center rounded-3xl border border-slate-200/80 bg-white/80 p-8 text-center shadow-xl backdrop-blur-md">
+            <Award className="h-10 w-10 text-amber-500 mb-2" />
+            <p className="text-sm font-bold text-slate-800">Leadership Visual</p>
           </div>
-          <div className="text-[11px] font-mono text-slate-400 flex items-center gap-1.5">
-            <Award className="h-3.5 w-3.5 text-amber-500" />
-            <span>buzzoraa.com/about</span>
-          </div>
-          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200/60">
-            Ambassador
+        )}
+      </div>
+
+      {/* Floating Badges hugging the visual */}
+      {/* 1. Top-Left Badge: 2x Ambassador */}
+      <div
+        data-swarm-target
+        className="absolute top-[12%] sm:top-[14%] left-[16%] sm:left-[20%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer text-center"
+      >
+        <div className="text-xs sm:text-sm font-black tracking-tight text-amber-500">
+          2x
+        </div>
+        <div className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500">
+          TABLEAU AMBASSADOR
+        </div>
+      </div>
+
+      {/* 2. Middle-Left Badge: 15+ Years IT */}
+      <div
+        data-swarm-target
+        className="absolute top-[40%] sm:top-[42%] left-[10%] sm:left-[14%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer flex items-center gap-2"
+      >
+        <div className="flex h-7 w-7 items-center justify-center rounded-xl bg-blue-600 text-white shadow-xs shrink-0">
+          <Briefcase className="h-4 w-4" />
+        </div>
+        <div>
+          <div className="text-xs font-black text-slate-900">15+ Years IT</div>
+          <div className="text-[9px] font-semibold text-slate-500">Enterprise Solutions</div>
+        </div>
+      </div>
+
+      {/* 3. Bottom-Left Badge: Salesforce Champion */}
+      <div
+        data-swarm-target
+        className="absolute bottom-[14%] sm:bottom-[16%] left-[14%] sm:left-[18%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer text-center"
+      >
+        <div
+          className="text-xs sm:text-sm font-black tracking-tight"
+          style={{ color: "var(--primary)" }}
+        >
+          CHAMPION
+        </div>
+        <div className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500">
+          SALESFORCE ECOSYSTEM
+        </div>
+      </div>
+
+      {/* 4. Top-Right Badge: CMX Global Advisor */}
+      <div
+        data-swarm-target
+        className="absolute top-[10%] sm:top-[12%] right-[14%] sm:right-[18%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 px-3.5 py-2 sm:px-4 sm:py-2.5 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer text-center"
+      >
+        <div className="text-xs sm:text-sm font-black tracking-tight text-amber-500">
+          CMX
+        </div>
+        <div className="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-500">
+          GLOBAL ADVISOR
+        </div>
+      </div>
+
+      {/* 5. Middle-Right Badge: Notification pill */}
+      <div
+        data-swarm-target
+        className="absolute top-[42%] sm:top-[44%] right-[2%] sm:right-[6%] z-20 rounded-full border border-slate-200/90 bg-white/95 px-3.5 sm:px-4 py-2 shadow-[0_12px_28px_rgba(0,0,0,0.08)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer flex items-center gap-2"
+      >
+        <div className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-full bg-amber-500 text-white shadow-xs shrink-0">
+          <Award className="h-3 w-3 sm:h-3.5 sm:w-3.5 fill-white text-white" />
+        </div>
+        <span className="text-[10px] sm:text-xs font-semibold text-slate-800 whitespace-nowrap">
+          Recognized Community Architect
+        </span>
+      </div>
+
+      {/* 6. Bottom-Right Card: Founder's Vision */}
+      <div
+        data-swarm-target
+        className="absolute bottom-[6%] sm:bottom-[8%] right-[8%] sm:right-[12%] z-20 rounded-2xl border border-slate-200/90 bg-white/95 p-3.5 sm:p-4 shadow-[0_16px_36px_rgba(0,0,0,0.1)] backdrop-blur-md transition-all duration-300 hover:scale-105 cursor-pointer max-w-[210px] sm:max-w-[250px] text-left"
+      >
+        <div className="flex items-center justify-between gap-2 mb-1.5">
+          <span className="text-[10px] sm:text-xs font-bold text-slate-800">Founder&apos;s Vision</span>
+          <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 border border-amber-200/80 px-2 py-0.5 text-[9px] sm:text-[10px] font-bold text-amber-700">
+            <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse" />
+            Verified
           </span>
         </div>
-
-        {/* 📸 IMAGE SLOT */}
-        <div className="relative mt-3 aspect-[16/10] sm:aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 border border-slate-200/60">
-          {!imageError ? (
-            <Image
-              src="/tarun-gupta.jpg"
-              alt="Tarun Gupta - Tableau Ambassador & Salesforce Champion"
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px)"
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-              onError={() => setImageError(true)}
-            />
-          ) : (
-            <div className="flex h-full w-full flex-col items-center justify-center p-8 text-center bg-slate-100">
-              <Award className="h-10 w-10 text-amber-500 mb-2" />
-              <p className="text-sm font-bold text-slate-800">Leadership Visual Slot</p>
-              <p className="text-xs text-slate-500 mt-1">Image: public/tarun-gupta.jpg</p>
-            </div>
-          )}
-
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-
-          <div className="absolute bottom-3 left-3 right-3 text-white flex items-end justify-between gap-2">
-            <div>
-              <p className="text-xs sm:text-sm font-bold text-white drop-shadow-sm">
-                Tarun Gupta • Founder &amp; Architect
-              </p>
-              <p className="text-[11px] text-slate-300">
-                2x Tableau Ambassador • Salesforce Champion • CMX Advisor
-              </p>
-            </div>
-            <span className="inline-flex items-center gap-1.5 text-[11px] font-bold px-2.5 py-1 rounded-lg bg-amber-500 text-white shadow-sm shrink-0">
-              <Star className="h-3 w-3 fill-white" />
-              Ecosystem Leader
-            </span>
-          </div>
-        </div>
-
-        {/* Floating Badge 1 - Top Right */}
-        <div className="absolute -top-4 -right-2 sm:-right-4 rounded-2xl border border-slate-200/90 bg-white/95 p-2.5 sm:p-3 shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-105">
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-500 text-white shadow-md">
-              <Award className="h-5 w-5" />
-            </div>
-            <div>
-              <div className="text-xs font-black text-slate-900">2x Ambassador</div>
-              <div className="text-[10px] font-medium text-slate-500">Global Data Honors</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Floating Badge 2 - Bottom Left */}
-        <div className="absolute -bottom-4 -left-2 sm:-left-4 rounded-2xl border border-slate-200/90 bg-white/95 p-2.5 sm:p-3 shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-105">
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 text-white shadow-md">
-              <Briefcase className="h-5 w-5" />
-            </div>
-            <div>
-              <div className="text-xs font-black text-slate-900">15+ Years IT</div>
-              <div className="text-[10px] font-medium text-slate-500">Enterprise Solutions</div>
-            </div>
-          </div>
+        <p className="text-[10px] sm:text-[11px] leading-snug text-slate-600 mb-2">
+          Architecting conversation-led GTM pipelines for global enterprises.
+        </p>
+        <div className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-bold text-amber-600">
+          <span>Connect with Founder</span>
+          <ArrowUpRight className="h-3 w-3" />
         </div>
       </div>
     </div>
@@ -921,10 +1005,7 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen">
-      {/* =======================================================================
-          GLOBAL FULL-PAGE IRIDESCENCE BACKGROUND (React Bits)
-          Fixed across entire viewport from top to bottom
-         ======================================================================= */}
+
       <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
         <Iridescence
           color={selectedTheme?.primary || "#6366f1"}
@@ -950,300 +1031,321 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-white/60" />
       </div>
 
-      {/* =======================================================================
-          SECTION 0: Hero Section (Centered Layout)
-         ======================================================================= */}
-      <section className="relative overflow-hidden border-b border-slate-200/50 py-20 sm:py-28 lg:py-32">
+
+      <section className="relative overflow-hidden border-b border-slate-200/60 bg-gradient-to-b from-white via-slate-50/30 to-white py-16 sm:py-24 lg:py-28">
+        {/* Technical Grid Pattern Background matching reference screenshot */}
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_80%_70%_at_50%_40%,#000_70%,transparent_100%)]" />
+
         {/* Ambient subtle radial glow matching theme */}
         <div
-          className="pointer-events-none absolute top-12 left-1/2 -translate-x-1/2 h-96 w-96 rounded-full opacity-20 blur-3xl transition-colors duration-500 z-1"
+          className="pointer-events-none absolute top-12 right-1/4 h-96 w-96 rounded-full opacity-20 blur-3xl transition-colors duration-500 z-1"
           style={{ backgroundColor: "var(--primary)" }}
         />
+        <div
+          className="pointer-events-none absolute bottom-12 left-10 h-80 w-80 rounded-full opacity-15 blur-3xl transition-colors duration-500 z-1"
+          style={{ backgroundColor: "var(--secondary, #8b5cf6)" }}
+        />
 
-        {/* Centered Main Container */}
-        <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
-          {/* Centered Content wrapped in FadeContent */}
-          <FadeContent effect="fade" blur={true} duration={1} delay={0.05} trigger="mount" className="w-full flex flex-col items-center">
-            <div className="flex flex-col items-center max-w-4xl mx-auto">
-              {/* Top Pill Badge */}
-              <div
-                className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs sm:text-sm font-bold shadow-xs backdrop-blur-md transition-colors"
-                style={{
-                  borderColor: "color-mix(in srgb, var(--primary) 35%, transparent)",
-                  backgroundColor: "color-mix(in srgb, var(--primary) 10%, white)",
-                  color: "var(--primary)",
-                }}
-              >
-                <span
-                  className="flex h-4 w-4 items-center justify-center rounded-full text-white"
-                  style={{ backgroundColor: "var(--primary)" }}
-                >
-                  <Zap className="h-2.5 w-2.5 fill-current" />
-                </span>
-                <span>Social Engagement &amp; Go-to-Market (GTM) SaaS</span>
-              </div>
-
-              {/* Main Headline */}
-              <h1 className="mt-6 text-4xl sm:text-6xl lg:text-7xl font-black leading-[1.08] tracking-tight text-slate-950">
-                Turn Conversations
-                <br />
-                <span
-                  className="text-transparent bg-clip-text transition-all duration-300"
+        {/* 2-Column Main Container matching reference layout */}
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+            {/* Left Column: Heading, Subtitle, CTAs & Trust Badges */}
+            <div className="lg:col-span-5 xl:col-span-5 flex flex-col items-start text-left">
+              <FadeContent effect="fade" blur={true} duration={1} delay={0.05} trigger="mount" className="w-full flex flex-col items-start">
+                {/* Top Pill Badge */}
+                <div
+                  className="inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs sm:text-sm font-bold shadow-2xs backdrop-blur-md transition-colors"
                   style={{
-                    backgroundImage:
-                      "linear-gradient(135deg, var(--primary) 0%, #8b5cf6 50%, var(--secondary) 100%)",
+                    borderColor: "color-mix(in srgb, var(--primary) 35%, transparent)",
+                    backgroundColor: "color-mix(in srgb, var(--primary) 8%, white)",
+                    color: "var(--primary)",
                   }}
                 >
-                  Into Sustainable Growth.
-                </span>
-              </h1>
-
-              {/* Subtitle / Description */}
-              <p className="mt-6 max-w-2xl text-base sm:text-xl leading-relaxed text-slate-700 font-normal">
-                <strong className="text-slate-900 font-semibold">Buzzoraa</strong> is a Social Engagement &amp; Go-to-Market (GTM) SaaS platform designed to turn conversations into growth. Our vision is to bring social engagement, community activation, content amplification, and GTM growth together in one unified platform.
-              </p>
-
-              {/* Action Buttons */}
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-                <Link
-                  href="/Bookdemo"
-                  className="cursor-pointer rounded-xl px-7 py-3.5 text-base font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2"
-                  style={{
-                    backgroundColor: "var(--primary)",
-                    boxShadow: "0 10px 24px var(--primary-glow)",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = "var(--primary-hover)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "var(--primary)";
-                  }}
-                >
-                  <span>Book a Live Demo</span>
-                  <ArrowUpRight className="h-5 w-5" />
-                </Link>
-
-                <Link
-                  href="/contact"
-                  className="cursor-pointer rounded-xl border border-slate-300 bg-white/90 backdrop-blur-md px-6 py-3.5 text-base font-bold text-slate-800 transition-colors hover:bg-white flex items-center gap-2 shadow-2xs"
-                >
-                  Talk to Support
-                </Link>
-
-                <Link
-                  href="/pricing"
-                  className="cursor-pointer rounded-xl border border-slate-200 bg-white/80 backdrop-blur-md px-5 py-3.5 text-base font-semibold text-slate-700 transition-colors hover:text-slate-900 hover:bg-white shadow-2xs"
-                >
-                  Explore Pricing
-                </Link>
-              </div>
-
-              {/* Micro Trust Indicators */}
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm font-semibold text-slate-600">
-                <div className="flex items-center gap-2 bg-white/80 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-slate-200/80 shadow-2xs">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-                  <span>No credit card needed</span>
+                  <span className="relative flex h-2 w-2">
+                    <span
+                      className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
+                      style={{ backgroundColor: "var(--primary)" }}
+                    />
+                    <span
+                      className="relative inline-flex rounded-full h-2 w-2"
+                      style={{ backgroundColor: "var(--primary)" }}
+                    />
+                  </span>
+                  <span>Social Engagement &amp; Go-to-Market (GTM) SaaS</span>
                 </div>
-                <div className="flex items-center gap-2 bg-white/80 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-slate-200/80 shadow-2xs">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-                  <span>Instant 7-day free trial</span>
+
+                {/* Main Headline */}
+                <h1 className="mt-5 text-4xl sm:text-5xl lg:text-6xl font-black leading-[1.12] tracking-tight text-slate-950">
+                  Turn Conversations
+                  <br />
+                  <span
+                    className="text-transparent bg-clip-text transition-all duration-300"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(135deg, var(--primary) 0%, #8b5cf6 50%, var(--secondary) 100%)",
+                    }}
+                  >
+                    Into Sustainable Growth.
+                  </span>
+                </h1>
+
+                {/* Subtitle / Description */}
+                <p className="mt-5 max-w-xl text-base sm:text-lg leading-relaxed text-slate-700 font-normal">
+                  <strong className="text-slate-900 font-semibold">Buzzoraa</strong> is a Social Engagement &amp; Go-to-Market (GTM) SaaS platform designed to turn conversations into growth. Our vision is to bring social engagement, community activation, content amplification, and GTM growth together in one unified platform.
+                </p>
+
+                {/* Action Buttons */}
+                <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
+                  <Link
+                    href="/Bookdemo"
+                    className="cursor-pointer rounded-xl px-7 py-3.5 text-base font-bold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2"
+                    style={{
+                      backgroundColor: "var(--primary)",
+                      boxShadow: "0 10px 24px var(--primary-glow)",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = "var(--primary-hover)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = "var(--primary)";
+                    }}
+                  >
+                    <span>Book a Live Demo</span>
+                    <ArrowUpRight className="h-5 w-5" />
+                  </Link>
+
+                  <Link
+                    href="/contact"
+                    className="cursor-pointer rounded-xl border border-slate-300 bg-white/90 backdrop-blur-md px-6 py-3.5 text-base font-bold text-slate-800 transition-colors hover:bg-white flex items-center gap-2 shadow-2xs"
+                  >
+                    Talk to Support
+                  </Link>
+
+                  <Link
+                    href="/pricing"
+                    className="cursor-pointer rounded-xl border border-slate-200 bg-white/80 backdrop-blur-md px-5 py-3.5 text-base font-semibold text-slate-700 transition-colors hover:text-slate-900 hover:bg-white shadow-2xs"
+                  >
+                    Explore Pricing
+                  </Link>
                 </div>
-                <div className="flex items-center gap-2 bg-white/80 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-slate-200/80 shadow-2xs">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-                  <span>Enterprise &amp; AI ready</span>
+
+                {/* Micro Trust Indicators */}
+                <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-5 text-xs sm:text-sm font-semibold text-slate-600">
+                  <div className="flex items-center gap-2 bg-white/80 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-slate-200/80 shadow-2xs">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                    <span>No credit card needed</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/80 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-slate-200/80 shadow-2xs">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                    <span>Instant 7-day free trial</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/80 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-slate-200/80 shadow-2xs">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                    <span>Enterprise &amp; AI ready</span>
+                  </div>
                 </div>
-              </div>
+              </FadeContent>
             </div>
-          </FadeContent>
 
-          {/* Centered Product Visual Mockup */}
-          <FadeContent effect="focus" blur={true} duration={1.2} delay={0.2} trigger="mount" className="w-full mt-12 sm:mt-16 max-w-4xl">
-            <HeroInteractiveVisual />
-          </FadeContent>
+            {/* Right Column: Visual Mockup with Person + Floating Badges */}
+            <div className="lg:col-span-7 xl:col-span-7 relative w-full flex items-center justify-center pt-8 lg:pt-0">
+              <FadeContent effect="focus" blur={true} duration={1.2} delay={0.2} trigger="mount" className="w-full flex items-center justify-center">
+                <HeroInteractiveVisual />
+              </FadeContent>
+            </div>
+          </div>
         </div>
       </section>
+
 
       {/* =======================================================================
           SECTION 1: Hackathons & Developer Arena (Layout: Visual Left | Content Right)
          ======================================================================= */}
-      <section className="relative overflow-hidden bg-white/50 backdrop-blur-xs border-b border-slate-200/50 py-16 sm:py-24">
+      <section className="relative overflow-hidden bg-white/60 backdrop-blur-xs border-b border-slate-200/50 py-16 sm:py-24">
+        {/* Technical Grid Pattern Background matching hero layout */}
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_80%_70%_at_50%_50%,#000_70%,transparent_100%)]" />
+
         {/* Soft background ambient light */}
         <div
           className="pointer-events-none absolute top-1/2 left-0 -translate-y-1/2 w-96 h-96 rounded-full opacity-15 blur-3xl"
           style={{ backgroundColor: "var(--secondary)" }}
         />
 
-        <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 sm:px-8 lg:grid-cols-2 lg:gap-16">
-          {/* Visual on Left (Desktop) */}
-          <FadeContent effect="focus" blur={true} duration={1.1} threshold={0.15} className="order-2 lg:order-1">
-            <HackathonInteractiveVisual />
-          </FadeContent>
-
-          {/* Content on Right (Desktop) */}
-          <FadeContent effect="fade" blur={true} duration={1} threshold={0.15} className="order-1 lg:order-2">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-cyan-50/90 px-4 py-1.5 text-sm font-semibold text-cyan-800 shadow-2xs">
-                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-cyan-600 text-white">
-                  <Code2 className="h-2.5 w-2.5" />
-                </span>
-                Developer Challenges &amp; Hackathons
-              </div>
-
-              <h2 className="mt-5 text-3xl sm:text-5xl font-black leading-[1.12] tracking-tight text-blue-950">
-                Run High-Stakes Hackathons.
-                <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600">
-                  Live Code Evaluation &amp; Global Stages.
-                </span>
-              </h2>
-
-              <p className="mt-5 text-base sm:text-lg leading-relaxed text-slate-600">
-                Scale from 50 to 5,000+ developers seamlessly. Provide multi-track challenges, automated GitHub repo evaluations, real-time stage broadcasts, and transparent leaderboard scoring that builders love.
-              </p>
-
-              {/* Feature Checklist */}
-              <div className="mt-6 space-y-3">
-                {[
-                  "Multi-track challenge architecture (AI/ML, Web3, Cloud & Mobile)",
-                  "Automated repo evaluation test-suites with anti-plagiarism checks",
-                  "Live virtual stage streaming with YouTube & Twitch integrations",
-                  "Holographic sponsor booths, digital prize distribution & certificates",
-                ].map((feat, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 text-sm text-slate-700 font-medium">
-                    <div className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-cyan-500 text-white">
-                      <Check className="h-2.5 w-2.5 stroke-[3]" />
-                    </div>
-                    <span>{feat}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-8 flex flex-wrap items-center gap-4">
-                <Link
-                  href="/Bookdemo"
-                  className="cursor-pointer rounded-xl bg-cyan-600 hover:bg-cyan-700 px-6 py-3.5 text-sm font-bold text-white shadow-md shadow-cyan-600/20 transition flex items-center gap-2"
-                >
-                  <span>Host a Hackathon</span>
-                  <ArrowUpRight className="h-4 w-4" />
-                </Link>
-
-                <Link
-                  href="/pricing"
-                  className="cursor-pointer rounded-xl border border-slate-300 bg-white px-6 py-3.5 text-sm font-bold text-slate-800 transition-colors hover:bg-slate-100"
-                >
-                  View Plans &amp; Pricing
-                </Link>
-              </div>
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-12 lg:gap-8">
+            {/* Visual on Left (Desktop) */}
+            <div className="lg:col-span-7 xl:col-span-7 order-2 lg:order-1 relative w-full flex items-center justify-center">
+              <FadeContent effect="focus" blur={true} duration={1.1} threshold={0.15} className="w-full flex items-center justify-center">
+                <HackathonInteractiveVisual />
+              </FadeContent>
             </div>
-          </FadeContent>
+
+            {/* Content on Right (Desktop) */}
+            <div className="lg:col-span-5 xl:col-span-5 order-1 lg:order-2 flex flex-col items-start text-left">
+              <FadeContent effect="fade" blur={true} duration={1} threshold={0.15} className="w-full flex flex-col items-start">
+                <div>
+                  <div className="inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-cyan-50/90 px-4 py-1.5 text-sm font-semibold text-cyan-800 shadow-2xs">
+                    <span className="flex h-4 w-4 items-center justify-center rounded-full bg-cyan-600 text-white">
+                      <Code2 className="h-2.5 w-2.5" />
+                    </span>
+                    Developer Challenges &amp; Hackathons
+                  </div>
+
+                  <h2 className="mt-5 text-3xl sm:text-5xl font-black leading-[1.12] tracking-tight text-blue-950">
+                    Run High-Stakes Hackathons.
+                    <br />
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600">
+                      Live Code Evaluation &amp; Global Stages.
+                    </span>
+                  </h2>
+
+                  <p className="mt-5 text-base sm:text-lg leading-relaxed text-slate-600">
+                    Scale from 50 to 5,000+ developers seamlessly. Provide multi-track challenges, automated GitHub repo evaluations, real-time stage broadcasts, and transparent leaderboard scoring that builders love.
+                  </p>
+
+                  {/* Feature Checklist */}
+                  <div className="mt-6 space-y-3">
+                    {[
+                      "Multi-track challenge architecture (AI/ML, Web3, Cloud & Mobile)",
+                      "Automated repo evaluation test-suites with anti-plagiarism checks",
+                      "Live virtual stage streaming with YouTube & Twitch integrations",
+                      "Holographic sponsor booths, digital prize distribution & certificates",
+                    ].map((feat, idx) => (
+                      <div key={idx} className="flex items-start gap-2.5 text-sm text-slate-700 font-medium">
+                        <div className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-cyan-500 text-white">
+                          <Check className="h-2.5 w-2.5 stroke-[3]" />
+                        </div>
+                        <span>{feat}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-8 flex flex-wrap items-center gap-4">
+                    <Link
+                      href="/Bookdemo"
+                      className="cursor-pointer rounded-xl bg-cyan-600 hover:bg-cyan-700 px-6 py-3.5 text-sm font-bold text-white shadow-md shadow-cyan-600/20 transition flex items-center gap-2"
+                    >
+                      <span>Host a Hackathon</span>
+                      <ArrowUpRight className="h-4 w-4" />
+                    </Link>
+
+                    <Link
+                      href="/pricing"
+                      className="cursor-pointer rounded-xl border border-slate-300 bg-white px-6 py-3.5 text-sm font-bold text-slate-800 transition-colors hover:bg-slate-100"
+                    >
+                      View Plans &amp; Pricing
+                    </Link>
+                  </div>
+                </div>
+              </FadeContent>
+            </div>
+          </div>
         </div>
       </section>
 
+
       {/* =======================================================================
-          SECTION 2: High-Impact Event Marketing (Layout: Content Left | Visual Right)
+          SECTION 2: Event Marketing & Campaign Engine (Layout: Content Left | Visual Right)
          ======================================================================= */}
       <section className="relative overflow-hidden bg-slate-50/40 backdrop-blur-xs border-b border-slate-200/50 py-16 sm:py-24">
-        {/* Subtle grid background */}
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.35]"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, #d7e2e9 1px, transparent 1px), linear-gradient(to bottom, #d7e2e9 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-          }}
-        />
+        {/* Technical Grid Pattern Background matching hero layout */}
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_80%_70%_at_50%_50%,#000_70%,transparent_100%)]" />
 
-        <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-6 sm:px-8 lg:grid-cols-2 lg:gap-16">
-          {/* Content on Left (Desktop) */}
-          <FadeContent effect="fade" blur={true} duration={1} threshold={0.15}>
-            <div>
-              <div
-                className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-semibold shadow-2xs"
-                style={{
-                  borderColor: "color-mix(in srgb, var(--primary) 30%, transparent)",
-                  backgroundColor: "color-mix(in srgb, var(--primary) 8%, white)",
-                  color: "var(--primary)",
-                }}
-              >
-                <span
-                  className="flex h-4 w-4 items-center justify-center rounded-full text-white"
-                  style={{ backgroundColor: "var(--primary)" }}
-                >
-                  <Megaphone className="h-2.5 w-2.5 fill-current" />
-                </span>
-                Full-Funnel Event Marketing Engine
-              </div>
-
-              <h2 className="mt-5 text-3xl sm:text-5xl font-black leading-[1.12] tracking-tight text-blue-950">
-                Turn Community Buzz Into
-                <br />
-                <span
-                  className="text-transparent bg-clip-text transition-all duration-300"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(135deg, var(--primary) 0%, #ec4899 60%, #f43f5e 100%)",
-                  }}
-                >
-                  Sold-Out Registrations &amp; Packed Rooms.
-                </span>
-              </h2>
-
-              <p className="mt-5 text-base sm:text-lg leading-relaxed text-slate-600">
-                When scaling your presence, fragmented outreach and generic social posts lose 70% of potential buyers. Buzzoraa builds social engagement and content amplification engines that convert conversations into active advocates and pipeline.
-              </p>
-
-              {/* Campaign Pillar Cards */}
-              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {[
-                  { title: "Speaker Buzz Kits", desc: "Pre-made social carousels & video trailers for every speaker" },
-                  { title: "Targeted Funnels", desc: "Multi-channel attendee acquisition across LinkedIn, X & Discord" },
-                  { title: "Live Hype Amplification", desc: "Real-time attendee engagement, hashtag trends & live polls" },
-                  { title: "Post-Event Nurture", desc: "Instant session recordings distribution & qualified lead pipeline" },
-                ].map((item, idx) => (
-                  <div key={idx} className="p-3.5 rounded-2xl border border-slate-200/80 bg-white/90 shadow-2xs">
-                    <h4 className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-                      {item.title}
-                    </h4>
-                    <p className="text-[11px] text-slate-500 mt-1">{item.desc}</p>
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 items-center gap-12 lg:gap-8">
+            {/* Content on Left (Desktop) */}
+            <div className="lg:col-span-5 xl:col-span-5 flex flex-col items-start text-left">
+              <FadeContent effect="fade" blur={true} duration={1} threshold={0.15} className="w-full flex flex-col items-start">
+                <div>
+                  <div
+                    className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm font-semibold shadow-2xs"
+                    style={{
+                      borderColor: "color-mix(in srgb, var(--primary) 30%, transparent)",
+                      backgroundColor: "color-mix(in srgb, var(--primary) 8%, white)",
+                      color: "var(--primary)",
+                    }}
+                  >
+                    <span
+                      className="flex h-4 w-4 items-center justify-center rounded-full text-white"
+                      style={{ backgroundColor: "var(--primary)" }}
+                    >
+                      <Megaphone className="h-2.5 w-2.5 fill-current" />
+                    </span>
+                    Full-Funnel Event Marketing Engine
                   </div>
-                ))}
-              </div>
 
-              <div className="mt-8 flex flex-wrap items-center gap-4">
-                <Link
-                  href="/contact"
-                  className="cursor-pointer rounded-xl px-6 py-3.5 text-sm font-bold text-white shadow-md transition-all duration-200 hover:scale-[1.02] flex items-center gap-2"
-                  style={{
-                    backgroundColor: "var(--primary)",
-                    boxShadow: "0 10px 24px var(--primary-glow)",
-                  }}
-                >
-                  <span>Launch an Event Campaign</span>
-                  <ArrowUpRight className="h-4 w-4" />
-                </Link>
+                  <h2 className="mt-5 text-3xl sm:text-5xl font-black leading-[1.12] tracking-tight text-blue-950">
+                    Turn Community Buzz Into
+                    <br />
+                    <span
+                      className="text-transparent bg-clip-text transition-all duration-300"
+                      style={{
+                        backgroundImage:
+                          "linear-gradient(135deg, var(--primary) 0%, #ec4899 60%, #f43f5e 100%)",
+                      }}
+                    >
+                      Sold-Out Registrations &amp; Packed Rooms.
+                    </span>
+                  </h2>
 
-                <Link
-                  href="/about"
-                  className="cursor-pointer rounded-xl border border-slate-300 bg-white px-6 py-3.5 text-sm font-bold text-slate-800 transition-colors hover:bg-slate-100 flex items-center gap-1.5"
-                >
-                  <span>See Our Track Record</span>
-                  <ChevronRight className="h-4 w-4" />
-                </Link>
-              </div>
+                  <p className="mt-5 text-base sm:text-lg leading-relaxed text-slate-600">
+                    When scaling your presence, fragmented outreach and generic social posts lose 70% of potential buyers. Buzzoraa builds social engagement and content amplification engines that convert conversations into active advocates and pipeline.
+                  </p>
+
+                  {/* Campaign Pillar Cards */}
+                  <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {[
+                      { title: "Speaker Buzz Kits", desc: "Pre-made social carousels & video trailers for every speaker" },
+                      { title: "Targeted Funnels", desc: "Multi-channel attendee acquisition across LinkedIn, X & Discord" },
+                      { title: "Live Hype Amplification", desc: "Real-time attendee engagement, hashtag trends & live polls" },
+                      { title: "Post-Event Nurture", desc: "Instant session recordings distribution & qualified lead pipeline" },
+                    ].map((item, idx) => (
+                      <div key={idx} className="p-3.5 rounded-2xl border border-slate-200/80 bg-white/90 shadow-2xs">
+                        <h4 className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                          <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+                          {item.title}
+                        </h4>
+                        <p className="text-[11px] text-slate-500 mt-1">{item.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-8 flex flex-wrap items-center gap-4">
+                    <Link
+                      href="/contact"
+                      className="cursor-pointer rounded-xl px-6 py-3.5 text-sm font-bold text-white shadow-md transition-all duration-200 hover:scale-[1.02] flex items-center gap-2"
+                      style={{
+                        backgroundColor: "var(--primary)",
+                        boxShadow: "0 10px 24px var(--primary-glow)",
+                      }}
+                    >
+                      <span>Launch an Event Campaign</span>
+                      <ArrowUpRight className="h-4 w-4" />
+                    </Link>
+
+                    <Link
+                      href="/about"
+                      className="cursor-pointer rounded-xl border border-slate-300 bg-white px-6 py-3.5 text-sm font-bold text-slate-800 transition-colors hover:bg-slate-100 flex items-center gap-1.5"
+                    >
+                      <span>See Our Track Record</span>
+                      <ChevronRight className="h-4 w-4" />
+                    </Link>
+                  </div>
+                </div>
+              </FadeContent>
             </div>
-          </FadeContent>
 
-          {/* Visual on Right (Desktop) */}
-          <FadeContent effect="focus" blur={true} duration={1.1} threshold={0.15}>
-            <EventCampaignInteractiveVisual />
-          </FadeContent>
+            {/* Visual on Right (Desktop) */}
+            <div className="lg:col-span-7 xl:col-span-7 relative w-full flex items-center justify-center">
+              <FadeContent effect="focus" blur={true} duration={1.1} threshold={0.15} className="w-full flex items-center justify-center">
+                <EventCampaignInteractiveVisual />
+              </FadeContent>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* =======================================================================
-          SECTION 3: Enterprise Architecture & AI (Layout: Visual Left | Content Right)
-         ======================================================================= */}
+
       <section className="relative overflow-hidden bg-white/50 backdrop-blur-xs border-b border-slate-200/50 py-16 sm:py-24">
         {/* Soft background glow */}
         <div
@@ -1317,9 +1419,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* =======================================================================
-          SECTION 4: Leadership & Ecosystem Trust (Layout: Content Left | Visual Right)
-         ======================================================================= */}
+
       <section className="relative overflow-hidden bg-slate-50/40 backdrop-blur-xs border-b border-slate-200/50 py-16 sm:py-24">
         {/* Subtle grid background */}
         <div
@@ -1415,9 +1515,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* =======================================================================
-          REACT BITS: MASKED HEADING SHOWCASE SECTION
-         ======================================================================= */}
+
       <section className="relative overflow-hidden bg-slate-950/85 backdrop-blur-md text-white py-20 sm:py-28 border-b border-slate-800/80">
         {/* Subtle grid pattern */}
         <div
@@ -1520,9 +1618,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* =======================================================================
-          PLATFORM PILLARS: ENTERPRISE HACKATHON & EVENT AUTOMATION
-         ======================================================================= */}
+
       <section className="relative overflow-hidden bg-slate-900/85 backdrop-blur-md text-white py-20 sm:py-28 border-b border-slate-800/80">
         {/* Subtle grid pattern */}
         <div
@@ -1674,9 +1770,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* =======================================================================
-          ECOSYSTEM SOLUTIONS: TAILORED STAKEHOLDER ARCHITECTURE
-         ======================================================================= */}
+
       <section className="relative overflow-hidden bg-slate-950/85 backdrop-blur-md text-white py-20 sm:py-28 border-b border-slate-800/80">
         {/* Subtle grid pattern */}
         <div
@@ -1876,9 +1970,7 @@ export default function Home() {
 
 
 
-      {/* =========================================================================
-          MAGIC BENTO GRID: ECOSYSTEM & PLATFORM ARCHITECTURE (DARK THEME)
-          ========================================================================= */}
+
       <section className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 text-white relative overflow-hidden border-t border-slate-800/80 bg-slate-950/85 backdrop-blur-md">
         {/* Ambient Dark Glows */}
         <div
@@ -1930,9 +2022,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* =========================================================================
-          INTERACTIVE ACCORDION GALLERY SECTION (React Bits Component - Light Theme)
-          ========================================================================= */}
+
       <section className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 bg-white/60 backdrop-blur-xs text-slate-900 relative overflow-hidden border-t border-slate-200/60">
         {/* Soft Ambient Light Glows */}
         <div
@@ -1979,9 +2069,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* =========================================================================
-          INTERACTIVE 3D DEPTH CAROUSEL SECTION (React Bits Component)
-          ========================================================================= */}
       <section className="py-24 sm:py-32 px-4 sm:px-6 lg:px-8 text-white relative overflow-hidden border-t border-slate-800/80 bg-slate-950/90 backdrop-blur-md">
         {/* Ambient Dark Glows */}
         <div
