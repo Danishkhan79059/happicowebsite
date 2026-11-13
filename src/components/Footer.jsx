@@ -265,7 +265,7 @@ export default function Footer() {
               </a>
 
               <a
-                href="tel:+919876543210"
+                href="tel:+919799472445"
                 className="flex items-center gap-2 hover:text-white transition-colors"
               >
                 <Phone className="h-4 w-4 shrink-0" style={{ color: "var(--secondary)" }} />

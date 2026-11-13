@@ -135,7 +135,7 @@ export default function Header() {
             <span className="text-white/20">|</span>
 
             <a
-              href="tel:+919876543210"
+              href="tel:+919799472445"
               className="inline-flex items-center gap-1.5 hover:text-white transition-colors"
             >
               <Phone className="h-3.5 w-3.5" style={{ color: "var(--secondary)" }} />
@@ -480,7 +480,7 @@ export default function Header() {
 
               <div className="grid grid-cols-2 gap-2 pt-1">
                 <a
-                  href="tel:+919876543210"
+                  href="tel:+919799472445"
                   className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-800 hover:bg-slate-100 transition-colors shadow-2xs"
                 >
                   <Phone className="h-3.5 w-3.5 text-emerald-600" />
