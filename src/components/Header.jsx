@@ -230,12 +230,12 @@ export default function Header() {
           <div className="hidden sm:flex items-center">
             <GooeyNav
               items={[
-                {
-                  label: "Login",
-                  target: "_blank",
-                  href: "https://buzzoraa.com",
-                  icon: <LogIn className="h-3.5 w-3.5" />,
-                },
+                // {
+                //   label: "Login",
+                //   target: "_blank",
+                //   href: "https://buzzoraa.com",
+                //   icon: <LogIn className="h-3.5 w-3.5" />,
+                // },
                 {
                   label: "Book a Demo",
                   href: "/Bookdemo",
@@ -455,7 +455,7 @@ export default function Header() {
                 <ArrowRight className="h-4 w-4" />
               </Link>
 
-              <Link
+              {/* <Link
                 href="https://buzzoraa.com"
                 target="_blank"
                 onClick={() => setIsOpen(false)}
@@ -463,7 +463,7 @@ export default function Header() {
               >
                 <LogIn className="h-4 w-4 text-slate-600" />
                 <span>Login to Customer Portal</span>
-              </Link>
+              </Link> */}
             </div>
 
             {/* Quick Contact & Assistance Bar */}

@@ -10,7 +10,6 @@ import {
   Clock,
   MessageSquare,
   ShieldCheck,
-  Send,
   CheckCircle2,
   Sparkles,
   HelpCircle,
@@ -29,74 +28,18 @@ import {
   BarChart3,
   Flame,
   MessageCircle,
+  Headphones,
+  Laptop,
+  Compass,
+  FileQuestion,
+  ExternalLink,
+  Copy,
 } from "lucide-react";
-
-// Inquiry Categories tailored to Event Marketing & Community Platform
-const INQUIRY_TYPES = [
-  {
-    id: "event-campaign",
-    label: "Event Marketing Campaign",
-    subtitle: "Summits, meetups, hackathons & attendee acquisition",
-    icon: Megaphone,
-    color: "var(--primary)",
-  },
-  {
-    id: "product-launch",
-    label: "Product / Platform Launch",
-    subtitle: "Developer demos, practitioner adoption & buzz",
-    icon: Rocket,
-    color: "#06b6d4",
-  },
-  {
-    id: "community-growth",
-    label: "Community Architecture",
-    subtitle: "Slack/Discord setup, chapter scaling & advocacy",
-    icon: Users,
-    color: "#10b981",
-  },
-  {
-    id: "enterprise-tech",
-    label: "Enterprise IT & AI Consulting",
-    subtitle: "Salesforce, Slack, Tableau & Agentforce workflows",
-    icon: Zap,
-    color: "#8b5cf6",
-  },
-  {
-    id: "keynote-speaking",
-    label: "Keynote / Workshop Invitation",
-    subtitle: "Invite Tarun Gupta for conferences or mentorship",
-    icon: Mic,
-    color: "#f59e0b",
-  },
-  {
-    id: "general-partnership",
-    label: "General Inquiry / Partnership",
-    subtitle: "Explore collaborations or strategic alliances",
-    icon: MessageSquare,
-    color: "#64748b",
-  },
-];
-
-// Event / Audience Scales
-const EVENT_SCALES = [
-  "Local / Meetup (< 100)",
-  "Regional Summit (100 - 500)",
-  "Major Conference (500 - 2,000+)",
-  "Enterprise / Global Ecosystem",
-];
-
-// Target Timelines
-const TIMELINES = [
-  "Immediate (Within 2-4 weeks)",
-  "Upcoming Quarter (1-3 months)",
-  "Later this year (3-6 months)",
-  "Just exploring & planning",
-];
 
 // Frequently Asked Questions
 const FAQS = [
   {
-    q: "How fast will our event marketing campaign go live?",
+    q: "How fast can we kick off a campaign or community initiative?",
     a: "After our initial discovery call, we prepare your campaign blueprint within 48 to 72 hours. Fast-track campaigns can be rolled out across social channels and community partners within 5 business days.",
   },
   {
@@ -109,67 +52,66 @@ const FAQS = [
   },
   {
     q: "Can we invite Tarun Gupta for a keynote or panel session?",
-    a: "Absolutely. Simply select 'Keynote / Workshop Invitation' in the form above with your event dates, topic, and expected audience. Our team will coordinate availability and briefing details.",
+    a: "Absolutely. You can reach out directly via WhatsApp, email us at contact@buzzoraa.com, or schedule a 1-on-1 strategy call through our Book Demo desk.",
+  },
+  {
+    q: "What makes Buzzoraa different from a traditional marketing agency?",
+    a: "We are built at the intersection of enterprise tech ecosystems (Salesforce, Tableau, Agentforce) and organic community advocacy. We drive authentic practitioner engagement rather than empty impressions.",
+  },
+];
+
+// Dedicated Department Channels
+const CONTACT_CHANNELS = [
+  {
+    title: "GTM & Growth Strategy",
+    description: "Event attendee acquisition, campaign roadmaps, product launch amplification & sponsor outreach.",
+    email: "contact@buzzoraa.com",
+    badge: "2-Hour Response",
+    badgeColor: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    icon: Rocket,
+    action: "Email Growth Desk",
+    link: "mailto:contact@buzzoraa.com?subject=GTM%20%26%20Growth%20Inquiry",
+  },
+  {
+    title: "Community & Developer Advocacy",
+    description: "Meetups, hackathons, Slack/Discord community architecture & student/practitioner programs.",
+    email: "contact@buzzoraa.com",
+    badge: "Fast Turnaround",
+    badgeColor: "bg-blue-50 text-blue-700 border-blue-200",
+    icon: Users,
+    action: "Connect Community",
+    link: "mailto:contact@buzzoraa.com?subject=Community%20Advocacy%20Inquiry",
+  },
+  {
+    title: "Enterprise IT & AI Consulting",
+    description: "Certified Salesforce, Tableau, Agentforce, and custom workflow integrations by Vivaansh Consulting.",
+    email: "contact@buzzoraa.com",
+    badge: "Architect Consultation",
+    badgeColor: "bg-purple-50 text-purple-700 border-purple-200",
+    icon: Zap,
+    action: "Consult Architects",
+    link: "mailto:contact@buzzoraa.com?subject=Enterprise%20Tech%20Consulting",
+  },
+  {
+    title: "Keynotes & Executive Briefings",
+    description: "Invite Tarun Gupta for conference keynotes, executive fireside chats, and masterclasses.",
+    email: "contact@buzzoraa.com",
+    badge: "Speaker Availability",
+    badgeColor: "bg-amber-50 text-amber-700 border-amber-200",
+    icon: Mic,
+    action: "Request Keynote",
+    link: "mailto:contact@buzzoraa.com?subject=Keynote%20Speaker%20Request",
   },
 ];
 
 export default function ContactPage() {
-  const [selectedType, setSelectedType] = useState(INQUIRY_TYPES[0].label);
-  const [selectedScale, setSelectedScale] = useState(EVENT_SCALES[1]);
-  const [selectedTimeline, setSelectedTimeline] = useState(TIMELINES[0]);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
   const [activeFaq, setActiveFaq] = useState(null);
+  const [copiedEmail, setCopiedEmail] = useState(false);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    organization: "",
-    message: "",
-  });
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setErrorMessage("");
-
-    if (!formData.name || !formData.email || !formData.message) {
-      setErrorMessage("Please fill in your Name, Email, and Message.");
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          fullName: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          organization: formData.organization,
-          inquiryType: selectedType,
-          eventScale: selectedScale,
-          timeline: selectedTimeline,
-          message: formData.message,
-        }),
-      });
-
-      const data = await res.json();
-      if (res.ok && data.success) {
-        setSubmitted(true);
-      } else {
-        setErrorMessage(data.error || "Failed to submit. Please try again.");
-      }
-    } catch (err) {
-      console.error("Submission error:", err);
-      // Even if network glitches, provide smooth fallback confirmation
-      setSubmitted(true);
-    } finally {
-      setIsSubmitting(false);
-    }
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText("contact@buzzoraa.com");
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2000);
   };
 
   return (
@@ -177,8 +119,8 @@ export default function ContactPage() {
       {/* =========================================================================
           HERO SECTION: CONTEXTUAL HEADER ALIGNED WITH BUZZORAA
           ========================================================================= */}
-      <section className="relative overflow-hidden pt-12 pb-20 sm:pt-20 sm:pb-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-slate-50/70 to-slate-100/60 border-b border-slate-200">
-        {/* Glow Effects */}
+      <section className="relative overflow-hidden pt-14 pb-20 sm:pt-24 sm:pb-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-slate-50/70 to-slate-100/60 border-b border-slate-200">
+        {/* Ambient Glows */}
         <div
           className="absolute -top-24 right-1/4 h-80 w-80 rounded-full blur-3xl opacity-20 pointer-events-none"
           style={{ backgroundColor: "var(--primary)" }}
@@ -193,12 +135,12 @@ export default function ContactPage() {
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-slate-200 bg-white/90 shadow-2xs backdrop-blur-md">
             <Sparkles className="h-3.5 w-3.5" style={{ color: "var(--primary)" }} />
             <span className="text-xs font-bold text-slate-800">
-              Social Engagement • Community Activation • GTM SaaS
+              Direct Communication Hub • Instant Response
             </span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.14]">
-            Let&apos;s Turn Conversations Into{" "}
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.12]">
+            Let&apos;s Connect &amp; Turn Conversations Into{" "}
             <span
               className="bg-clip-text text-transparent"
               style={{
@@ -211,8 +153,52 @@ export default function ContactPage() {
           </h1>
 
           <p className="mx-auto max-w-2xl text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
-            Buzzoraa brings social engagement, community activation, content amplification, and GTM growth together in one platform. We help brands, startups, founders, and communities build meaningful connections, amplify their presence, and grow through conversations.
+            Whether you&apos;re planning a community hackathon, scaling a product launch, or seeking enterprise tech consultation—skip the forms and reach out directly through your preferred channel.
           </p>
+
+          {/* Quick CTA Actions inside Hero */}
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+            <a
+              href="https://wa.me/919876543210?text=Hello%20Buzzoraa%20Team%2C%20I%20would%20like%20to%20discuss%20our%20growth%20and%20events."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs sm:text-sm font-bold shadow-lg shadow-emerald-500/20 active:scale-95 transition-all"
+            >
+              <MessageCircle className="h-4 w-4" />
+              <span>Chat on WhatsApp</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </a>
+
+            <Link
+              href="/Bookdemo"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl text-white text-xs sm:text-sm font-bold shadow-lg active:scale-95 transition-all"
+              style={{
+                backgroundColor: "var(--primary)",
+                boxShadow: "0 10px 24px var(--primary-glow)",
+              }}
+            >
+              <CalendarCheck2 className="h-4 w-4" />
+              <span>Book Strategy Call (30 min)</span>
+            </Link>
+
+            <button
+              type="button"
+              onClick={handleCopyEmail}
+              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl bg-white border border-slate-200 hover:border-slate-300 text-slate-700 text-xs sm:text-sm font-bold shadow-2xs hover:bg-slate-50 transition-all cursor-pointer"
+            >
+              {copiedEmail ? (
+                <>
+                  <Check className="h-4 w-4 text-emerald-600" />
+                  <span className="text-emerald-700">Email Copied!</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="h-4 w-4 text-slate-400" />
+                  <span>Copy contact@buzzoraa.com</span>
+                </>
+              )}
+            </button>
+          </div>
 
           {/* Trust Guarantees Bar */}
           <div className="pt-4 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs font-semibold text-slate-600">
@@ -235,38 +221,212 @@ export default function ContactPage() {
       </section>
 
       {/* =========================================================================
-          MAIN CONTACT & INQUIRY WORKBENCH (GRID: 5 COLS SIDEBAR + 7 COLS FORM)
+          KEY CONTACT TILES (DIRECT CHANNELS INSTEAD OF FORM)
           ========================================================================= */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto -mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           
-          {/* ---------------------------------------------------------------------
-              LEFT COLUMN: LEADERSHIP, HOTLINE & FAST ACCESS DESK (5 COLS)
-              --------------------------------------------------------------------- */}
-          <div className="lg:col-span-5 space-y-6">
+          {/* Card 1: WhatsApp Priority Desk */}
+          <div className="group rounded-3xl bg-white p-6 sm:p-7 border border-slate-200/90 shadow-2xs hover:shadow-xl hover:border-emerald-300 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-bl-full pointer-events-none" />
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-indigo-600">
-                Direct Communication Hub
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 mt-1">
-                Reach Out to Buzzoraa
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-500 mt-1.5 leading-relaxed">
-                Connect directly with our GTM strategy desk to discover how social engagement and content amplification can accelerate your pipeline.
+              <div className="flex items-center justify-between mb-4">
+                <div className="h-12 w-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:bg-[#25D366] group-hover:text-white transition-colors duration-300">
+                  <MessageCircle className="h-6 w-6" />
+                </div>
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-bold border border-emerald-200">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping" />
+                  Instant Chat
+                </span>
+              </div>
+
+              <h3 className="text-lg font-black text-slate-900 group-hover:text-emerald-700 transition-colors">
+                WhatsApp Desk
+              </h3>
+              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                Connect directly for quick turnarounds, event sponsorship inquiries, or immediate collaboration.
               </p>
+
+              <div className="mt-4 pt-3 border-t border-slate-100 space-y-1 text-xs">
+                <div className="flex justify-between text-slate-500">
+                  <span>Available:</span>
+                  <span className="font-semibold text-slate-700">Mon – Sat, 9am - 8pm</span>
+                </div>
+                <div className="flex justify-between text-slate-500">
+                  <span>Phone:</span>
+                  <span className="font-semibold text-slate-700">+91 98765 43210</span>
+                </div>
+              </div>
             </div>
 
-            {/* Founder Spotlight Card */}
-            <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-2xs hover:shadow-md transition-shadow relative overflow-hidden">
-              <div
-                className="absolute top-0 left-0 right-0 h-1.5"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%)",
-                }}
-              />
-              <div className="flex items-center gap-4 mb-4">
-                <div className="relative w-16 h-16 rounded-2xl overflow-hidden ring-2 ring-indigo-500/20 shadow-md shrink-0">
+            <div className="mt-6 pt-4">
+              <a
+                href="https://wa.me/919876543210?text=Hello%20Buzzoraa%20Team%2C%20I%20want%20to%20discuss%20social%20engagement%20and%20GTM%20growth."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all shadow-md active:scale-95"
+              >
+                <MessageSquare className="h-3.5 w-3.5" />
+                <span>Chat on WhatsApp</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Card 2: Official Email Inbox */}
+          <div className="group rounded-3xl bg-white p-6 sm:p-7 border border-slate-200/90 shadow-2xs hover:shadow-xl hover:border-indigo-300 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/5 rounded-bl-full pointer-events-none" />
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div
+                  className="h-12 w-12 rounded-2xl flex items-center justify-center text-white transition-transform group-hover:scale-105"
+                  style={{ backgroundColor: "var(--primary)" }}
+                >
+                  <Mail className="h-6 w-6" />
+                </div>
+                <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 text-[11px] font-bold border border-indigo-200">
+                  24/7 Monitored
+                </span>
+              </div>
+
+              <h3 className="text-lg font-black text-slate-900 group-hover:text-indigo-600 transition-colors">
+                Email Dispatch
+              </h3>
+              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                Send RFP briefs, deck presentations, sponsorship proposals, or detailed scope documents.
+              </p>
+
+              <div className="mt-4 pt-3 border-t border-slate-100 space-y-1 text-xs">
+                <div className="flex justify-between text-slate-500">
+                  <span>Primary:</span>
+                  <span className="font-semibold text-slate-900">contact@buzzoraa.com</span>
+                </div>
+                <div className="flex justify-between text-slate-500">
+                  <span>Avg Response:</span>
+                  <span className="font-semibold text-indigo-600">Under 2 Hours</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 pt-4">
+              <a
+                href="mailto:contact@buzzoraa.com"
+                className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-white text-xs font-bold transition-all shadow-md active:scale-95"
+                style={{ backgroundColor: "var(--primary)" }}
+              >
+                <Mail className="h-3.5 w-3.5" />
+                <span>Send Direct Email</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Card 3: Live Video Consultation (Book Demo) */}
+          <div className="group rounded-3xl bg-white p-6 sm:p-7 border border-slate-200/90 shadow-2xs hover:shadow-xl hover:border-cyan-300 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-bl-full pointer-events-none" />
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="h-12 w-12 rounded-2xl bg-cyan-50 text-cyan-600 flex items-center justify-center group-hover:bg-cyan-600 group-hover:text-white transition-colors duration-300">
+                  <CalendarCheck2 className="h-6 w-6" />
+                </div>
+                <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-cyan-50 text-cyan-700 text-[11px] font-bold border border-cyan-200">
+                  Google Meet
+                </span>
+              </div>
+
+              <h3 className="text-lg font-black text-slate-900 group-hover:text-cyan-700 transition-colors">
+                Book Video Call
+              </h3>
+              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                Schedule a 30-minute tailored strategy session directly on our interactive calendar.
+              </p>
+
+              <div className="mt-4 pt-3 border-t border-slate-100 space-y-1 text-xs">
+                <div className="flex justify-between text-slate-500">
+                  <span>Format:</span>
+                  <span className="font-semibold text-slate-700">1-on-1 Video Session</span>
+                </div>
+                <div className="flex justify-between text-slate-500">
+                  <span>Includes:</span>
+                  <span className="font-semibold text-cyan-700">Custom Roadmap</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 pt-4">
+              <Link
+                href="/Bookdemo"
+                className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all shadow-md active:scale-95"
+              >
+                <CalendarCheck2 className="h-3.5 w-3.5 text-cyan-400" />
+                <span>Open Calendar Slots</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Card 4: Phone & Advisory Hotline */}
+          <div className="group rounded-3xl bg-white p-6 sm:p-7 border border-slate-200/90 shadow-2xs hover:shadow-xl hover:border-amber-300 transition-all duration-300 flex flex-col justify-between relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/5 rounded-bl-full pointer-events-none" />
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <div className="h-12 w-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:bg-amber-600 group-hover:text-white transition-colors duration-300">
+                  <Phone className="h-6 w-6" />
+                </div>
+                <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 text-[11px] font-bold border border-amber-200">
+                  Direct Line
+                </span>
+              </div>
+
+              <h3 className="text-lg font-black text-slate-900 group-hover:text-amber-700 transition-colors">
+                Phone Support
+              </h3>
+              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+                Need to speak with a human right away? Call our client relations desk during business hours.
+              </p>
+
+              <div className="mt-4 pt-3 border-t border-slate-100 space-y-1 text-xs">
+                <div className="flex justify-between text-slate-500">
+                  <span>Hotline:</span>
+                  <span className="font-semibold text-slate-900">+91 98765 43210</span>
+                </div>
+                <div className="flex justify-between text-slate-500">
+                  <span>Hours:</span>
+                  <span className="font-semibold text-slate-700">9:00 AM – 7:00 PM IST</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 pt-4">
+              <a
+                href="tel:+919876543210"
+                className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold transition-all shadow-md active:scale-95"
+              >
+                <Phone className="h-3.5 w-3.5" />
+                <span>Call Now (+91)</span>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* =========================================================================
+          EXECUTIVE LEADERSHIP SPOTLIGHT & INNOVATION HUB (2-COLUMN SHOWCASE)
+          ========================================================================= */}
+      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          
+          {/* Executive Founder Card (7 cols) */}
+          <div className="lg:col-span-7 p-8 sm:p-10 rounded-3xl bg-white border border-slate-200/90 shadow-lg relative overflow-hidden flex flex-col justify-between">
+            <div
+              className="absolute top-0 left-0 right-0 h-1.5"
+              style={{
+                backgroundImage:
+                  "linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%)",
+              }}
+            />
+
+            <div>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 mb-6">
+                <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden ring-4 ring-indigo-500/10 shadow-md shrink-0">
                   <Image
                     src="/tarun-gupta.jpg"
                     alt="Tarun Gupta - Founder & CTO"
@@ -275,464 +435,202 @@ export default function ContactPage() {
                   />
                 </div>
                 <div>
-                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[10px] font-bold border border-emerald-200 mb-1">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping" />
-                    <span>Active for Inquiries</span>
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold border border-emerald-200 mb-1.5">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-ping" />
+                    <span>Direct Executive Access</span>
                   </div>
-                  <h3 className="text-base font-bold text-slate-900">
+                  <h3 className="text-xl sm:text-2xl font-black text-slate-900">
                     Tarun Gupta
                   </h3>
-                  <p className="text-xs text-indigo-600 font-semibold">
-                    Founder & CTO • Vivaansh Consulting
+                  <p className="text-xs sm:text-sm text-indigo-600 font-bold">
+                    Founder &amp; CTO • Vivaansh Consulting
                   </p>
-                  <p className="text-[11px] text-slate-500">
-                    2x Tableau Ambassador • Salesforce Champion
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    2x Tableau Ambassador • Salesforce Champion • Keynote Speaker
                   </p>
                 </div>
               </div>
 
-              <p className="text-xs text-slate-600 leading-relaxed italic bg-slate-50 p-3 rounded-xl border border-slate-100">
-                &ldquo;Whether you want to organize a viral community event or explore enterprise tech integrations, let&apos;s turn ideas into high-impact reality.&rdquo;
-              </p>
+              <blockquote className="text-sm sm:text-base text-slate-700 leading-relaxed italic bg-slate-50/80 p-5 rounded-2xl border border-slate-100">
+                &ldquo;Whether you want to organize a viral developer hackathon, execute a high-profile summit, or integrate Agentforce &amp; Tableau analytics into your pipeline—we treat your growth as our own.&rdquo;
+              </blockquote>
 
-              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-                <Link
-                  href="/about#founder-story"
-                  className="font-bold text-indigo-600 hover:text-indigo-700 inline-flex items-center gap-1"
-                >
-                  <span>Read Full Executive Story</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
-                <a
-                  href="mailto:contact@buzzoraa.com"
-                  className="text-slate-500 hover:text-slate-800 font-medium"
-                >
-                  contact@buzzoraa.com
-                </a>
+              {/* Badges / Credibility Highlights */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-6">
+                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-center">
+                  <div className="text-sm font-black text-slate-900">100+</div>
+                  <div className="text-[10px] text-slate-500 font-semibold uppercase mt-0.5">Events Guided</div>
+                </div>
+                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-center">
+                  <div className="text-sm font-black text-slate-900">50K+</div>
+                  <div className="text-[10px] text-slate-500 font-semibold uppercase mt-0.5">Community Members</div>
+                </div>
+                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-center col-span-2 sm:col-span-1">
+                  <div className="text-sm font-black text-indigo-600">Salesforce &amp; Tableau</div>
+                  <div className="text-[10px] text-slate-500 font-semibold uppercase mt-0.5">Ecosystem Leader</div>
+                </div>
               </div>
             </div>
 
-            {/* Direct Contact Methods Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Email Card */}
-              <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:border-indigo-200 transition-colors">
-                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                  <Mail className="h-4 w-4" style={{ color: "var(--primary)" }} />
-                  <span>Official Inquiries</span>
-                </div>
-                <a
-                  href="mailto:contact@buzzoraa.com"
-                  className="text-sm font-bold text-slate-900 hover:text-indigo-600 transition-colors block break-all"
-                >
-                  contact@buzzoraa.com
-                </a>
-                <p className="text-[11px] text-slate-400 mt-1">
-                  Direct inbox monitored 24/7
-                </p>
-              </div>
-
-              {/* Phone Card */}
-              <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:border-indigo-200 transition-colors">
-                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                  <Phone className="h-4 w-4" style={{ color: "var(--primary)" }} />
-                  <span>Helpline Desk</span>
-                </div>
-                <a
-                  href="tel:+919876543210"
-                  className="text-sm font-bold text-slate-900 hover:text-indigo-600 transition-colors block"
-                >
-                  +91 98765 43210
-                </a>
-                <p className="text-[11px] text-slate-400 mt-1">
-                  Mon – Sat, 9:00 AM – 7:00 PM IST
-                </p>
-              </div>
-            </div>
-
-            {/* WhatsApp Fast-Track Banner */}
-            <div
-              className="p-6 rounded-3xl border text-white relative overflow-hidden shadow-xl"
-              style={{ backgroundColor: "var(--footer-bg)" }}
-            >
-              <div
-                className="absolute -top-16 -right-16 h-40 w-40 rounded-full blur-2xl opacity-20 pointer-events-none"
-                style={{ backgroundColor: "#25D366" }}
-              />
-
-              <div className="flex items-center gap-2 text-xs font-bold uppercase text-emerald-400 mb-2">
-                <MessageCircle className="h-4 w-4" />
-                <span>Priority WhatsApp War-Room</span>
-              </div>
-
-              <h3 className="text-lg font-bold text-white mb-2">
-                Need Fast Turnaround for an Event?
-              </h3>
-              <p className="text-xs text-slate-300 leading-relaxed mb-4">
-                Chat directly with our event campaign strategists on WhatsApp for quick estimates, sponsor kits, or immediate onboarding.
-              </p>
-
-              <a
-                href="https://wa.me/919876543210?text=Hello%20Buzzoraa%20Team%2C%20I%20want%20to%20discuss%20social%20engagement%20and%20GTM%20growth."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 w-full py-3 px-5 rounded-2xl bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs font-bold transition-all shadow-lg active:scale-95"
+            <div className="mt-8 pt-5 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
+              <Link
+                href="/about#founder-story"
+                className="font-bold text-xs sm:text-sm text-indigo-600 hover:text-indigo-700 inline-flex items-center gap-1.5"
               >
-                <MessageSquare className="h-4 w-4" />
-                <span>Open Instant WhatsApp Chat</span>
+                <span>Read Full Executive Story &amp; Accreditations</span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <a
+                href="mailto:contact@buzzoraa.com?subject=Inquiry%20for%20Tarun%20Gupta"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors"
+              >
+                <Mail className="h-3.5 w-3.5" />
+                <span>Message Tarun</span>
               </a>
             </div>
+          </div>
 
-            {/* Book A Demo Callout Card */}
-            <div className="p-6 rounded-3xl bg-indigo-50/70 border border-indigo-100 flex items-center justify-between gap-4">
-              <div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-indigo-700 block">
-                  Prefer a Face-to-Face Video Call?
-                </span>
-                <p className="text-xs text-slate-600 mt-0.5">
-                  Book a 30-min live Google Meet strategy session with our product and community architects.
-                </p>
+          {/* Headquarters & Global Presence Card (5 cols) */}
+          <div className="lg:col-span-5 p-8 sm:p-10 rounded-3xl bg-slate-900 text-white relative overflow-hidden flex flex-col justify-between shadow-xl">
+            <div
+              className="absolute -top-16 -right-16 h-48 w-48 rounded-full blur-3xl opacity-30 pointer-events-none"
+              style={{ backgroundColor: "var(--primary)" }}
+            />
+
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-xs font-bold text-slate-300 border border-white/10 mb-4">
+                <Building2 className="h-3.5 w-3.5 text-indigo-400" />
+                <span>Global Headquarters</span>
               </div>
+
+              <h3 className="text-xl sm:text-2xl font-black text-white">
+                Buzzoraa Innovation Hub
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-300 mt-2 leading-relaxed">
+                Operating at the heart of technological innovation, coordinating physical and virtual community events worldwide.
+              </p>
+
+              <div className="mt-6 space-y-4 text-xs sm:text-sm">
+                <div className="flex items-start gap-3">
+                  <MapPin className="h-4 w-4 text-indigo-400 shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-white block font-semibold">Location:</strong>
+                    <span className="text-slate-300">Tech Park, Cyber City, Tech Hub • Global Operations</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <Clock className="h-4 w-4 text-indigo-400 shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-white block font-semibold">Operating Hours:</strong>
+                    <span className="text-slate-300">Monday – Saturday: 9:00 AM – 7:00 PM IST (Online Desk: 24/7)</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <Globe className="h-4 w-4 text-indigo-400 shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-white block font-semibold">Global Coverage:</strong>
+                    <span className="text-slate-300">India, North America, EMEA, and APAC ecosystems.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 pt-5 border-t border-white/10">
               <Link
                 href="/Bookdemo"
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-xs font-bold text-white shrink-0 shadow-md active:scale-95 transition-transform"
+                className="w-full inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl text-xs sm:text-sm font-bold text-white shadow-lg active:scale-95 transition-all"
                 style={{ backgroundColor: "var(--primary)" }}
               >
-                <CalendarCheck2 className="h-3.5 w-3.5" />
-                <span>Book Demo</span>
+                <CalendarCheck2 className="h-4 w-4" />
+                <span>Book Live Demonstration</span>
+                <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
-
-            {/* Headquarters Card */}
-            <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs flex items-start gap-3">
-              <span
-                className="h-9 w-9 rounded-xl flex items-center justify-center text-white shrink-0"
-                style={{ backgroundColor: "var(--primary)" }}
-              >
-                <MapPin className="h-4 w-4" />
-              </span>
-              <div>
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                  Headquarters &amp; Innovation Hub
-                </h4>
-                <p className="text-sm font-semibold text-slate-900 mt-0.5">
-                  Buzzoraa Inc.
-                </p>
-                <p className="text-xs text-slate-500 leading-relaxed mt-0.5">
-                  Tech Park, Cyber City, Tech Hub • Global Operations
-                </p>
-              </div>
-            </div>
           </div>
 
-          {/* ---------------------------------------------------------------------
-              RIGHT COLUMN: INTERACTIVE CAMPAIGN & INQUIRY FORM (7 COLS)
-              --------------------------------------------------------------------- */}
-          <div className="lg:col-span-7 bg-white rounded-3xl border border-slate-200/90 p-6 sm:p-10 shadow-xl relative overflow-hidden">
-            {submitted ? (
-              /* Success Confirmation View */
-              <div className="py-16 text-center space-y-6">
-                <div
-                  className="h-20 w-20 mx-auto rounded-3xl flex items-center justify-center text-white shadow-xl animate-bounce"
-                  style={{ backgroundColor: "var(--primary)" }}
-                >
-                  <CheckCircle2 className="h-10 w-10" />
-                </div>
-
-                <div className="space-y-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-emerald-600">
-                    Inquiry Received
-                  </span>
-                  <h3 className="text-3xl font-black text-slate-900 tracking-tight">
-                    Thank You, {formData.name || "Friend"}!
-                  </h3>
-                  <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-                    We have received your request for <strong>{selectedType}</strong>. Our team and Tarun Gupta have been notified and will review your campaign proposal within <strong>2 business hours</strong>.
-                  </p>
-                </div>
-
-                {/* Summary Pill Box */}
-                <div className="max-w-md mx-auto p-4 rounded-2xl bg-slate-50 border border-slate-200 text-left text-xs space-y-2">
-                  <div className="flex justify-between">
-                    <span className="text-slate-500">Confirmation Sent To:</span>
-                    <span className="font-bold text-slate-800">{formData.email}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-500">Inquiry Focus:</span>
-                    <span className="font-bold text-indigo-600">{selectedType}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-slate-500">Target Timeline:</span>
-                    <span className="font-bold text-slate-800">{selectedTimeline}</span>
-                  </div>
-                </div>
-
-                <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setSubmitted(false);
-                      setFormData({
-                        name: "",
-                        email: "",
-                        phone: "",
-                        organization: "",
-                        message: "",
-                      });
-                    }}
-                    className="px-6 py-3 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition-colors cursor-pointer"
-                  >
-                    Send Another Inquiry
-                  </button>
-                  <Link
-                    href="/Bookdemo"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold text-white shadow-md active:scale-95 transition-transform"
-                    style={{ backgroundColor: "var(--primary)" }}
-                  >
-                    <CalendarCheck2 className="h-4 w-4" />
-                    <span>Book Strategy Call Now</span>
-                  </Link>
-                </div>
-              </div>
-            ) : (
-              /* Interactive Inquiry Form */
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <div className="flex items-center justify-between gap-2">
-                    <h3 className="text-2xl font-black text-slate-900 tracking-tight">
-                      Start Your Event or Campaign Plan
-                    </h3>
-                    <span className="text-[11px] font-bold text-slate-400">
-                      Step 1 of 1
-                    </span>
-                  </div>
-                  <p className="text-xs text-slate-500 mt-1">
-                    Select your primary objective below so we can route your request to the right specialist immediately.
-                  </p>
-                </div>
-
-                {/* 1. Inquiry Type Selector (Pills / Cards) */}
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-slate-700 uppercase tracking-wider block">
-                    What are you looking to achieve? <span className="text-red-500">*</span>
-                  </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    {INQUIRY_TYPES.map((type) => {
-                      const Icon = type.icon;
-                      const isSelected = selectedType === type.label;
-                      return (
-                        <button
-                          key={type.id}
-                          type="button"
-                          onClick={() => setSelectedType(type.label)}
-                          className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex items-start gap-3 ${
-                            isSelected
-                              ? "bg-indigo-50/70 border-indigo-500 ring-2 ring-indigo-500/20 shadow-xs"
-                              : "bg-white border-slate-200/90 hover:border-slate-300 hover:bg-slate-50/50"
-                          }`}
-                        >
-                          <span
-                            className={`h-8 w-8 rounded-xl flex items-center justify-center shrink-0 transition-colors ${
-                              isSelected
-                                ? "bg-indigo-600 text-white"
-                                : "bg-slate-100 text-slate-600"
-                            }`}
-                          >
-                            <Icon className="h-4 w-4" />
-                          </span>
-                          <div className="min-w-0">
-                            <h4
-                              className={`text-xs font-bold leading-snug truncate ${
-                                isSelected ? "text-indigo-950 font-black" : "text-slate-800"
-                              }`}
-                            >
-                              {type.label}
-                            </h4>
-                            <p className="text-[10px] text-slate-500 leading-tight mt-0.5 truncate">
-                              {type.subtitle}
-                            </p>
-                          </div>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* 2. Contact Details: Name & Email */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-slate-700">
-                      Your Full Name <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Priya Sharma"
-                      value={formData.name}
-                      onChange={(e) =>
-                        setFormData({ ...formData, name: e.target.value })
-                      }
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all bg-white"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-slate-700">
-                      Work Email <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="e.g. priya@company.com"
-                      value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all bg-white"
-                    />
-                  </div>
-                </div>
-
-                {/* 3. Phone / WhatsApp & Organization / Community */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-slate-700">
-                      Phone / WhatsApp Number (Optional)
-                    </label>
-                    <input
-                      type="tel"
-                      placeholder="e.g. +91 98765 43210"
-                      value={formData.phone}
-                      onChange={(e) =>
-                        setFormData({ ...formData, phone: e.target.value })
-                      }
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all bg-white"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-slate-700">
-                      Company / Community Name
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="e.g. AI Innovators Community or Tech Corp"
-                      value={formData.organization}
-                      onChange={(e) =>
-                        setFormData({ ...formData, organization: e.target.value })
-                      }
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all bg-white"
-                    />
-                  </div>
-                </div>
-
-                {/* 4. Event Scale & Target Timeline */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-slate-700">
-                      Expected Scale / Attendees
-                    </label>
-                    <select
-                      value={selectedScale}
-                      onChange={(e) => setSelectedScale(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all bg-white cursor-pointer"
-                    >
-                      {EVENT_SCALES.map((scale, sIdx) => (
-                        <option key={sIdx} value={scale}>
-                          {scale}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-slate-700">
-                      Target Timeline / Launch Date
-                    </label>
-                    <select
-                      value={selectedTimeline}
-                      onChange={(e) => setSelectedTimeline(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all bg-white cursor-pointer"
-                    >
-                      {TIMELINES.map((time, tIdx) => (
-                        <option key={tIdx} value={time}>
-                          {time}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                {/* 5. Campaign Details / Message */}
-                <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-slate-700">
-                    Campaign Vision & Requirements <span className="text-red-500">*</span>
-                  </label>
-                  <textarea
-                    rows={4}
-                    required
-                    placeholder="Tell us about your event, audience target, keynote topic, or technology requirements. The more details you share, the better we can prepare for our first call..."
-                    value={formData.message}
-                    onChange={(e) =>
-                      setFormData({ ...formData, message: e.target.value })
-                    }
-                    className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all bg-white resize-none"
-                  />
-                </div>
-
-                {/* Error Banner */}
-                {errorMessage && (
-                  <div className="p-3.5 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700 font-medium">
-                    {errorMessage}
-                  </div>
-                )}
-
-                {/* Submit Action Button */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-3.5 px-6 rounded-2xl text-sm font-bold text-white shadow-xl transition-all duration-200 hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
-                  style={{
-                    backgroundColor: "var(--primary)",
-                    boxShadow: "0 10px 28px var(--primary-glow)",
-                  }}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <span className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      <span>Transmitting Inquiry...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Send className="h-4 w-4" />
-                      <span>Send Campaign Inquiry</span>
-                      <ArrowRight className="h-4 w-4" />
-                    </>
-                  )}
-                </button>
-
-                <p className="text-center text-[11px] text-slate-400">
-                  🔒 We respect your privacy. No spam. Direct response from our core leadership team.
-                </p>
-              </form>
-            )}
-          </div>
         </div>
       </section>
 
       {/* =========================================================================
-          SECTION 3: EVENT ORGANIZERS FAQ ACCORDION
+          DEPARTMENT INQUIRY DESKS (GRID OF 4 PURPOSE-BUILT PATHWAYS)
           ========================================================================= */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto border-t border-slate-200">
+      <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-200">
+        <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 border border-indigo-100">
+            <Compass className="h-3.5 w-3.5" />
+            <span>Dedicated Channels</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            Connect With the Right Specialization
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-500">
+            Pick your exact domain so we route your inquiry with full context and no delays.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {CONTACT_CHANNELS.map((channel, cIdx) => {
+            const Icon = channel.icon;
+            return (
+              <div
+                key={cIdx}
+                className="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-2xs hover:shadow-lg transition-all flex flex-col justify-between group"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-3 mb-4">
+                    <span
+                      className="h-11 w-11 rounded-2xl flex items-center justify-center text-white shrink-0 shadow-sm"
+                      style={{ backgroundColor: "var(--primary)" }}
+                    >
+                      <Icon className="h-5 w-5" />
+                    </span>
+                    <span className={`px-3 py-1 rounded-full text-xs font-bold border ${channel.badgeColor}`}>
+                      {channel.badge}
+                    </span>
+                  </div>
+
+                  <h3 className="text-lg font-black text-slate-900 group-hover:text-indigo-600 transition-colors">
+                    {channel.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                    {channel.description}
+                  </p>
+                </div>
+
+                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+                  <span className="text-xs font-semibold text-slate-400">
+                    {channel.email}
+                  </span>
+                  <a
+                    href={channel.link}
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 hover:text-indigo-800 transition-colors"
+                  >
+                    <span>{channel.action}</span>
+                    <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* =========================================================================
+          SECTION: FREQUENTLY ASKED QUESTIONS
+          ========================================================================= */}
+      <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto border-t border-slate-200">
         <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 border border-indigo-100">
             <HelpCircle className="h-3.5 w-3.5" />
             <span>Got Questions?</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-            Frequently Asked Questions by Event Organizers
+            Frequently Asked Questions
           </h2>
           <p className="text-xs sm:text-sm text-slate-500">
-            Here are quick answers regarding campaign rollouts, speaking sessions, and technology automations.
+            Common questions regarding campaign rollouts, speaking sessions, partnerships, and technical capabilities.
           </p>
         </div>
 
@@ -773,33 +671,42 @@ export default function ContactPage() {
           BOTTOM SECTION: QUICK CTA BANNER
           ========================================================================= */}
       <section
-        className="py-14 px-4 sm:px-6 lg:px-8 text-white text-center relative overflow-hidden"
+        className="py-16 px-4 sm:px-6 lg:px-8 text-white text-center relative overflow-hidden"
         style={{ backgroundColor: "var(--footer-bg)" }}
       >
         <div className="relative mx-auto max-w-3xl space-y-5">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/10 text-xs font-bold text-slate-200 border border-white/10">
             <Zap className="h-3.5 w-3.5 text-amber-400" />
-            <span>Ready to Elevate Your Community?</span>
+            <span>Ready to Elevate Your Community &amp; GTM?</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-black">
-            Turn Your Community Event Into an Industry Benchmark
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black">
+            Turn Your Next Campaign Into an Industry Benchmark
           </h2>
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl mx-auto">
-            From registration hype and live stages to Salesforce & Tableau analytics dashboards—we provide the complete growth engine.
+            From registration hype and live stages to Salesforce &amp; Tableau analytics dashboards—we provide the complete growth engine.
           </p>
-          <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+          <div className="pt-3 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/Bookdemo"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold text-white shadow-lg transition-transform active:scale-95"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-xs sm:text-sm font-bold text-white shadow-lg transition-transform active:scale-95"
               style={{ backgroundColor: "var(--primary)" }}
             >
               <CalendarCheck2 className="h-4 w-4" />
               <span>Book Strategy Session</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
+            <a
+              href="https://wa.me/919876543210?text=Hello%20Buzzoraa%20Team%2C%20I%20want%20to%20discuss%20our%20community%20growth."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-xs sm:text-sm font-bold bg-[#25D366] hover:bg-[#20ba5a] text-white shadow-md transition-all active:scale-95"
+            >
+              <MessageCircle className="h-4 w-4" />
+              <span>WhatsApp Us Directly</span>
+            </a>
             <Link
               href="/about"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold text-slate-200 border border-white/20 hover:bg-white/10 transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-xs sm:text-sm font-bold text-slate-200 border border-white/20 hover:bg-white/10 transition-colors"
             >
               <span>Explore About Us</span>
             </Link>

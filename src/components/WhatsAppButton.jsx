@@ -9,7 +9,7 @@ export default function WhatsAppButton() {
       className="fixed bottom-6 right-6 z-40 group"
     >
       <a
-        href="https://wa.me/919876543210?text=Hello%20Buzzoraa%20Team%2C%20I%20would%20like%20to%20learn%20more%20about%20the%20Buzzoraa%20Social%20Engagement%20%26%20GTM%20platform."
+        href="https://wa.me/919799472445?text=Hello%20Buzzoraa%20Team%2C%20I%20would%20like%20to%20learn%20more%20about%20the%20Buzzoraa%20Social%20Engagement%20%26%20GTM%20platform."
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center gap-2.5 px-4 py-3 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold text-xs shadow-xl shadow-[#25D366]/30 transition-all duration-300 hover:scale-105 active:scale-95"

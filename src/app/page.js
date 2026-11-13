@@ -31,9 +31,7 @@ import {
   SiVercel,
 } from "react-icons/si";
 
-// =============================================================================
-// 🖼️ ACCORDION GALLERY ITEMS (Community & Event Highlights)
-// =============================================================================
+
 const ACCORDION_GALLERY_ITEMS = [
   {
     image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80",
@@ -67,9 +65,7 @@ const ACCORDION_GALLERY_ITEMS = [
   },
 ];
 
-// =============================================================================
-// 🎴 DEPTH CAROUSEL ITEMS (React Bits Component - 3D Perspective Experience)
-// =============================================================================
+
 const BUZZORAA_DEPTH_CAROUSEL_ITEMS = [
   {
     image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80",
@@ -109,9 +105,7 @@ const BUZZORAA_DEPTH_CAROUSEL_ITEMS = [
   },
 ];
 
-// =============================================================================
-// 🌐 ECOSYSTEM & PLATFORM INTEGRATIONS FOR LOGOLOOP
-// =============================================================================
+
 const ECOSYSTEM_LOGOS = [
   { node: <FaSalesforce />, title: "Salesforce", href: "https://salesforce.com", hoverColor: "#00a1e0" },
   { node: <FaSlack />, title: "Slack", href: "https://slack.com", hoverColor: "#e01e5a" },
@@ -128,9 +122,7 @@ const ECOSYSTEM_LOGOS = [
   { node: <SiVercel />, title: "Vercel", href: "https://vercel.com", hoverColor: "#ffffff" },
 ];
 
-// =============================================================================
-// 🍱 MAGIC BENTO GRID ITEMS (Buzzoraa Social Engagement & GTM SaaS Content)
-// =============================================================================
+
 const BUZZORAA_BENTO_ITEMS = [
   {
     label: "Social Engagement",
@@ -182,11 +174,7 @@ const BUZZORAA_BENTO_ITEMS = [
   },
 ];
 
-// =============================================================================
-// 📚 SCROLL STACK CARDS: 4 CORE PILLARS OF BUZZORAA (React Bits Component)
-// 👉 NOTE FOR USER: Isme images nahi lagayi gayi hain. Baad me images add karne
-//    ke liye har card ke visual slot me <Image /> ka code laga sakte hain!
-// =============================================================================
+
 const BUZZORAA_STACK_CARDS = [
   {
     step: "01",
@@ -326,12 +314,7 @@ const THEME_PRESETS = [
   { name: "Rose Passion", primary: "#f43f5e", hover: "#e11d48", light: "#fff1f2", glow: "rgba(244, 63, 94, 0.25)" },
 ];
 
-{/* =========================================================================
-    VISUAL FUNCTION 0: HeroInteractiveVisual (Hero Section Visual)
-    -------------------------------------------------------------------------
-    👉 Baad me apni custom image lagane ke liye:
-       Image path src="/community-event-stage.jpg" ko badal dein.
-   ========================================================================= */}
+
 function HeroInteractiveVisual() {
   const [imageError, setImageError] = useState(false);
 
@@ -391,7 +374,7 @@ function HeroInteractiveVisual() {
           <div className="relative mt-3 aspect-[16/10] sm:aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-slate-100 via-indigo-50/30 to-slate-100 border border-slate-100 group">
             {!imageError ? (
               <Image
-                src="/community-event-stage.jpg"
+                src="/anish.jpg"
                 alt="Buzzoraa Social Engagement & GTM Platform"
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px)"
@@ -477,12 +460,7 @@ function HeroInteractiveVisual() {
   );
 }
 
-{/* =========================================================================
-    VISUAL FUNCTION 1: HackathonInteractiveVisual (Hackathon Arena)
-    -------------------------------------------------------------------------
-    👉 Baad me apni custom image lagane ke liye:
-       Image path src="/hackathon-dashboard.jpg" ko badal dein.
-   ========================================================================= */}
+
 function HackathonInteractiveVisual() {
   const [imageError, setImageError] = useState(false);
 
@@ -518,7 +496,7 @@ function HackathonInteractiveVisual() {
         <div className="relative mt-3 aspect-[16/10] sm:aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-200/60">
           {!imageError ? (
             <Image
-              src="/hackathon-dashboard.jpg"
+              src="/hackathon-dasfgdfghbodfgdfgdfard.jpg"
               alt="Buzzoraa Community Activation Dashboard"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px)"
@@ -584,12 +562,7 @@ function HackathonInteractiveVisual() {
   );
 }
 
-{/* =========================================================================
-    VISUAL FUNCTION 2: EventCampaignInteractiveVisual (Event Marketing)
-    -------------------------------------------------------------------------
-    👉 Baad me apni custom image lagane ke liye:
-       Image path src="/community-analytics.jpg" ko badal dein.
-   ========================================================================= */}
+
 function EventCampaignInteractiveVisual() {
   const [imageError, setImageError] = useState(false);
 
@@ -625,7 +598,7 @@ function EventCampaignInteractiveVisual() {
         <div className="relative mt-3 aspect-[16/10] sm:aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-200/60">
           {!imageError ? (
             <Image
-              src="/community-analytics.jpg"
+              src="/community-anahhhfhglytics.jpg"
               alt="Buzzoraa Content Amplification Funnels"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px)"
@@ -688,11 +661,7 @@ function EventCampaignInteractiveVisual() {
   );
 }
 
-{/* =========================================================================
-    VISUAL FUNCTION 3: EcosystemIntegrationVisual (Enterprise AI & Integrations)
-    -------------------------------------------------------------------------
-    👉 Baad me apni custom architecture image ya card lagayein.
-   ========================================================================= */}
+
 function EcosystemIntegrationVisual() {
   const integrations = [
     {
@@ -838,12 +807,7 @@ function EcosystemIntegrationVisual() {
   );
 }
 
-{/* =========================================================================
-    VISUAL FUNCTION 4: LeadershipImpactVisual (Ecosystem Leadership)
-    -------------------------------------------------------------------------
-    👉 Baad me apni custom image lagane ke liye:
-       Image path src="/tarun-gupta.jpg" ko badal dein.
-   ========================================================================= */}
+
 function LeadershipImpactVisual() {
   const [imageError, setImageError] = useState(false);
 
