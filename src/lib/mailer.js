@@ -23,217 +23,266 @@ function getTransporter() {
 }
 
 /**
- * Generate Google Calendar URL for one-click add
- */
-function createGoogleCalendarUrl({ title, description, location, dateStr, timeSlot }) {
-  try {
-    // Parse time like "10:30 AM" into hours and minutes
-    const [time, modifier] = timeSlot.split(" ");
-    let [hours, minutes] = time.split(":").map(Number);
-    if (modifier === "PM" && hours < 12) hours += 12;
-    if (modifier === "AM" && hours === 12) hours = 0;
-
-    const [year, month, day] = dateStr.split("-").map(Number);
-    const start = new Date(Date.UTC(year, month - 1, day, hours, minutes));
-    const end = new Date(start.getTime() + 30 * 60 * 1000); // 30 minutes duration
-
-    const formatGDate = (d) =>
-      d.toISOString().replace(/-|:|\.\d\d\d/g, "");
-
-    const dates = `${formatGDate(start)}/${formatGDate(end)}`;
-    return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
-      title
-    )}&dates=${dates}&details=${encodeURIComponent(
-      description
-    )}&location=${encodeURIComponent(location)}`;
-  } catch (err) {
-    return "https://calendar.google.com";
-  }
-}
-
-/**
- * Send Demo Booking Emails:
- * 1. To the Client (Confirmation with Google Meet link & Calendar invite)
- * 2. To Admin (Notification of incoming lead)
+ * Send Demo Booking Emails to both Customer and Company
+ * Subject (Customer): Your Demo Meeting Has Been Confirmed!
+ * Subject (Company): New Demo Booking Received
  */
 export async function sendDemoBookingNotification(booking) {
   const {
     fullName,
+    companyName = "N/A",
     email,
-    phoneNumber,
-    companyName,
-    country,
+    phoneNumber = "N/A",
+    teamSize = "N/A",
+    linkedinUrl = "N/A",
+    websiteUrl = "N/A",
+    description = "",
+    notes = "",
     bookingDateStr,
     timeSlot,
-    timezone,
-    notes,
+    timezone = "Asia/Kolkata (IST)",
+    googleMeetUrl,
     meetingLink,
   } = booking;
 
+  const actualMeetLink = googleMeetUrl || meetingLink || "https://meet.google.com";
+  const briefDescription = description || notes || "No requirements specified.";
+
   const transporter = getTransporter();
-  const fromEmail = process.env.EMAIL_FROM || '"Buzzoraa Team" <demo@buzzoraa.com>';
-  const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL || process.env.EMAIL_USER || "admin@buzzoraa.com";
+  const companyEmail =
+    process.env.COMPANY_MEETING_EMAIL ||
+    process.env.ADMIN_NOTIFICATION_EMAIL ||
+    process.env.EMAIL_USER ||
+    "demo@buzzoraa.com";
+  const fromEmail = process.env.EMAIL_FROM || `"Buzzoraa Team" <${companyEmail}>`;
 
-  const googleCalUrl = createGoogleCalendarUrl({
-    title: `Buzzoraa 1-on-1 Product Demo with ${fullName}`,
-    description: `Personalized walkthrough of Buzzoraa platform.\nMeeting Link: ${meetingLink}\nBooked for: ${fullName} (${email})`,
-    location: meetingLink,
-    dateStr: bookingDateStr,
-    timeSlot,
-  });
+  // Customer Email HTML Template
+  const customerHtml = `
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Demo Meeting Has Been Confirmed!</title>
+    <style>
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f1f5f9; margin: 0; padding: 24px; color: #1e293b; }
+      .container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.06); }
+      .header { background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%); padding: 36px 30px; text-align: center; color: #ffffff; }
+      .header h1 { margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -0.5px; }
+      .header p { margin: 8px 0 0; opacity: 0.95; font-size: 14px; }
+      .content { padding: 32px 30px; }
+      .greeting { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: #0f172a; }
+      .card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin: 20px 0; }
+      .slot-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #e2e8f0; font-size: 14px; }
+      .slot-row:last-child { border-bottom: none; }
+      .label { color: #64748b; font-weight: 500; }
+      .value { color: #0f172a; font-weight: 700; text-align: right; }
+      .btn-meet { display: block; text-align: center; background: #4f46e5; color: #ffffff !important; text-decoration: none; padding: 14px 28px; border-radius: 10px; font-weight: 700; font-size: 15px; margin: 24px 0 16px; box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3); }
+      .meet-box { background: #eff6ff; border: 1px dashed #3b82f6; border-radius: 10px; padding: 14px; text-align: center; font-size: 13px; color: #1d4ed8; word-break: break-all; margin-bottom: 20px; }
+      .footer { background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 20px 30px; text-align: center; font-size: 12px; color: #64748b; }
+      .company-info { margin-top: 16px; font-size: 13px; color: #475569; border-top: 1px solid #f1f5f9; padding-top: 16px; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Your Demo Meeting Has Been Confirmed!</h1>
+        <p>Buzzoraa 1-on-1 Product Walkthrough &amp; Technical Consultation</p>
+      </div>
+      <div class="content">
+        <div class="greeting">Hi ${fullName},</div>
+        <p style="color: #475569; line-height: 1.6; margin: 0 0 16px;">
+          Thank you for scheduling a demo with Buzzoraa! We've reserved your time slot and a Google Meet room has been created automatically.
+        </p>
 
-  // Client Confirmation HTML
-  const clientHtml = `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="utf-8">
-        <style>
-          body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8fafc; margin: 0; padding: 24px; color: #1e293b; }
-          .container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 20px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); }
-          .header { background: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%); padding: 36px 30px; text-align: center; color: #ffffff; }
-          .header h1 { margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
-          .header p { margin: 8px 0 0; opacity: 0.95; font-size: 15px; }
-          .content { padding: 32px 30px; }
-          .greeting { font-size: 18px; font-weight: 600; margin-bottom: 16px; color: #0f172a; }
-          .card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 20px; margin: 20px 0; }
-          .slot-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #e2e8f0; font-size: 14px; }
-          .slot-row:last-child { border-bottom: none; }
-          .label { color: #64748b; font-weight: 500; }
-          .value { color: #0f172a; font-weight: 700; }
-          .btn-primary { display: block; text-align: center; background: #6366f1; color: #ffffff !important; text-decoration: none; padding: 14px 28px; border-radius: 12px; font-weight: 700; font-size: 15px; margin: 24px 0 12px; }
-          .btn-secondary { display: block; text-align: center; background: #eef2ff; color: #4f46e5 !important; text-decoration: none; padding: 12px 24px; border-radius: 12px; font-weight: 600; font-size: 14px; }
-          .footer { background: #f1f5f9; padding: 20px 30px; text-align: center; font-size: 12px; color: #64748b; }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <div class="header">
-            <h1>Demo Session Confirmed! 🎉</h1>
-            <p>Your personalized Buzzoraa walkthrough is scheduled.</p>
+        <div class="card">
+          <div class="slot-row">
+            <span class="label">Customer Name:</span>
+            <span class="value">${fullName}</span>
           </div>
-          <div class="content">
-            <div class="greeting">Hi ${fullName},</div>
-            <p style="color: #475569; line-height: 1.6;">
-              Thank you for booking a demo with Buzzoraa. We're excited to show you how our Social Engagement &amp; Go-to-Market (GTM) SaaS platform turns conversations into sustainable growth.
-            </p>
-
-            <div class="card">
-              <div class="slot-row">
-                <span class="label">📅 Scheduled Date:</span>
-                <span class="value">${bookingDateStr}</span>
-              </div>
-              <div class="slot-row">
-                <span class="label">⏰ Time Slot:</span>
-                <span class="value">${timeSlot} (${timezone})</span>
-              </div>
-              <div class="slot-row">
-                <span class="label">⏳ Duration:</span>
-                <span class="value">30 Minutes</span>
-              </div>
-              <div class="slot-row">
-                <span class="label">📍 Location:</span>
-                <span class="value">Google Meet / Video Call</span>
-              </div>
-            </div>
-
-            <a href="${meetingLink}" class="btn-primary" target="_blank">
-              🎥 Join Meeting Room
-            </a>
-
-            <a href="${googleCalUrl}" class="btn-secondary" target="_blank">
-              📅 Add to Google Calendar
-            </a>
-
-            <div style="margin-top: 24px; padding: 14px; background: #eff6ff; border-radius: 10px; font-size: 13px; color: #1e40af;">
-              💡 <strong>Tip:</strong> Please join 2 minutes before the call. Have your questions or team requirements ready for an interactive session!
-            </div>
+          <div class="slot-row">
+            <span class="label">Company Name:</span>
+            <span class="value">${companyName}</span>
           </div>
-          <div class="footer">
-            Buzzoraa Inc. • Social Engagement &amp; Go-to-Market (GTM) SaaS<br/>
-            Need to reschedule? Simply reply to this email.
+          <div class="slot-row">
+            <span class="label">Meeting Date:</span>
+            <span class="value">${bookingDateStr}</span>
+          </div>
+          <div class="slot-row">
+            <span class="label">Meeting Time (IST):</span>
+            <span class="value">${timeSlot} (${timezone})</span>
+          </div>
+          <div class="slot-row">
+            <span class="label">Duration:</span>
+            <span class="value">30 Minutes</span>
+          </div>
+          <div class="slot-row">
+            <span class="label">Platform:</span>
+            <span class="value">Google Meet (Live Video)</span>
           </div>
         </div>
-      </body>
-    </html>
-  `;
 
-  // Admin Notification HTML
-  const adminHtml = `
-    <!DOCTYPE html>
-    <html>
-      <body style="font-family: Arial, sans-serif; background: #f1f5f9; padding: 20px; color: #334155;">
-        <div style="max-width: 580px; margin: auto; background: white; border-radius: 16px; overflow: hidden; border: 1px solid #cbd5e1;">
-          <div style="background: #0f172a; padding: 24px; color: white;">
-            <h2 style="margin: 0; font-size: 20px; color: #67e8f9;">🚀 New Demo Booking Received</h2>
-            <p style="margin: 6px 0 0; color: #94a3b8; font-size: 14px;">Buzzoraa Website Lead Generation</p>
-          </div>
-          <div style="padding: 24px;">
-            <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
-              <tr style="border-bottom: 1px solid #f1f5f9;"><td style="padding: 10px 0; color: #64748b;">Prospect Name:</td><td style="padding: 10px 0; font-weight: bold; color: #0f172a;">${fullName}</td></tr>
-              <tr style="border-bottom: 1px solid #f1f5f9;"><td style="padding: 10px 0; color: #64748b;">Email:</td><td style="padding: 10px 0; font-weight: bold;"><a href="mailto:${email}">${email}</a></td></tr>
-              <tr style="border-bottom: 1px solid #f1f5f9;"><td style="padding: 10px 0; color: #64748b;">Phone:</td><td style="padding: 10px 0; font-weight: bold;">${phoneNumber || "Not provided"}</td></tr>
-              <tr style="border-bottom: 1px solid #f1f5f9;"><td style="padding: 10px 0; color: #64748b;">Company:</td><td style="padding: 10px 0; font-weight: bold;">${companyName || "Not provided"}</td></tr>
-              <tr style="border-bottom: 1px solid #f1f5f9;"><td style="padding: 10px 0; color: #64748b;">Country:</td><td style="padding: 10px 0;">${country || "India"}</td></tr>
-              <tr style="border-bottom: 1px solid #f1f5f9;"><td style="padding: 10px 0; color: #64748b;">Date:</td><td style="padding: 10px 0; font-weight: bold; color: #4338ca;">${bookingDateStr}</td></tr>
-              <tr style="border-bottom: 1px solid #f1f5f9;"><td style="padding: 10px 0; color: #64748b;">Time Slot:</td><td style="padding: 10px 0; font-weight: bold; color: #4338ca;">${timeSlot} (${timezone})</td></tr>
-              <tr><td style="padding: 10px 0; color: #64748b; vertical-align: top;">Notes/Message:</td><td style="padding: 10px 0; color: #334155;">${notes || "None provided"}</td></tr>
-            </table>
+        <a href="${actualMeetLink}" class="btn-meet" target="_blank">
+          Join Google Meet
+        </a>
 
-            <div style="margin-top: 20px; padding: 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 13px;">
-              <strong>Scheduled Meeting Room:</strong><br/>
-              <a href="${meetingLink}" target="_blank" style="color: #6366f1;">${meetingLink}</a>
-            </div>
-          </div>
+        <div class="meet-box">
+          <strong>Direct Meet Link:</strong><br/>
+          <a href="${actualMeetLink}" target="_blank" style="color: #2563eb;">${actualMeetLink}</a>
         </div>
-      </body>
-    </html>
+
+        <div class="company-info">
+          <strong>Need to reschedule or have urgent questions?</strong><br/>
+          Email: <a href="mailto:${companyEmail}" style="color: #4f46e5;">${companyEmail}</a><br/>
+          WhatsApp: <a href="https://wa.me/919799472445" style="color: #4f46e5;">+91 97994 72445</a>
+        </div>
+      </div>
+      <div class="footer">
+        Buzzoraa Inc. • Social Engagement &amp; Go-to-Market (GTM) SaaS<br/>
+        An automated calendar invite has also been dispatched to your calendar.
+      </div>
+    </div>
+  </body>
+</html>
   `;
 
-  // If no mailer credentials provided, simulate safely
+  // Company Email HTML Template
+  const companyHtml = `
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Demo Booking Received</title>
+    <style>
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0f172a; margin: 0; padding: 24px; color: #334155; }
+      .container { max-width: 620px; margin: 0 auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #334155; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+      .header { background: #0f172a; padding: 28px 24px; color: #ffffff; border-bottom: 2px solid #4f46e5; }
+      .header h2 { margin: 0; font-size: 22px; color: #38bdf8; }
+      .header p { margin: 6px 0 0; color: #94a3b8; font-size: 13px; }
+      .content { padding: 28px 24px; }
+      .data-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+      .data-table tr { border-bottom: 1px solid #f1f5f9; }
+      .data-table tr:last-child { border-bottom: none; }
+      .data-table td { padding: 10px 0; vertical-align: top; }
+      .label { width: 160px; color: #64748b; font-weight: 600; }
+      .val { color: #0f172a; font-weight: 500; }
+      .val-bold { color: #0f172a; font-weight: 700; }
+      .highlight { color: #4f46e5; font-weight: 700; }
+      .meet-cta { margin-top: 24px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 16px; text-align: center; }
+      .meet-cta a { color: #15803d; font-weight: 700; font-size: 15px; text-decoration: none; word-break: break-all; }
+      .notes-box { margin-top: 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px; font-size: 13px; color: #334155; line-height: 1.5; }
+      .footer { background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 16px 24px; text-align: center; font-size: 12px; color: #64748b; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h2>🚀 New Demo Booking Received</h2>
+        <p>A new customer has booked a product walkthrough via Buzzoraa.</p>
+      </div>
+      <div class="content">
+        <table class="data-table">
+          <tr>
+            <td class="label">Customer Name:</td>
+            <td class="val-bold">${fullName}</td>
+          </tr>
+          <tr>
+            <td class="label">Company Name:</td>
+            <td class="val-bold">${companyName}</td>
+          </tr>
+          <tr>
+            <td class="label">Email:</td>
+            <td class="val"><a href="mailto:${email}" style="color: #4f46e5; font-weight: 600;">${email}</a></td>
+          </tr>
+          <tr>
+            <td class="label">Phone Number:</td>
+            <td class="val">${phoneNumber}</td>
+          </tr>
+          <tr>
+            <td class="label">Team Size:</td>
+            <td class="val">${teamSize}</td>
+          </tr>
+          <tr>
+            <td class="label">LinkedIn URL:</td>
+            <td class="val">${linkedinUrl !== "N/A" ? `<a href="${linkedinUrl}" target="_blank" style="color: #0284c7;">${linkedinUrl}</a>` : "Not provided"}</td>
+          </tr>
+          <tr>
+            <td class="label">Company Website:</td>
+            <td class="val">${websiteUrl && websiteUrl !== "N/A" ? `<a href="${websiteUrl}" target="_blank" style="color: #0284c7;">${websiteUrl}</a>` : "Not provided"}</td>
+          </tr>
+          <tr>
+            <td class="label">Meeting Date:</td>
+            <td class="highlight">${bookingDateStr}</td>
+          </tr>
+          <tr>
+            <td class="label">Meeting Time (IST):</td>
+            <td class="highlight">${timeSlot} (${timezone})</td>
+          </tr>
+        </table>
+
+        <div class="notes-box">
+          <strong>Customer Description / Requirements:</strong><br/>
+          ${briefDescription}
+        </div>
+
+        <div class="meet-cta">
+          <div style="font-size: 12px; color: #166534; font-weight: 600; margin-bottom: 6px;">GOOGLE MEET LINK:</div>
+          <a href="${actualMeetLink}" target="_blank">${actualMeetLink}</a>
+        </div>
+      </div>
+      <div class="footer">
+        Buzzoraa Demo Notification System
+      </div>
+    </div>
+  </body>
+</html>
+  `;
+
   if (!transporter) {
     console.log(
       `📧 [Mailer Simulated]: SMTP credentials not set in .env.local.\n` +
-      `   -> To Client: ${email} | Subject: "Demo Session Confirmed!"\n` +
-      `   -> To Admin: ${adminEmail} | Subject: "New Demo Booking Received from ${fullName}"\n` +
-      `   -> Meeting Details: ${bookingDateStr} at ${timeSlot}`
+      `   -> To Customer: ${email} | Subject: "Your Demo Meeting Has Been Confirmed!"\n` +
+      `   -> To Company: ${companyEmail} | Subject: "New Demo Booking Received"\n` +
+      `   -> Meet: ${actualMeetLink}`
     );
     return {
       sent: false,
+      simulated: true,
       reason: "SMTP credentials not configured. Email logged to console.",
     };
   }
 
   try {
-    // Send to client
-    const clientPromise = transporter.sendMail({
+    const customerPromise = transporter.sendMail({
       from: fromEmail,
       to: email,
-      subject: `✨ Confirmed: Your Buzzoraa Demo on ${bookingDateStr} at ${timeSlot}`,
-      html: clientHtml,
+      subject: "Your Demo Meeting Has Been Confirmed!",
+      html: customerHtml,
     });
 
-    // Send to admin
-    const adminPromise = transporter.sendMail({
+    const companyPromise = transporter.sendMail({
       from: fromEmail,
-      to: adminEmail,
-      subject: `🚀 New Demo Booking: ${fullName} (${companyName || "Individual"})`,
-      html: adminHtml,
+      to: companyEmail,
+      subject: "New Demo Booking Received",
+      html: companyHtml,
     });
 
-    const [clientRes, adminRes] = await Promise.all([clientPromise, adminPromise]);
-    console.log("✅ [Mailer]: Confirmation & notification emails sent successfully");
-    return { sent: true, clientMessageId: clientRes.messageId, adminMessageId: adminRes.messageId };
+    const [clientRes, companyRes] = await Promise.all([customerPromise, companyPromise]);
+    console.log("✅ [Mailer]: Customer and company notification emails sent successfully");
+    return {
+      sent: true,
+      customerMessageId: clientRes.messageId,
+      companyMessageId: companyRes.messageId,
+    };
   } catch (error) {
-    console.error("❌ [Mailer Error]: Failed to send emails:", error.message);
+    console.error("❌ [Mailer Error]: Failed to send booking emails:", error.message);
     return { sent: false, error: error.message };
   }
 }
 
 /**
- * Send Contact Form Inquiries:
- * 1. To Admin (Notification of inquiry)
- * 2. To Client (Confirmation receipt)
+ * Send Contact Form Inquiries (Existing function preserved)
  */
 export async function sendContactNotification({
   fullName,
@@ -273,7 +322,7 @@ export async function sendContactNotification({
             </table>
             <div style="margin-top: 18px; padding: 14px; background: #f1f5f9; border-radius: 8px; font-size: 13px; line-height: 1.6;">
               <strong>Message / Campaign Notes:</strong><br/>
-              ${message.replace(/\n/g, "<br/>")}
+              ${message ? message.replace(/\n/g, "<br/>") : "None"}
             </div>
           </div>
         </div>
@@ -292,7 +341,7 @@ export async function sendContactNotification({
           </div>
           <div style="padding: 24px;">
             <p style="font-size: 14px; line-height: 1.6;">Hello <strong>${fullName}</strong>,</p>
-            <p style="font-size: 14px; line-height: 1.6;">Thank you for reaching out to us regarding <strong>${inquiryType}</strong>. Our team and Tarun Gupta have received your details.</p>
+            <p style="font-size: 14px; line-height: 1.6;">Thank you for reaching out to us regarding <strong>${inquiryType}</strong>. Our team has received your details.</p>
             <p style="font-size: 14px; line-height: 1.6;">We typically review campaign proposals and technical inquiries within <strong>2 business hours</strong>.</p>
             <div style="margin-top: 20px; padding: 14px; background: #eef2ff; border-radius: 8px; font-size: 13px; color: #3730a3;">
               <strong>Need immediate assistance?</strong><br/>
@@ -306,9 +355,7 @@ export async function sendContactNotification({
 
   if (!transporter) {
     console.log(
-      `📧 [Mailer Simulated]: Contact message received from ${fullName} (${email}) for [${inquiryType}].\n` +
-      `   Organization: ${organization || "N/A"} | Scale: ${eventScale || "N/A"}\n` +
-      `   Message: "${message.substring(0, 80)}..."`
+      `📧 [Mailer Simulated]: Contact message received from ${fullName} (${email}) for [${inquiryType}].`
     );
     return { sent: false, simulated: true };
   }
@@ -336,4 +383,3 @@ export async function sendContactNotification({
     return { sent: false, error: error.message };
   }
 }
-

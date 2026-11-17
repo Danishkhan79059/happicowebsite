@@ -20,7 +20,6 @@ import {
   ExternalLink,
   ShieldCheck,
   ArrowRight,
-  ArrowUpRight,
   ChevronLeft,
   ChevronRight,
   CalendarDays,
@@ -43,6 +42,7 @@ import {
   FaReact,
   FaProductHunt,
   FaFigma,
+  FaLinkedin,
 } from "react-icons/fa6";
 import {
   SiNextdotjs,
@@ -89,6 +89,18 @@ const MONTH_NAMES = [
 
 const DAYS_OF_WEEK = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
+// Country code options
+const COUNTRY_CODES = [
+  { code: "+91", label: "🇮🇳 +91 (India)" },
+  { code: "+1", label: "🇺🇸 +1 (US / Canada)" },
+  { code: "+44", label: "🇬🇧 +44 (UK)" },
+  { code: "+61", label: "🇦🇺 +61 (Australia)" },
+  { code: "+65", label: "🇸🇬 +65 (Singapore)" },
+  { code: "+971", label: "🇦🇪 +971 (UAE)" },
+  { code: "+49", label: "🇩🇪 +49 (Germany)" },
+  { code: "+33", label: "🇫🇷 +33 (France)" },
+];
+
 // Ecosystem partner logos for LogoLoop
 const ECOSYSTEM_LOGOS = [
   { node: <FaSalesforce />, title: "Salesforce", href: "https://salesforce.com", hoverColor: "#00a1e0" },
@@ -128,7 +140,6 @@ function BookDemoContent() {
   });
 
   const [selectedDate, setSelectedDate] = useState(() => {
-    // Tomorrow as default or today if weekday
     const d = new Date();
     d.setHours(0, 0, 0, 0);
     // If weekend, pick next Monday
@@ -140,19 +151,23 @@ function BookDemoContent() {
 
   const [selectedSlot, setSelectedSlot] = useState("10:30 AM");
   const [bookedSlots, setBookedSlots] = useState([]);
+  const [availableSlots, setAvailableSlots] = useState(ALL_TIME_SLOTS);
   const [loadingSlots, setLoadingSlots] = useState(false);
 
   // Booking Flow Steps: 1 = Date & Slot selection, 2 = Guest Details form, 3 = Confirmation
   const [step, setStep] = useState(1);
 
-  // Form Fields
+  // Form Fields - Complete requested specifications
   const [fullName, setFullName] = useState(initialName);
-  const [email, setEmail] = useState(initialEmail);
-  const [phoneNumber, setPhoneNumber] = useState(initialPhone);
   const [companyName, setCompanyName] = useState(initialCompany);
+  const [businessEmail, setBusinessEmail] = useState(initialEmail);
+  const [countryCode, setCountryCode] = useState("+91");
+  const [phoneNumber, setPhoneNumber] = useState(initialPhone);
   const [teamSize, setTeamSize] = useState("1-10");
-  const [notes, setNotes] = useState("");
-  const [timezone, setTimezone] = useState("Asia/Kolkata (IST)");
+  const [linkedinUrl, setLinkedinUrl] = useState("");
+  const [companyWebsite, setCompanyWebsite] = useState("");
+  const [description, setDescription] = useState("");
+  const [timezone] = useState("Asia/Kolkata (IST)");
 
   // Submission State
   const [submitting, setSubmitting] = useState(false);
@@ -161,18 +176,6 @@ function BookDemoContent() {
 
   // Calendly Modal State
   const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
-
-  // Auto-detect browser timezone
-  useEffect(() => {
-    try {
-      const userTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      if (userTz) {
-        setTimezone(userTz);
-      }
-    } catch (e) {
-      // fallback
-    }
-  }, []);
 
   // Format date helper (YYYY-MM-DD)
   const formatDateISO = (d) => {
@@ -185,17 +188,24 @@ function BookDemoContent() {
 
   const selectedDateStr = useMemo(() => formatDateISO(selectedDate), [selectedDate]);
 
-  // Fetch booked slots for the selected date from backend API
+  // Fetch available slots for the selected date from backend API
   useEffect(() => {
     let isMounted = true;
-    const fetchBookedSlots = async () => {
+    const fetchAvailableSlots = async () => {
       if (!selectedDateStr) return;
       setLoadingSlots(true);
       try {
-        const res = await fetch(`/api/book-demo?date=${selectedDateStr}`);
+        const res = await fetch(`/api/demo/available-slots?date=${selectedDateStr}`);
         const data = await res.json();
-        if (isMounted && data.success && Array.isArray(data.bookedSlots)) {
-          setBookedSlots(data.bookedSlots);
+        if (isMounted && data.success) {
+          setBookedSlots(data.bookedSlots || []);
+          setAvailableSlots(data.availableSlots || []);
+          // Auto select first available slot if currently selected slot is taken
+          if (data.availableSlots && data.availableSlots.length > 0) {
+            if (!data.availableSlots.includes(selectedSlot)) {
+              setSelectedSlot(data.availableSlots[0]);
+            }
+          }
         }
       } catch (err) {
         console.warn("Could not fetch slots from API:", err);
@@ -204,7 +214,7 @@ function BookDemoContent() {
       }
     };
 
-    fetchBookedSlots();
+    fetchAvailableSlots();
     return () => {
       isMounted = false;
     };
@@ -282,51 +292,66 @@ function BookDemoContent() {
   const handleSelectDate = (dateObj) => {
     if (dateObj.isPast || dateObj.isSunday) return;
     setSelectedDate(dateObj.date);
-    if (bookedSlots.includes(selectedSlot)) {
-      const firstAvailable = ALL_TIME_SLOTS.find(
-        (s) => !bookedSlots.includes(s)
-      );
-      if (firstAvailable) setSelectedSlot(firstAvailable);
-    }
   };
 
-  // Form submit to Backend API
+  // Form submit to Backend API: /api/demo/book
   const handleSubmitBooking = async (e) => {
     e.preventDefault();
     setStatusMessage(null);
 
-    if (!fullName.trim() || !email.trim()) {
-      setStatusMessage({
-        type: "error",
-        text: "Please provide both your name and email address.",
-      });
+    // Frontend Validations
+    if (!fullName.trim()) {
+      setStatusMessage({ type: "error", text: "Please enter your Full Name." });
       return;
     }
-
+    if (!companyName.trim()) {
+      setStatusMessage({ type: "error", text: "Please enter your Company Name." });
+      return;
+    }
+    if (!businessEmail.trim()) {
+      setStatusMessage({ type: "error", text: "Please enter your Business Email." });
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(businessEmail.trim())) {
+      setStatusMessage({ type: "error", text: "Please enter a valid business email address." });
+      return;
+    }
+    if (!phoneNumber.trim()) {
+      setStatusMessage({ type: "error", text: "Please enter your Phone Number." });
+      return;
+    }
+    if (!linkedinUrl.trim()) {
+      setStatusMessage({ type: "error", text: "Please enter your LinkedIn Profile URL." });
+      return;
+    }
     if (!selectedSlot) {
-      setStatusMessage({
-        type: "error",
-        text: "Please pick an available time slot.",
-      });
+      setStatusMessage({ type: "error", text: "Please pick an available time slot." });
       return;
     }
 
     setSubmitting(true);
 
     try {
+      const fullPhone = phoneNumber.startsWith("+")
+        ? phoneNumber.trim()
+        : `${countryCode} ${phoneNumber.trim()}`;
+
       const payload = {
-        fullName,
-        email,
-        phoneNumber,
-        companyName,
+        fullName: fullName.trim(),
+        companyName: companyName.trim(),
+        businessEmail: businessEmail.trim().toLowerCase(),
+        phoneNumber: fullPhone,
         teamSize,
-        bookingDateStr: selectedDateStr,
+        linkedinUrl: linkedinUrl.trim(),
+        companyWebsite: companyWebsite.trim(),
+        description: description.trim(),
+        preferredDate: selectedDateStr,
         timeSlot: selectedSlot,
-        timezone,
-        notes,
+        timezone: "Asia/Kolkata (IST)",
       };
 
-      const response = await fetch("/api/book-demo", {
+      const response = await fetch("/api/demo/book", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -364,42 +389,9 @@ function BookDemoContent() {
     });
   }, [selectedDate]);
 
-  // Google Calendar URL generator for step 3
-  const googleCalendarUrl = useMemo(() => {
-    if (!confirmedBooking) return "#";
-    try {
-      const [time, modifier] = confirmedBooking.timeSlot.split(" ");
-      let [hours, minutes] = time.split(":").map(Number);
-      if (modifier === "PM" && hours < 12) hours += 12;
-      if (modifier === "AM" && hours === 12) hours = 0;
-
-      const [year, month, day] = confirmedBooking.bookingDateStr
-        .split("-")
-        .map(Number);
-      const start = new Date(Date.UTC(year, month - 1, day, hours, minutes));
-      const end = new Date(start.getTime() + 30 * 60 * 1000);
-
-      const formatGDate = (d) =>
-        d.toISOString().replace(/-|:|\.\d\d\d/g, "");
-
-      const dates = `${formatGDate(start)}/${formatGDate(end)}`;
-      const title = encodeURIComponent("Buzzoraa 1-on-1 Product Demo");
-      const details = encodeURIComponent(
-        `Personalized walkthrough of Buzzoraa platform.\nMeeting Link: ${confirmedBooking.meetingLink}`
-      );
-      const location = encodeURIComponent(confirmedBooking.meetingLink || "Google Meet");
-
-      return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=${details}&location=${location}`;
-    } catch {
-      return "https://calendar.google.com";
-    }
-  }, [confirmedBooking]);
-
   return (
     <div className="relative min-h-screen text-slate-900 selection:bg-indigo-500 selection:text-white pb-24">
-      {/* =======================================================================
-          🎨 FIXED INTERACTIVE AMBIENT IRIDESCENT BACKGROUND (matching page.js)
-         ======================================================================= */}
+      {/* Background with Iridescence matching website design */}
       <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
         <Iridescence
           color="#6366f1"
@@ -420,31 +412,16 @@ function BookDemoContent() {
           grain={0.02}
           fade={0}
         />
-        {/* Soft frosted glass overlay for high text contrast across the entire page */}
         <div className="absolute inset-0 bg-white/75 backdrop-blur-[2px]" />
         <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-white/60" />
       </div>
 
-      {/* =======================================================================
-          TOP HERO SECTION
-         ======================================================================= */}
+      {/* TOP HERO SECTION */}
       <section className="relative overflow-hidden pt-16 pb-12 sm:pt-24 sm:pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-slate-50/40 to-white border-b border-slate-200/60">
-        {/* Technical Grid Pattern Background matching page.js layout */}
         <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] bg-[size:44px_44px] [mask-image:radial-gradient(ellipse_80%_70%_at_50%_50%,#000_70%,transparent_100%)]" />
-
-        {/* Ambient Theme Background Glows */}
-        <div
-          className="pointer-events-none absolute top-12 right-1/4 h-96 w-96 rounded-full opacity-20 blur-3xl transition-colors duration-500 z-1"
-          style={{ backgroundColor: "var(--primary)" }}
-        />
-        <div
-          className="pointer-events-none absolute bottom-12 left-10 h-80 w-80 rounded-full opacity-15 blur-3xl transition-colors duration-500 z-1"
-          style={{ backgroundColor: "var(--secondary, #06b6d4)" }}
-        />
 
         <div className="relative z-10 max-w-5xl mx-auto text-center space-y-6">
           <FadeContent effect="fade" blur={true} duration={1} delay={0.05} trigger="mount" className="space-y-6">
-            {/* Top Pill Badge */}
             <div
               className="inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs sm:text-sm font-bold shadow-2xs backdrop-blur-md transition-colors"
               style={{
@@ -463,10 +440,9 @@ function BookDemoContent() {
                   style={{ backgroundColor: "var(--primary)" }}
                 />
               </span>
-              <span>Buzzoraa Live Product Walkthrough • Social Engagement &amp; GTM SaaS</span>
+              <span>Buzzoraa Live Product Walkthrough • Automatic Google Meet Integration</span>
             </div>
 
-            {/* Main Title */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-950 tracking-tight leading-[1.12]">
               Experience{" "}
               <span
@@ -481,14 +457,10 @@ function BookDemoContent() {
               in Real Action.
             </h1>
 
-            {/* Subtitle */}
             <p className="mx-auto max-w-2xl text-base sm:text-lg text-slate-700 leading-relaxed font-normal">
-              Book an interactive 1-on-1 session to see how Buzzoraa turns conversations into growth. Pick your
-              preferred date &amp; time slot below, and get immediate instant calendar
-              confirmation with meeting invite.
+              Book a personalized 1-on-1 demo with our engineering &amp; product team. Select your preferred date &amp; time slot in Asia/Kolkata (IST), and receive an instant calendar invite with a real Google Meet video conference link.
             </p>
 
-            {/* Quick Option to Open Calendly Modal or Direct WhatsApp */}
             <div className="pt-1 flex flex-wrap items-center justify-center gap-3">
               <button
                 type="button"
@@ -511,7 +483,6 @@ function BookDemoContent() {
               </a>
             </div>
 
-            {/* Micro Trust Indicators */}
             <div className="pt-2 flex flex-wrap items-center justify-center gap-3 sm:gap-6 text-xs sm:text-sm font-semibold text-slate-600">
               <div className="flex items-center gap-2 bg-white/80 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-slate-200/80 shadow-2xs">
                 <CheckCircle2 className="h-4 w-4 text-emerald-600" />
@@ -519,20 +490,18 @@ function BookDemoContent() {
               </div>
               <div className="flex items-center gap-2 bg-white/80 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-slate-200/80 shadow-2xs">
                 <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-                <span>Google Meet / Video conference room</span>
+                <span>Instant Google Meet room invite</span>
               </div>
               <div className="flex items-center gap-2 bg-white/80 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-slate-200/80 shadow-2xs">
                 <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-                <span>Instant database &amp; calendar invite</span>
+                <span>Double-booking protected slot reservation</span>
               </div>
             </div>
           </FadeContent>
         </div>
       </section>
 
-      {/* =======================================================================
-          MAIN INTERACTIVE SCHEDULER BOX
-         ======================================================================= */}
+      {/* MAIN SCHEDULER BOX */}
       <section className="relative -mt-6 sm:-mt-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto z-10">
         <FadeContent effect="focus" blur={true} duration={1} threshold={0.15}>
           <div className="bg-white/95 backdrop-blur-md rounded-3xl shadow-2xl border border-slate-200/90 overflow-hidden transition-all duration-300">
@@ -574,12 +543,12 @@ function BookDemoContent() {
 
                     <div className="flex items-center gap-3 text-slate-700 text-sm font-semibold">
                       <Video className="w-4 h-4 text-slate-400" />
-                      <span>Google Meet / Video Conference</span>
+                      <span>Google Meet (Automated Calendar Event)</span>
                     </div>
 
                     <div className="flex items-center gap-3 text-slate-700 text-sm font-semibold">
                       <Globe className="w-4 h-4 text-slate-400" />
-                      <span className="truncate">Timezone: {timezone}</span>
+                      <span className="truncate">Timezone: Asia/Kolkata (IST)</span>
                     </div>
                   </div>
 
@@ -599,7 +568,7 @@ function BookDemoContent() {
                       </li>
                       <li className="flex items-start gap-2">
                         <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                        <span>Direct Q&amp;A with tech experts, transparent pricing &amp; roadmap</span>
+                        <span>Instant Google Meet invite dispatched to both parties</span>
                       </li>
                     </ul>
                   </div>
@@ -621,32 +590,32 @@ function BookDemoContent() {
                         {formattedDisplayDate}
                       </div>
                       <div className="text-indigo-700 font-medium pl-5">
-                        {selectedSlot} ({timezone})
+                        {selectedSlot} (Asia/Kolkata IST)
                       </div>
                     </div>
                   )}
                 </div>
 
                 <div className="pt-6 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-                  <span>Questions?</span>
+                  <span>Need help?</span>
                   <Link href="/contact" className="text-indigo-600 font-bold hover:underline">
-                    Contact Us
+                    Contact Solutions Desk
                   </Link>
                 </div>
               </div>
 
-              {/* Right Column: Step 1 (Calendar + Slots) OR Step 2 (Form) OR Step 3 (Success) */}
+              {/* Right Column: Step 1 (Date & Time) OR Step 2 (Form) OR Step 3 (Confirmed) */}
               <div className="lg:col-span-8 p-6 sm:p-8 flex flex-col justify-between">
-                {/* ================= STEP 1: DATE & SLOT SELECTION ================= */}
+                {/* STEP 1: DATE & SLOT SELECTION */}
                 {step === 1 && (
                   <div className="space-y-6">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
                       <div>
                         <h2 className="text-lg font-bold text-slate-900">
-                          Select a Date &amp; Time
+                          Select a Date &amp; Time Slot
                         </h2>
                         <p className="text-xs text-slate-500">
-                          Choose a day and time slot that fits your schedule
+                          Times displayed in Asia/Kolkata (IST). Past slots and booked dates are automatically locked.
                         </p>
                       </div>
 
@@ -719,12 +688,13 @@ function BookDemoContent() {
                                 type="button"
                                 disabled={disabled}
                                 onClick={() => handleSelectDate(item)}
-                                className={`h-10 w-full rounded-xl text-xs font-semibold flex flex-col items-center justify-center transition-all duration-150 relative ${item.isSelected
+                                className={`h-10 w-full rounded-xl text-xs font-semibold flex flex-col items-center justify-center transition-all duration-150 relative ${
+                                  item.isSelected
                                     ? "text-white shadow-md font-bold scale-105"
                                     : disabled
                                       ? "text-slate-300 cursor-not-allowed bg-slate-50/50"
                                       : "text-slate-700 hover:bg-slate-100 hover:text-slate-900 cursor-pointer"
-                                  }`}
+                                }`}
                                 style={{
                                   backgroundColor: item.isSelected
                                     ? "var(--primary, #6366f1)"
@@ -766,7 +736,7 @@ function BookDemoContent() {
                       <div className="md:col-span-5 space-y-3 flex flex-col">
                         <div className="flex items-center justify-between">
                           <span className="text-xs font-bold text-slate-800">
-                            Available Slots for:
+                            Available Slots (IST):
                           </span>
                           {loadingSlots && (
                             <RefreshCw className="w-3.5 h-3.5 text-slate-400 animate-spin" />
@@ -780,6 +750,7 @@ function BookDemoContent() {
                         {/* Time Slots List */}
                         <div className="flex-1 overflow-y-auto max-h-[310px] pr-1 space-y-2 custom-scrollbar">
                           {ALL_TIME_SLOTS.map((slot) => {
+                            const isAvailable = availableSlots.includes(slot);
                             const isBooked = bookedSlots.includes(slot);
                             const isSelected = selectedSlot === slot;
 
@@ -787,14 +758,15 @@ function BookDemoContent() {
                               <button
                                 key={slot}
                                 type="button"
-                                disabled={isBooked}
+                                disabled={!isAvailable}
                                 onClick={() => setSelectedSlot(slot)}
-                                className={`w-full py-2.5 px-3 rounded-xl text-xs font-bold flex items-center justify-between transition-all duration-150 border ${isSelected
+                                className={`w-full py-2.5 px-3 rounded-xl text-xs font-bold flex items-center justify-between transition-all duration-150 border ${
+                                  isSelected
                                     ? "text-white shadow-md border-transparent scale-101"
-                                    : isBooked
+                                    : !isAvailable
                                       ? "bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed line-through"
                                       : "bg-white text-slate-700 border-slate-200 hover:border-slate-400 hover:bg-slate-50 cursor-pointer"
-                                  }`}
+                                }`}
                                 style={{
                                   backgroundColor: isSelected
                                     ? "var(--primary, #6366f1)"
@@ -805,9 +777,9 @@ function BookDemoContent() {
                                   <Clock className="w-3.5 h-3.5 opacity-70" />
                                   <span>{slot}</span>
                                 </span>
-                                {isBooked ? (
+                                {!isAvailable ? (
                                   <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-200 text-slate-500 font-semibold no-underline">
-                                    Booked
+                                    {isBooked ? "Booked" : "Unavailable"}
                                   </span>
                                 ) : isSelected ? (
                                   <span className="text-[11px] flex items-center gap-1 font-bold">
@@ -851,10 +823,10 @@ function BookDemoContent() {
                   </div>
                 )}
 
-                {/* ================= STEP 2: GUEST DETAILS FORM ================= */}
+                {/* STEP 2: GUEST DETAILS FORM */}
                 {step === 2 && (
-                  <div className="space-y-6">
-                    <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                  <div className="space-y-5">
+                    <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                       <div>
                         <button
                           type="button"
@@ -862,10 +834,10 @@ function BookDemoContent() {
                           className="inline-flex items-center gap-1 text-xs font-bold text-slate-500 hover:text-slate-900 transition-colors mb-1 cursor-pointer"
                         >
                           <ChevronLeft className="w-3.5 h-3.5" />
-                          <span>Back to Calendar</span>
+                          <span>Back to Date &amp; Time</span>
                         </button>
                         <h2 className="text-lg font-bold text-slate-900">
-                          Enter Your Details
+                          Enter Booking Details
                         </h2>
                       </div>
 
@@ -873,17 +845,17 @@ function BookDemoContent() {
                         <span className="px-2.5 py-1 bg-white rounded-lg shadow-2xs text-slate-900 font-bold">
                           Step 2 of 2
                         </span>
-                        <span className="px-2 text-slate-400">Confirm</span>
+                        <span className="px-2 text-slate-400">Confirm Demo</span>
                       </div>
                     </div>
 
-                    {/* Slot banner */}
+                    {/* Selected Slot banner */}
                     <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between text-xs">
                       <div className="flex items-center gap-2 text-slate-700">
                         <CalendarDays className="w-4 h-4 text-indigo-600" />
                         <span>
                           <strong>{formattedDisplayDate}</strong> at{" "}
-                          <strong>{selectedSlot}</strong> (30 mins)
+                          <strong>{selectedSlot}</strong> (30 mins IST)
                         </span>
                       </div>
                       <button
@@ -891,15 +863,15 @@ function BookDemoContent() {
                         onClick={() => setStep(1)}
                         className="text-xs font-bold text-indigo-600 hover:text-indigo-800 underline cursor-pointer"
                       >
-                        Edit Slot
+                        Change Slot
                       </button>
                     </div>
 
-                    {/* Form */}
-                    <form onSubmit={handleSubmitBooking} className="space-y-4">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Form with all required fields */}
+                    <form onSubmit={handleSubmitBooking} className="space-y-3.5">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                         {/* Full Name */}
-                        <div className="space-y-1.5">
+                        <div className="space-y-1">
                           <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
                             <User className="w-3.5 h-3.5 text-slate-400" />
                             <span>Full Name *</span>
@@ -910,70 +882,85 @@ function BookDemoContent() {
                             value={fullName}
                             onChange={(e) => setFullName(e.target.value)}
                             placeholder="e.g. Alex Morgan"
-                            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all bg-white"
-                          />
-                        </div>
-
-                        {/* Email */}
-                        <div className="space-y-1.5">
-                          <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                            <Mail className="w-3.5 h-3.5 text-slate-400" />
-                            <span>Work Email *</span>
-                          </label>
-                          <input
-                            type="email"
-                            required
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="alex@company.com"
-                            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all bg-white"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {/* Phone */}
-                        <div className="space-y-1.5">
-                          <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                            <Phone className="w-3.5 h-3.5 text-slate-400" />
-                            <span>Phone / WhatsApp</span>
-                          </label>
-                          <input
-                            type="tel"
-                            value={phoneNumber}
-                            onChange={(e) => setPhoneNumber(e.target.value)}
-                            placeholder="+91 98765 43210"
-                            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all bg-white"
+                            className="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all bg-white"
                           />
                         </div>
 
                         {/* Company Name */}
-                        <div className="space-y-1.5">
+                        <div className="space-y-1">
                           <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
                             <Building2 className="w-3.5 h-3.5 text-slate-400" />
-                            <span>Company Name</span>
+                            <span>Company Name *</span>
                           </label>
                           <input
                             type="text"
+                            required
                             value={companyName}
                             onChange={(e) => setCompanyName(e.target.value)}
-                            placeholder="e.g. Acme Innovations"
-                            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all bg-white"
+                            placeholder="e.g. Acme Innovations Inc."
+                            className="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all bg-white"
                           />
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                        {/* Business Email */}
+                        <div className="space-y-1">
+                          <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                            <Mail className="w-3.5 h-3.5 text-slate-400" />
+                            <span>Business Email *</span>
+                          </label>
+                          <input
+                            type="email"
+                            required
+                            value={businessEmail}
+                            onChange={(e) => setBusinessEmail(e.target.value)}
+                            placeholder="alex@acme.com"
+                            className="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all bg-white"
+                          />
+                        </div>
+
+                        {/* Phone Number with country code */}
+                        <div className="space-y-1">
+                          <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                            <Phone className="w-3.5 h-3.5 text-slate-400" />
+                            <span>Phone Number (with Country Code) *</span>
+                          </label>
+                          <div className="flex gap-1.5">
+                            <select
+                              value={countryCode}
+                              onChange={(e) => setCountryCode(e.target.value)}
+                              className="px-2 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                            >
+                              {COUNTRY_CODES.map((c) => (
+                                <option key={c.code} value={c.code}>
+                                  {c.code}
+                                </option>
+                              ))}
+                            </select>
+                            <input
+                              type="tel"
+                              required
+                              value={phoneNumber}
+                              onChange={(e) => setPhoneNumber(e.target.value)}
+                              placeholder="98765 43210"
+                              className="flex-1 px-3 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all bg-white"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                         {/* Team Size */}
-                        <div className="space-y-1.5">
+                        <div className="space-y-1">
                           <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
                             <Users className="w-3.5 h-3.5 text-slate-400" />
-                            <span>Team Size</span>
+                            <span>Team Size *</span>
                           </label>
                           <select
                             value={teamSize}
                             onChange={(e) => setTeamSize(e.target.value)}
-                            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs text-slate-800 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
+                            className="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all"
                           >
                             <option value="1-10">1 - 10 people</option>
                             <option value="11-50">11 - 50 people</option>
@@ -982,43 +969,61 @@ function BookDemoContent() {
                           </select>
                         </div>
 
-                        {/* Timezone */}
-                        <div className="space-y-1.5">
+                        {/* LinkedIn Profile URL */}
+                        <div className="space-y-1">
                           <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                            <Globe className="w-3.5 h-3.5 text-slate-400" />
-                            <span>Timezone</span>
+                            <FaLinkedin className="w-3.5 h-3.5 text-blue-600" />
+                            <span>LinkedIn Profile URL *</span>
                           </label>
                           <input
-                            type="text"
-                            value={timezone}
-                            onChange={(e) => setTimezone(e.target.value)}
-                            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs text-slate-800 bg-slate-50 focus:outline-none"
+                            type="url"
+                            required
+                            value={linkedinUrl}
+                            onChange={(e) => setLinkedinUrl(e.target.value)}
+                            placeholder="https://linkedin.com/in/alexmorgan"
+                            className="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all bg-white"
                           />
                         </div>
                       </div>
 
-                      {/* Notes */}
-                      <div className="space-y-1.5">
+                      {/* Company Website (Optional) */}
+                      <div className="space-y-1">
+                        <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                          <Globe className="w-3.5 h-3.5 text-slate-400" />
+                          <span>Company Website (Optional)</span>
+                        </label>
+                        <input
+                          type="url"
+                          value={companyWebsite}
+                          onChange={(e) => setCompanyWebsite(e.target.value)}
+                          placeholder="https://acme.com"
+                          className="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all bg-white"
+                        />
+                      </div>
+
+                      {/* Brief Description / Requirements */}
+                      <div className="space-y-1">
                         <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
                           <MessageSquare className="w-3.5 h-3.5 text-slate-400" />
-                          <span>What specific features or workflows would you like to explore?</span>
+                          <span>Brief Description / Requirements</span>
                         </label>
                         <textarea
                           rows={2}
-                          value={notes}
-                          onChange={(e) => setNotes(e.target.value)}
-                          placeholder="Tell us about your current challenges or what you want to achieve with Buzzoraa..."
-                          className="w-full px-3.5 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none bg-white"
+                          value={description}
+                          onChange={(e) => setDescription(e.target.value)}
+                          placeholder="Tell us what you'd like to achieve with Buzzoraa, current workflows, or specific questions..."
+                          className="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none bg-white"
                         />
                       </div>
 
                       {/* Status Alert */}
                       {statusMessage && (
                         <div
-                          className={`p-3 rounded-xl text-xs flex items-center gap-2 ${statusMessage.type === "error"
+                          className={`p-3 rounded-xl text-xs flex items-center gap-2 ${
+                            statusMessage.type === "error"
                               ? "bg-rose-50 text-rose-700 border border-rose-200"
                               : "bg-emerald-50 text-emerald-700 border border-emerald-200"
-                            }`}
+                          }`}
                         >
                           <AlertCircle className="w-4 h-4 shrink-0" />
                           <span>{statusMessage.text}</span>
@@ -1047,11 +1052,11 @@ function BookDemoContent() {
                           {submitting ? (
                             <>
                               <Loader2 className="w-4 h-4 animate-spin" />
-                              <span>Confirming &amp; Saving to Database...</span>
+                              <span>Generating Google Meet &amp; Reserving Slot...</span>
                             </>
                           ) : (
                             <>
-                              <span>Confirm &amp; Schedule Demo</span>
+                              <span>Confirm Booking &amp; Generate Google Meet</span>
                               <Check className="w-4 h-4" />
                             </>
                           )}
@@ -1061,7 +1066,7 @@ function BookDemoContent() {
                   </div>
                 )}
 
-                {/* ================= STEP 3: BOOKING CONFIRMED ================= */}
+                {/* STEP 3: BOOKING CONFIRMED */}
                 {step === 3 && confirmedBooking && (
                   <div className="space-y-6 text-center py-6">
                     <div
@@ -1076,10 +1081,10 @@ function BookDemoContent() {
 
                     <div className="space-y-2">
                       <h2 className="text-2xl font-black text-slate-900 tracking-tight">
-                        You&apos;re Scheduled! 🎉
+                        Demo Meeting Confirmed! 🎉
                       </h2>
                       <p className="text-xs sm:text-sm text-slate-600 max-w-md mx-auto">
-                        A calendar invitation and confirmation email have been sent to{" "}
+                        A Google Calendar invitation with your real Google Meet link has been sent to{" "}
                         <strong className="text-slate-900">{confirmedBooking.email}</strong>.
                       </p>
                     </div>
@@ -1088,49 +1093,64 @@ function BookDemoContent() {
                     <div className="max-w-md mx-auto bg-slate-50 rounded-2xl border border-slate-200 p-5 text-left space-y-3 shadow-xs">
                       <div className="flex items-center justify-between pb-3 border-b border-slate-200/80">
                         <span className="text-xs font-bold text-slate-500">
-                          Meeting Details
+                          Reservation Details
                         </span>
                         <span className="px-2 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800">
-                          Confirmed &amp; Saved
+                          Status: {confirmedBooking.status || "CONFIRMED"}
                         </span>
                       </div>
 
                       <div className="text-xs space-y-2 text-slate-700">
-                        <div className="flex items-center gap-2">
-                          <User className="w-4 h-4 text-slate-400" />
-                          <span><strong>Name:</strong> {confirmedBooking.fullName}</span>
+                        <div className="flex items-center justify-between">
+                          <span className="text-slate-500 font-medium">Customer:</span>
+                          <span className="font-bold text-slate-900">{confirmedBooking.fullName}</span>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <CalendarDays className="w-4 h-4 text-slate-400" />
-                          <span><strong>Date:</strong> {confirmedBooking.bookingDateStr}</span>
+                        <div className="flex items-center justify-between">
+                          <span className="text-slate-500 font-medium">Company:</span>
+                          <span className="font-bold text-slate-900">{confirmedBooking.companyName}</span>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <Clock className="w-4 h-4 text-slate-400" />
-                          <span><strong>Time Slot:</strong> {confirmedBooking.timeSlot} ({confirmedBooking.timezone})</span>
+                        <div className="flex items-center justify-between">
+                          <span className="text-slate-500 font-medium">Date:</span>
+                          <span className="font-bold text-indigo-700">{confirmedBooking.bookingDateStr}</span>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <Video className="w-4 h-4 text-slate-400" />
-                          <span><strong>Room:</strong> Google Meet</span>
+                        <div className="flex items-center justify-between">
+                          <span className="text-slate-500 font-medium">Time Slot (IST):</span>
+                          <span className="font-bold text-indigo-700">{confirmedBooking.timeSlot} (Asia/Kolkata)</span>
                         </div>
+                        {confirmedBooking.googleMeetUrl && (
+                          <div className="pt-2 border-t border-slate-200">
+                            <span className="text-slate-500 font-medium block mb-1">Google Meet Room:</span>
+                            <a
+                              href={confirmedBooking.googleMeetUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-xs font-bold text-emerald-600 hover:underline break-all block"
+                            >
+                              {confirmedBooking.googleMeetUrl}
+                            </a>
+                          </div>
+                        )}
                       </div>
                     </div>
 
                     {/* Actions */}
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
-                      <a
-                        href={googleCalendarUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold text-white shadow-lg transition-transform hover:scale-102"
-                        style={{
-                          backgroundColor: "var(--primary, #6366f1)",
-                          boxShadow: "0 8px 20px var(--primary-glow, rgba(99, 102, 241, 0.25))",
-                        }}
-                      >
-                        <CalendarIcon className="w-4 h-4" />
-                        <span>Add to Google Calendar</span>
-                        <ExternalLink className="w-3.5 h-3.5 opacity-80" />
-                      </a>
+                      {confirmedBooking.googleMeetUrl && (
+                        <a
+                          href={confirmedBooking.googleMeetUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold text-white shadow-lg transition-transform hover:scale-102"
+                          style={{
+                            backgroundColor: "var(--primary, #6366f1)",
+                            boxShadow: "0 8px 20px var(--primary-glow, rgba(99, 102, 241, 0.25))",
+                          }}
+                        >
+                          <Video className="w-4 h-4" />
+                          <span>Join Google Meet</span>
+                          <ExternalLink className="w-3.5 h-3.5 opacity-80" />
+                        </a>
+                      )}
 
                       <button
                         type="button"
@@ -1138,6 +1158,13 @@ function BookDemoContent() {
                           setStep(1);
                           setConfirmedBooking(null);
                           setStatusMessage(null);
+                          setFullName("");
+                          setBusinessEmail("");
+                          setPhoneNumber("");
+                          setCompanyName("");
+                          setLinkedinUrl("");
+                          setCompanyWebsite("");
+                          setDescription("");
                         }}
                         className="w-full sm:w-auto px-5 py-2.5 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
                       >
@@ -1151,7 +1178,7 @@ function BookDemoContent() {
           </div>
         </FadeContent>
 
-        {/* Bottom Highlights & FAQ Quick Bar */}
+        {/* Bottom Highlights */}
         <FadeContent effect="fade" blur={true} duration={1} delay={0.15} threshold={0.15}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 pt-8">
             <div className="bg-white/95 backdrop-blur-md rounded-3xl p-5 border border-slate-200/90 shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all flex items-start gap-3.5">
@@ -1159,9 +1186,9 @@ function BookDemoContent() {
                 <Sparkles className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-xs sm:text-sm font-bold text-slate-900">Customized Tailored Walkthrough</h3>
+                <h3 className="text-xs sm:text-sm font-bold text-slate-900">Customized Architecture Walkthrough</h3>
                 <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                  We adjust the presentation strictly around your tech stack, audience size &amp; business use-case.
+                  We tailor the live session specifically around your tech stack, audience size &amp; business use-case.
                 </p>
               </div>
             </div>
@@ -1171,9 +1198,9 @@ function BookDemoContent() {
                 <Globe className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-xs sm:text-sm font-bold text-slate-900">Global Timezone Friendly</h3>
+                <h3 className="text-xs sm:text-sm font-bold text-slate-900">Asia/Kolkata (IST) Standard</h3>
                 <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                  Our solutions engineering team accommodates APAC, EMEA, and Americas time slots seamlessly.
+                  Time slots are synchronized in IST with real-time past slot locking and anti-collision validation.
                 </p>
               </div>
             </div>
@@ -1183,9 +1210,9 @@ function BookDemoContent() {
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-xs sm:text-sm font-bold text-slate-900">Database &amp; Email Synced</h3>
+                <h3 className="text-xs sm:text-sm font-bold text-slate-900">Instant Google Meet &amp; DB Synced</h3>
                 <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                  Every booking is recorded to MongoDB with immediate email confirmation and calendar invite.
+                  Automated calendar event creation generates real Google Meet rooms with Nodemailer dual notifications.
                 </p>
               </div>
             </div>
@@ -1193,9 +1220,7 @@ function BookDemoContent() {
         </FadeContent>
       </section>
 
-      {/* =======================================================================
-          SECTION: ECOSYSTEM & CLOUD INTEGRATIONS (LogoLoop from page.js)
-         ======================================================================= */}
+      {/* ECOSYSTEM LOGOLOOP */}
       <section className="mt-20 py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-200/60 bg-white/70 backdrop-blur-md">
         <div className="max-w-7xl mx-auto space-y-4">
           <p className="text-[11px] font-mono uppercase tracking-widest text-slate-500 text-center font-semibold">
@@ -1218,12 +1243,8 @@ function BookDemoContent() {
         </div>
       </section>
 
-      {/* =======================================================================
-          BOTTOM SECTION: QUICK CTA BANNER (DARK THEME)
-         ======================================================================= */}
-      <section
-        className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 text-white text-center relative overflow-hidden bg-slate-950 border-t border-slate-800"
-      >
+      {/* QUICK CTA BANNER */}
+      <section className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 text-white text-center relative overflow-hidden bg-slate-950 border-t border-slate-800">
         <div
           className="absolute -top-32 right-10 h-80 w-80 rounded-full blur-[130px] opacity-25 pointer-events-none"
           style={{ backgroundColor: "var(--primary)" }}
@@ -1243,7 +1264,7 @@ function BookDemoContent() {
               Ready to Turn Conversations Into Growth?
             </h2>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl mx-auto font-normal mt-2">
-              Speak with our solution architects to plan your community hackathons, social engagement engines, or custom Agentforce AI integrations.
+              Speak with our solution architects to plan your community hackathons, social engagement engines, or custom integrations.
             </p>
             <div className="pt-6 flex flex-wrap items-center justify-center gap-3">
               <Link
@@ -1278,9 +1299,7 @@ function BookDemoContent() {
         </div>
       </section>
 
-      {/* =======================================================================
-          CALENDLY POPUP MODAL (IF TRIGGERED)
-         ======================================================================= */}
+      {/* CALENDLY POPUP MODAL */}
       {isCalendlyOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200">
           <div className="relative w-full max-w-4xl bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">

@@ -536,9 +536,7 @@ export default function ContactPage() {
         </FadeContent>
       </section>
 
-      {/* =======================================================================
-          EXECUTIVE LEADERSHIP SPOTLIGHT & INNOVATION HUB (2-COLUMN SHOWCASE)
-         ======================================================================= */}
+
       <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-200/60">
         <FadeContent effect="fade" blur={true} duration={1} threshold={0.15}>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
@@ -678,9 +676,7 @@ export default function ContactPage() {
         </FadeContent>
       </section>
 
-      {/* =======================================================================
-          DEPARTMENT INQUIRY DESKS (GRID OF 4 PURPOSE-BUILT PATHWAYS)
-         ======================================================================= */}
+
       <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto border-t border-slate-200/60">
         <FadeContent effect="fade" blur={true} duration={1} threshold={0.15} className="text-center max-w-2xl mx-auto mb-12 space-y-3">
           <div
@@ -756,9 +752,7 @@ export default function ContactPage() {
         </FadeContent>
       </section>
 
-      {/* =======================================================================
-          SECTION: ECOSYSTEM & TECH INTEGRATIONS (LogoLoop from page.js)
-         ======================================================================= */}
+
       <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-t border-slate-200/60 bg-white/70 backdrop-blur-md">
         <div className="max-w-7xl mx-auto space-y-4">
           <p className="text-[11px] font-mono uppercase tracking-widest text-slate-500 text-center font-semibold">
@@ -781,9 +775,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* =======================================================================
-          SECTION: FREQUENTLY ASKED QUESTIONS
-         ======================================================================= */}
+
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto border-t border-slate-200/60">
         <FadeContent effect="fade" blur={true} duration={1} threshold={0.15}>
           <div className="text-center max-w-2xl mx-auto mb-12 space-y-3">
@@ -840,9 +832,7 @@ export default function ContactPage() {
         </FadeContent>
       </section>
 
-      {/* =======================================================================
-          BOTTOM SECTION: QUICK CTA BANNER (DARK THEME)
-         ======================================================================= */}
+
       <section
         className="py-20 sm:py-28 px-4 sm:px-6 lg:px-8 text-white text-center relative overflow-hidden bg-slate-950 border-t border-slate-800"
       >
