@@ -53,8 +53,14 @@ export async function sendDemoBookingNotification(booking) {
     process.env.COMPANY_MEETING_EMAIL ||
     process.env.ADMIN_NOTIFICATION_EMAIL ||
     process.env.EMAIL_USER ||
-    "demo@buzzoraa.com";
-  const fromEmail = process.env.EMAIL_FROM || `"Buzzoraa Team" <${companyEmail}>`;
+    "khandanish30599@gmail.com";
+
+  // Prevent invalid placeholder sender which causes Gmail SMTP reject
+  const rawFrom = process.env.EMAIL_FROM || "";
+  const fromEmail =
+    rawFrom && !rawFrom.includes("your_company_email")
+      ? rawFrom
+      : `"Buzzoraa Team" <${process.env.EMAIL_USER || companyEmail}>`;
 
   // Customer Email HTML Template
   const customerHtml = `
@@ -253,32 +259,52 @@ export async function sendDemoBookingNotification(booking) {
     };
   }
 
+  let clientSent = false;
+  let companySent = false;
+  let clientMessageId = null;
+  let companyMessageId = null;
+  const errors = [];
+
   try {
-    const customerPromise = transporter.sendMail({
+    const clientRes = await transporter.sendMail({
       from: fromEmail,
       to: email,
-      subject: "Your Demo Meeting Has Been Confirmed!",
+      replyTo: companyEmail,
+      subject: "Your Demo Meeting is Confirmed! (Google Meet Attached) - Buzzoraa",
       html: customerHtml,
     });
+    clientSent = true;
+    clientMessageId = clientRes?.messageId;
+    console.log("✅ [Mailer]: Customer confirmation email sent to:", email);
+  } catch (cErr) {
+    console.error("❌ [Mailer]: Failed sending email to customer:", cErr.message);
+    errors.push(`Customer email: ${cErr.message}`);
+  }
 
-    const companyPromise = transporter.sendMail({
+  try {
+    const companyRes = await transporter.sendMail({
       from: fromEmail,
       to: companyEmail,
-      subject: "New Demo Booking Received",
+      replyTo: email,
+      subject: `[New Demo Booking] ${fullName} from ${companyName || "N/A"} (${bookingDateStr} at ${timeSlot})`,
       html: companyHtml,
     });
-
-    const [clientRes, companyRes] = await Promise.all([customerPromise, companyPromise]);
-    console.log("✅ [Mailer]: Customer and company notification emails sent successfully");
-    return {
-      sent: true,
-      customerMessageId: clientRes.messageId,
-      companyMessageId: companyRes.messageId,
-    };
-  } catch (error) {
-    console.error("❌ [Mailer Error]: Failed to send booking emails:", error.message);
-    return { sent: false, error: error.message };
+    companySent = true;
+    companyMessageId = companyRes?.messageId;
+    console.log("✅ [Mailer]: Company notification email sent to:", companyEmail);
+  } catch (cmpErr) {
+    console.error("❌ [Mailer]: Failed sending email to company:", cmpErr.message);
+    errors.push(`Company email: ${cmpErr.message}`);
   }
+
+  return {
+    sent: clientSent || companySent,
+    clientSent,
+    companySent,
+    customerMessageId: clientMessageId,
+    companyMessageId: companyMessageId,
+    error: errors.length > 0 ? errors.join("; ") : null,
+  };
 }
 
 /**

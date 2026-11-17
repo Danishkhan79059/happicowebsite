@@ -40,8 +40,21 @@ export default function CurtainIntro() {
 
     // Keyboard shortcut (Space, Enter, Esc) to skip
     const handleKeyDown = (e) => {
+      // Never intercept keys when user is typing inside form inputs
+      const target = e.target;
+      if (
+        target &&
+        (target.tagName === "INPUT" ||
+          target.tagName === "TEXTAREA" ||
+          target.tagName === "SELECT" ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+
       if (e.key === "Escape" || e.key === " " || e.key === "Enter") {
         e.preventDefault();
+        window.removeEventListener("keydown", handleKeyDown);
         triggerDockingOpen();
       }
     };

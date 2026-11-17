@@ -169,6 +169,37 @@ function BookDemoContent() {
   const [description, setDescription] = useState("");
   const [timezone] = useState("Asia/Kolkata (IST)");
 
+  // Phone number (10 digits) & Description (max 100 words) handlers
+  const MAX_DESCRIPTION_WORDS = 100;
+
+  const getWordCount = (text) => {
+    if (!text) return 0;
+    const trimmed = text.trim();
+    if (!trimmed) return 0;
+    return trimmed.split(/\s+/).filter(Boolean).length;
+  };
+
+  const descriptionWordCount = useMemo(() => getWordCount(description), [description]);
+
+  const handleDescriptionChange = (e) => {
+    const val = e.target.value;
+    const count = getWordCount(val);
+    if (count <= MAX_DESCRIPTION_WORDS) {
+      setDescription(val);
+    } else {
+      // Clamps to max 100 words if pasting large text
+      const words = val.trim().split(/\s+/).filter(Boolean).slice(0, MAX_DESCRIPTION_WORDS);
+      setDescription(words.join(" "));
+    }
+  };
+
+  const handlePhoneChange = (e) => {
+    // Only allow digits (0-9) and strictly maximum 10 digits
+    const raw = e.target.value;
+    const digits = raw.replace(/\D/g, "").slice(0, 10);
+    setPhoneNumber(digits);
+  };
+
   // Submission State
   const [submitting, setSubmitting] = useState(false);
   const [statusMessage, setStatusMessage] = useState(null);
@@ -317,8 +348,23 @@ function BookDemoContent() {
       setStatusMessage({ type: "error", text: "Please enter a valid business email address." });
       return;
     }
-    if (!phoneNumber.trim()) {
-      setStatusMessage({ type: "error", text: "Please enter your Phone Number." });
+    const phoneDigits = phoneNumber.replace(/\D/g, "");
+    if (!phoneDigits) {
+      setStatusMessage({ type: "error", text: "Please enter your 10-digit Phone Number." });
+      return;
+    }
+    if (phoneDigits.length !== 10) {
+      setStatusMessage({
+        type: "error",
+        text: `Phone Number must be exactly 10 digits (currently ${phoneDigits.length} digits entered).`,
+      });
+      return;
+    }
+    if (descriptionWordCount > MAX_DESCRIPTION_WORDS) {
+      setStatusMessage({
+        type: "error",
+        text: `Description must not exceed 100 words (currently ${descriptionWordCount}/100 words).`,
+      });
       return;
     }
     if (!linkedinUrl.trim()) {
@@ -920,17 +966,32 @@ function BookDemoContent() {
                           />
                         </div>
 
-                        {/* Phone Number with country code */}
+                        {/* Phone Number with country code & 10-digit validation */}
                         <div className="space-y-1">
-                          <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                            <Phone className="w-3.5 h-3.5 text-slate-400" />
-                            <span>Phone Number (with Country Code) *</span>
-                          </label>
+                          <div className="flex items-center justify-between">
+                            <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                              <Phone className="w-3.5 h-3.5 text-slate-400" />
+                              <span>Phone Number *</span>
+                            </label>
+                            <span
+                              className={`text-[10px] font-mono font-semibold ${
+                                phoneNumber.length === 10
+                                  ? "text-emerald-600 font-bold"
+                                  : phoneNumber.length > 0
+                                  ? "text-amber-600 font-bold"
+                                  : "text-slate-400"
+                              }`}
+                            >
+                              {phoneNumber.length === 10
+                                ? "✓ 10 digits verified"
+                                : `${phoneNumber.length}/10 digits`}
+                            </span>
+                          </div>
                           <div className="flex gap-1.5">
                             <select
                               value={countryCode}
                               onChange={(e) => setCountryCode(e.target.value)}
-                              className="px-2 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                              className="px-2.5 py-2 rounded-xl border border-slate-300 text-xs font-semibold text-slate-800 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
                             >
                               {COUNTRY_CODES.map((c) => (
                                 <option key={c.code} value={c.code}>
@@ -940,13 +1001,27 @@ function BookDemoContent() {
                             </select>
                             <input
                               type="tel"
+                              inputMode="numeric"
+                              pattern="[0-9]*"
+                              maxLength={10}
                               required
                               value={phoneNumber}
-                              onChange={(e) => setPhoneNumber(e.target.value)}
-                              placeholder="98765 43210"
-                              className="flex-1 px-3 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all bg-white"
+                              onChange={handlePhoneChange}
+                              placeholder="9876543210 (10 digits only)"
+                              className={`flex-1 px-3 py-2 rounded-xl border text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 transition-all bg-white ${
+                                phoneNumber.length === 10
+                                  ? "border-emerald-400 focus:ring-emerald-500"
+                                  : phoneNumber.length > 0
+                                  ? "border-amber-400 focus:ring-amber-500"
+                                  : "border-slate-300 focus:ring-indigo-500"
+                              }`}
                             />
                           </div>
+                          {phoneNumber.length > 0 && phoneNumber.length < 10 && (
+                            <p className="text-[10px] font-medium text-amber-600 mt-0.5">
+                              ⚠️ Please enter exactly 10 digits ({10 - phoneNumber.length} remaining).
+                            </p>
+                          )}
                         </div>
                       </div>
 
@@ -1001,19 +1076,41 @@ function BookDemoContent() {
                         />
                       </div>
 
-                      {/* Brief Description / Requirements */}
+                      {/* Brief Description / Requirements (Max 100 words, spaces preserved) */}
                       <div className="space-y-1">
-                        <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-                          <MessageSquare className="w-3.5 h-3.5 text-slate-400" />
-                          <span>Brief Description / Requirements</span>
-                        </label>
+                        <div className="flex items-center justify-between">
+                          <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                            <MessageSquare className="w-3.5 h-3.5 text-slate-400" />
+                            <span>Brief Description / Requirements</span>
+                          </label>
+                          <span
+                            className={`text-[10px] font-mono font-bold ${
+                              descriptionWordCount >= 100
+                                ? "text-rose-600"
+                                : descriptionWordCount >= 85
+                                ? "text-amber-600"
+                                : "text-slate-400"
+                            }`}
+                          >
+                            {descriptionWordCount} / 100 words
+                          </span>
+                        </div>
                         <textarea
-                          rows={2}
+                          rows={3}
                           value={description}
-                          onChange={(e) => setDescription(e.target.value)}
-                          placeholder="Tell us what you'd like to achieve with Buzzoraa, current workflows, or specific questions..."
+                          onChange={handleDescriptionChange}
+                          spellCheck={true}
+                          autoCorrect="on"
+                          autoCapitalize="sentences"
+                          placeholder="Tell us what you'd like to achieve with Buzzoraa, current workflows, or specific questions (max 100 words)..."
                           className="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all resize-none bg-white"
                         />
+                        <div className="flex items-center justify-between text-[10px] text-slate-400">
+                          <span>Spaces and words format naturally.</span>
+                          {descriptionWordCount >= 100 && (
+                            <span className="text-rose-600 font-semibold">100-word limit reached</span>
+                          )}
+                        </div>
                       </div>
 
                       {/* Status Alert */}

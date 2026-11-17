@@ -14,9 +14,9 @@ if (!cached) {
 }
 
 export async function connectToDatabase() {
-  if (!MONGODB_URI) {
+  if (!MONGODB_URI || MONGODB_URI.includes("your_user") || MONGODB_URI.includes("your_password")) {
     console.warn(
-      "⚠️ [MongoDB Warning]: MONGODB_URI is not defined in environment variables. Please set it in .env.local"
+      "⚠️ [MongoDB Info]: MONGODB_URI is not configured or using default placeholders. Running in seamless in-memory mode."
     );
     return null;
   }
@@ -29,7 +29,7 @@ export async function connectToDatabase() {
     const opts = {
       bufferCommands: false,
       maxPoolSize: 10,
-      serverSelectionTimeoutMS: 5000,
+      serverSelectionTimeoutMS: 3000,
     };
 
     cached.promise = mongoose
@@ -39,20 +39,20 @@ export async function connectToDatabase() {
         return mongooseInstance;
       })
       .catch((err) => {
-        console.error("❌ [MongoDB Error]: Connection failed:", err.message);
+        console.warn("⚠️ [MongoDB Warning]: Connection failed, continuing in memory mode:", err.message);
         cached.promise = null;
-        throw err;
+        return null;
       });
   }
 
   try {
     cached.conn = await cached.promise;
+    return cached.conn;
   } catch (e) {
     cached.promise = null;
-    throw e;
+    console.warn("⚠️ [MongoDB Warning]: Unable to connect to MongoDB, using fallback mode:", e.message);
+    return null;
   }
-
-  return cached.conn;
 }
 
 export default connectToDatabase;

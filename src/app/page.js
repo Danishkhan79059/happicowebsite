@@ -333,7 +333,7 @@ function HeroInteractiveVisual() {
       <div className="relative z-10 h-full w-full flex items-center justify-center">
         {!imageError ? (
           <Image
-            src="/logohome.png"
+            src="/164.png"
             alt="Buzzoraa Social Engagement & GTM Platform"
             width={1200}
             height={900}
@@ -355,7 +355,7 @@ function HeroInteractiveVisual() {
             </div>
             <p className="text-sm font-bold text-slate-800">Buzzoraa Platform</p>
             <p className="text-xs text-slate-500 mt-1 max-w-xs">
-              Place <code className="text-indigo-600 font-mono">public/logohome.png</code> to view visual.
+              Place <code className="text-indigo-600 font-mono">public/165.png</code> to view visual.
             </p>
           </div>
         )}
@@ -486,7 +486,7 @@ function HackathonInteractiveVisual() {
       <div className="relative z-10 h-full w-full flex items-center justify-center">
         {!imageError ? (
           <Image
-            src="/logohome.png"
+            src="/167.png"
             alt="Buzzoraa Community Activation Arena"
             width={1200}
             height={900}
@@ -616,7 +616,7 @@ function EventCampaignInteractiveVisual() {
       <div className="relative z-10 h-full w-full flex items-center justify-center">
         {!imageError ? (
           <Image
-            src="/logohome.png"
+            src="/165.png"
             alt="Buzzoraa Content Amplification Funnels"
             width={1200}
             height={900}
@@ -746,7 +746,7 @@ function EcosystemIntegrationVisual() {
       <div className="relative z-10 h-full w-full flex items-center justify-center">
         {!imageError ? (
           <Image
-            src="/logohome.png"
+            src="/166.png"
             alt="Buzzoraa Ecosystem & Integration Mesh"
             width={1200}
             height={900}
@@ -879,7 +879,7 @@ function LeadershipImpactVisual() {
       <div className="relative z-10 h-full w-full flex items-center justify-center">
         {!imageError ? (
           <Image
-            src="/logohome.png"
+            src="/165.png"
             alt="Buzzoraa Leadership & Ecosystem Architecture"
             width={1200}
             height={900}

@@ -70,9 +70,25 @@ export async function POST(request) {
     }
     if (!prospectPhone) {
       return NextResponse.json(
-        { success: false, error: "Phone number with country code is required." },
+        { success: false, error: "Phone number is required." },
         { status: 400 }
       );
+    }
+    const phoneDigits = prospectPhone.replace(/\D/g, "");
+    if (phoneDigits.length < 10) {
+      return NextResponse.json(
+        { success: false, error: "Please enter a valid 10-digit phone number." },
+        { status: 400 }
+      );
+    }
+    if (prospectDescription) {
+      const words = prospectDescription.trim().split(/\s+/).filter(Boolean);
+      if (words.length > 100) {
+        return NextResponse.json(
+          { success: false, error: "Description must not exceed 100 words (currently " + words.length + " words)." },
+          { status: 400 }
+        );
+      }
     }
     if (!prospectLinkedin) {
       return NextResponse.json(
@@ -208,7 +224,10 @@ export async function POST(request) {
     // 5. Update booking record status based on Meet & Calendar outcome
     // If Google OAuth credentials are configured, actualMeetUrl has the real Meet URL.
     // If not configured yet, generate a fallback demo room URL so user never gets null.
-    const fallbackMeetRoom = `https://meet.google.com/buzz-${Date.now().toString(36).slice(-4)}-${Math.random().toString(36).substring(2, 6)}`;
+    // Generate standard Google Meet format (3-4-3 letters: xxx-yyyy-zzz)
+    const genChars = (len) =>
+      Array.from({ length: len }, () => String.fromCharCode(97 + Math.floor(Math.random() * 26))).join("");
+    const fallbackMeetRoom = `https://meet.google.com/${genChars(3)}-${genChars(4)}-${genChars(3)}`;
     const effectiveMeetUrl = actualMeetUrl || fallbackMeetRoom;
     const finalStatus = "CONFIRMED";
 
