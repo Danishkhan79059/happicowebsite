@@ -409,3 +409,132 @@ export async function sendContactNotification({
     return { sent: false, error: error.message };
   }
 }
+
+/**
+ * Send Welcome Email to New Newsletter / Platform Subscriber
+ * Subject: ✨ Welcome to Buzzoraa! Here's What We Do & How We Help You Grow 🚀
+ */
+export async function sendSubscriberWelcomeEmail(email) {
+  const transporter = getTransporter();
+  const rawFrom = process.env.EMAIL_FROM || "";
+  const fromEmail =
+    rawFrom && !rawFrom.includes("your_company_email")
+      ? rawFrom
+      : `"Buzzoraa Team" <${process.env.EMAIL_USER || "contact@buzzoraa.com"}>`;
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://buzzoraa.com";
+
+  const welcomeHtml = `
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Buzzoraa!</title>
+    <style>
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0b0f19; margin: 0; padding: 24px; color: #f1f5f9; }
+      .container { max-width: 600px; margin: 0 auto; background: #13192b; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+      .header { background: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #06b6d4 100%); padding: 40px 30px; text-align: center; color: #ffffff; }
+      .header h1 { margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
+      .header p { margin: 10px 0 0; opacity: 0.95; font-size: 15px; font-weight: 500; }
+      .content { padding: 32px 30px; background-color: #13192b; }
+      .greeting { font-size: 18px; font-weight: 700; margin-bottom: 16px; color: #ffffff; }
+      .intro-text { color: #94a3b8; font-size: 15px; line-height: 1.7; margin-bottom: 24px; }
+      .feature-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 18px 20px; margin-bottom: 16px; }
+      .feature-title { font-size: 16px; font-weight: 700; color: #38bdf8; margin: 0 0 6px 0; }
+      .feature-desc { font-size: 13.5px; color: #cbd5e1; line-height: 1.6; margin: 0; }
+      .cta-section { text-align: center; margin: 32px 0 16px; }
+      .cta-btn { display: inline-block; background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: #ffffff !important; text-decoration: none; padding: 14px 28px; border-radius: 10px; font-weight: 700; font-size: 15px; box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4); }
+      .cta-secondary { display: inline-block; margin-top: 14px; color: #a5b4fc; text-decoration: underline; font-size: 13px; }
+      .divider { border-top: 1px solid rgba(255,255,255,0.08); margin: 28px 0; }
+      .footer { background: #0c101c; border-top: 1px solid rgba(255,255,255,0.06); padding: 24px 30px; text-align: center; font-size: 12px; color: #64748b; }
+      .footer a { color: #818cf8; text-decoration: none; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Welcome to Buzzoraa! 🚀</h1>
+        <p>Social Engagement &amp; Go-to-Market (GTM) SaaS Platform</p>
+      </div>
+      <div class="content">
+        <div class="greeting">Hey there,</div>
+        <p class="intro-text">
+          Thank you for joining <strong>Buzzoraa</strong>! We are thrilled to welcome you to our growing community. You will now be the first to receive exclusive platform updates, product releases, and high-impact GTM playbooks.
+        </p>
+
+        <h3 style="color: #ffffff; font-size: 16px; margin: 0 0 14px; text-transform: uppercase; letter-spacing: 0.5px;">
+          What We Do at Buzzoraa
+        </h3>
+
+        <div class="feature-box">
+          <div class="feature-title">📣 Social Engagement &amp; Community Activation</div>
+          <p class="feature-desc">
+            We help you turn social conversations into qualified revenue pipeline. Monitor brand mentions, engage directly with high-intent prospects, and build vibrant brand communities across modern channels.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-title">🚀 Go-To-Market (GTM) Acceleration</div>
+          <p class="feature-desc">
+            Streamline your product launches with precision. Buzzoraa unifies multi-channel outreach, audience segmenting, and campaign coordination so your team reaches market faster.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-title">⚡ Content Amplification &amp; Viral Loops</div>
+          <p class="feature-desc">
+            Multiply the reach of your high-impact content by turning customers, team members, and advocates into active brand champions with smart distribution mechanisms.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <div class="feature-title">📊 Real-Time Analytics &amp; Conversion Intelligence</div>
+          <p class="feature-desc">
+            Gain transparent visibility into campaign performance, sentiment trends, and conversion attribution from conversation to customer.
+          </p>
+        </div>
+
+        <div class="cta-section">
+          <a href="${siteUrl}/Bookdemo" class="cta-btn" target="_blank">
+            Book a 1-on-1 Product Demo &rarr;
+          </a>
+          <br/>
+          <a href="${siteUrl}/solutions" class="cta-secondary" target="_blank">
+            Explore all Buzzoraa Solutions
+          </a>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p style="margin: 0 0 8px;">
+          Have questions or want to partner with us? Simply reply to this email or visit our <a href="${siteUrl}/contact">Contact Support</a> page.
+        </p>
+        <p style="margin: 0;">
+          &copy; ${new Date().getFullYear()} Buzzoraa Inc. All rights reserved. • <a href="${siteUrl}/privacy-policy">Privacy Policy</a>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
+  `;
+
+  if (!transporter) {
+    console.log(`📧 [Mailer Simulated]: Subscriber welcome email dispatched to: ${email}`);
+    return { sent: false, simulated: true };
+  }
+
+  try {
+    const info = await transporter.sendMail({
+      from: fromEmail,
+      to: email,
+      subject: `✨ Welcome to Buzzoraa! Here's What We Do & How We Turn Conversations Into Growth 🚀`,
+      html: welcomeHtml,
+    });
+    console.log("✅ [Mailer]: Welcome email sent to subscriber:", email, info?.messageId);
+    return { sent: true, messageId: info?.messageId };
+  } catch (error) {
+    console.error("❌ [Mailer Error]: Failed to send subscriber welcome email:", error.message);
+    return { sent: false, error: error.message };
+  }
+}

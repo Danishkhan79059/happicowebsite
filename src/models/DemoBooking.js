@@ -27,6 +27,7 @@ const DemoBookingSchema = new mongoose.Schema(
     companyName: {
       type: String,
       required: [true, "Company name is required"],
+
       trim: true,
     },
     teamSize: {

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import {
   Mail,
@@ -9,6 +10,8 @@ import {
   ShieldCheck,
   CheckCircle2,
   Heart,
+  Loader2,
+  AlertCircle,
 } from "lucide-react";
 
 const PRODUCT_LINKS = [
@@ -67,6 +70,56 @@ function InstagramIcon(props) {
 }
 
 export default function Footer() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("idle"); // 'idle' | 'loading' | 'success' | 'error'
+  const [message, setMessage] = useState("");
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    const trimmedEmail = email.trim();
+
+    if (!trimmedEmail) {
+      setStatus("error");
+      setMessage("Please enter your email address.");
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(trimmedEmail)) {
+      setStatus("error");
+      setMessage("Please provide a valid email address.");
+      return;
+    }
+
+    setStatus("loading");
+    setMessage("");
+
+    try {
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: trimmedEmail }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setStatus("success");
+        setMessage(data.message || "Thank you! We've sent our details to your email.");
+        setEmail("");
+      } else {
+        setStatus("error");
+        setMessage(data.error || "Subscription failed. Please try again.");
+      }
+    } catch (err) {
+      console.error("Subscription error:", err);
+      setStatus("error");
+      setMessage("Something went wrong. Please check your connection and try again.");
+    }
+  };
+
   return (
     <footer
       className="w-full text-white border-t transition-colors relative overflow-hidden"
@@ -217,36 +270,76 @@ export default function Footer() {
 
             {/* Newsletter Input Box */}
             <form
-              onSubmit={(e) => e.preventDefault()}
-              className="flex items-center rounded-xl p-1.5 border"
+              onSubmit={handleSubscribe}
+              className="flex items-center rounded-xl p-1.5 border transition-colors"
               style={{
                 backgroundColor: "var(--footer-surface)",
-                borderColor: "var(--footer-border)",
+                borderColor:
+                  status === "error"
+                    ? "#ef4444"
+                    : status === "success"
+                    ? "#10b981"
+                    : "var(--footer-border)",
               }}
             >
               <input
                 type="email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (status !== "idle") setStatus("idle");
+                }}
+                disabled={status === "loading"}
                 placeholder="Enter your email address"
-                className="w-full bg-transparent px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none"
+                className="w-full bg-transparent px-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none disabled:opacity-50"
                 aria-label="Email Address"
+                required
               />
               <button
                 type="submit"
-                className="inline-flex items-center gap-1 px-4 py-2 rounded-lg text-xs font-bold text-white transition-transform active:scale-95 shrink-0 shadow-md cursor-pointer"
+                disabled={status === "loading"}
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-bold text-white transition-all active:scale-95 shrink-0 shadow-md cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
                 style={{
                   backgroundColor: "var(--primary)",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = "var(--primary-hover)";
+                  if (status !== "loading") e.currentTarget.style.backgroundColor = "var(--primary-hover)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "var(--primary)";
+                  if (status !== "loading") e.currentTarget.style.backgroundColor = "var(--primary)";
                 }}
               >
-                <span>Join</span>
-                <ArrowRight className="h-3.5 w-3.5" />
+                {status === "loading" ? (
+                  <>
+                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                    <span>Joining...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Join</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </>
+                )}
               </button>
             </form>
+
+            {/* Status Feedback Message */}
+            {message && (
+              <div
+                className={`text-xs px-3 py-2.5 rounded-lg flex items-start gap-2 transition-all ${
+                  status === "success"
+                    ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                    : "bg-red-500/10 text-red-400 border border-red-500/20"
+                }`}
+              >
+                {status === "success" ? (
+                  <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5" />
+                ) : (
+                  <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
+                )}
+                <span className="leading-relaxed">{message}</span>
+              </div>
+            )}
 
             {/* Quick Contact Information */}
             <div
