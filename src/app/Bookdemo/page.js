@@ -734,13 +734,12 @@ function BookDemoContent() {
                                 type="button"
                                 disabled={disabled}
                                 onClick={() => handleSelectDate(item)}
-                                className={`h-10 w-full rounded-xl text-xs font-semibold flex flex-col items-center justify-center transition-all duration-150 relative ${
-                                  item.isSelected
-                                    ? "text-white shadow-md font-bold scale-105"
-                                    : disabled
-                                      ? "text-slate-300 cursor-not-allowed bg-slate-50/50"
-                                      : "text-slate-700 hover:bg-slate-100 hover:text-slate-900 cursor-pointer"
-                                }`}
+                                className={`h-10 w-full rounded-xl text-xs font-semibold flex flex-col items-center justify-center transition-all duration-150 relative ${item.isSelected
+                                  ? "text-white shadow-md font-bold scale-105"
+                                  : disabled
+                                    ? "text-slate-300 cursor-not-allowed bg-slate-50/50"
+                                    : "text-slate-700 hover:bg-slate-100 hover:text-slate-900 cursor-pointer"
+                                  }`}
                                 style={{
                                   backgroundColor: item.isSelected
                                     ? "var(--primary, #6366f1)"
@@ -806,13 +805,12 @@ function BookDemoContent() {
                                 type="button"
                                 disabled={!isAvailable}
                                 onClick={() => setSelectedSlot(slot)}
-                                className={`w-full py-2.5 px-3 rounded-xl text-xs font-bold flex items-center justify-between transition-all duration-150 border ${
-                                  isSelected
-                                    ? "text-white shadow-md border-transparent scale-101"
-                                    : !isAvailable
-                                      ? "bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed line-through"
-                                      : "bg-white text-slate-700 border-slate-200 hover:border-slate-400 hover:bg-slate-50 cursor-pointer"
-                                }`}
+                                className={`w-full py-2.5 px-3 rounded-xl text-xs font-bold flex items-center justify-between transition-all duration-150 border ${isSelected
+                                  ? "text-white shadow-md border-transparent scale-101"
+                                  : !isAvailable
+                                    ? "bg-slate-100 text-slate-400 border-slate-200 cursor-not-allowed line-through"
+                                    : "bg-white text-slate-700 border-slate-200 hover:border-slate-400 hover:bg-slate-50 cursor-pointer"
+                                  }`}
                                 style={{
                                   backgroundColor: isSelected
                                     ? "var(--primary, #6366f1)"
@@ -974,13 +972,12 @@ function BookDemoContent() {
                               <span>Phone Number *</span>
                             </label>
                             <span
-                              className={`text-[10px] font-mono font-semibold ${
-                                phoneNumber.length === 10
-                                  ? "text-emerald-600 font-bold"
-                                  : phoneNumber.length > 0
+                              className={`text-[10px] font-mono font-semibold ${phoneNumber.length === 10
+                                ? "text-emerald-600 font-bold"
+                                : phoneNumber.length > 0
                                   ? "text-amber-600 font-bold"
                                   : "text-slate-400"
-                              }`}
+                                }`}
                             >
                               {phoneNumber.length === 10
                                 ? "✓ 10 digits verified"
@@ -1008,13 +1005,12 @@ function BookDemoContent() {
                               value={phoneNumber}
                               onChange={handlePhoneChange}
                               placeholder="9876543210 (10 digits only)"
-                              className={`flex-1 px-3 py-2 rounded-xl border text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 transition-all bg-white ${
-                                phoneNumber.length === 10
-                                  ? "border-emerald-400 focus:ring-emerald-500"
-                                  : phoneNumber.length > 0
+                              className={`flex-1 px-3 py-2 rounded-xl border text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 transition-all bg-white ${phoneNumber.length === 10
+                                ? "border-emerald-400 focus:ring-emerald-500"
+                                : phoneNumber.length > 0
                                   ? "border-amber-400 focus:ring-amber-500"
                                   : "border-slate-300 focus:ring-indigo-500"
-                              }`}
+                                }`}
                             />
                           </div>
                           {phoneNumber.length > 0 && phoneNumber.length < 10 && (
@@ -1065,10 +1061,11 @@ function BookDemoContent() {
                       <div className="space-y-1">
                         <label className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
                           <Globe className="w-3.5 h-3.5 text-slate-400" />
-                          <span>Company Website (Optional)</span>
+                          <span>Company Website *</span>
                         </label>
                         <input
                           type="url"
+                          required
                           value={companyWebsite}
                           onChange={(e) => setCompanyWebsite(e.target.value)}
                           placeholder="https://acme.com"
@@ -1084,13 +1081,12 @@ function BookDemoContent() {
                             <span>Brief Description / Requirements</span>
                           </label>
                           <span
-                            className={`text-[10px] font-mono font-bold ${
-                              descriptionWordCount >= 100
-                                ? "text-rose-600"
-                                : descriptionWordCount >= 85
+                            className={`text-[10px] font-mono font-bold ${descriptionWordCount >= 100
+                              ? "text-rose-600"
+                              : descriptionWordCount >= 85
                                 ? "text-amber-600"
                                 : "text-slate-400"
-                            }`}
+                              }`}
                           >
                             {descriptionWordCount} / 100 words
                           </span>
@@ -1116,11 +1112,10 @@ function BookDemoContent() {
                       {/* Status Alert */}
                       {statusMessage && (
                         <div
-                          className={`p-3 rounded-xl text-xs flex items-center gap-2 ${
-                            statusMessage.type === "error"
-                              ? "bg-rose-50 text-rose-700 border border-rose-200"
-                              : "bg-emerald-50 text-emerald-700 border border-emerald-200"
-                          }`}
+                          className={`p-3 rounded-xl text-xs flex items-center gap-2 ${statusMessage.type === "error"
+                            ? "bg-rose-50 text-rose-700 border border-rose-200"
+                            : "bg-emerald-50 text-emerald-700 border border-emerald-200"
+                            }`}
                         >
                           <AlertCircle className="w-4 h-4 shrink-0" />
                           <span>{statusMessage.text}</span>

@@ -43,6 +43,8 @@ const DemoBookingSchema = new mongoose.Schema(
     },
     websiteUrl: {
       type: String,
+      required: [true, "company URL is required"],
+
       trim: true,
       default: "",
     },
