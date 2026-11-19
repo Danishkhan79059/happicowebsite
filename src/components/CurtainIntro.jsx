@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import "./CurtainIntro.css";
 
 export default function CurtainIntro() {
@@ -228,8 +229,15 @@ export default function CurtainIntro() {
             className={`curtain-brand-core ${isOpen ? "curtain-brand-core--flying" : ""}`}
           >
             {/* Glowing Brand Icon Emblem */}
-            <div className="curtain-brand-icon flex items-center justify-center font-black text-white text-base">
-              B
+            <div className="curtain-brand-icon flex items-center justify-center overflow-hidden bg-white">
+              <Image
+                src="/logobuzz.png"
+                alt="Buzzoraa Logo"
+                width={64}
+                height={64}
+                className="w-full h-full object-contain"
+                priority
+              />
             </div>
 
             {/* Large Brand Typography */}

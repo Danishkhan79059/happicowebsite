@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import GooeyNav from "@/components/GooeyNav";
@@ -177,14 +178,14 @@ export default function Header() {
                   label: "Buzzoraa",
                   href: "/",
                   icon: (
-                    <span
-                      className="h-6 w-6 rounded-lg flex items-center justify-center text-white shrink-0 shadow-sm font-black text-xs"
-                      style={{
-                        background: "linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)",
-                      }}
-                    >
-                      B
-                    </span>
+                    <Image
+                      src="/logobuzz.png"
+                      alt="Buzzoraa Logo"
+                      width={24}
+                      height={24}
+                      className="h-6 w-6 rounded-lg object-contain shrink-0"
+                      priority
+                    />
                   ),
                 },
               ]}
@@ -230,12 +231,13 @@ export default function Header() {
           <div className="hidden sm:flex items-center">
             <GooeyNav
               items={[
-                // {
-                //   label: "Login",
-                //   target: "_blank",
-                //   href: "https://buzzoraa.com",
-                //   icon: <LogIn className="h-3.5 w-3.5" />,
-                // },
+                {
+                  label: "Login",
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                  href: "https://buzzoraa.com",
+                  icon: <LogIn className="h-3.5 w-3.5" />,
+                },
                 {
                   label: "Book a Demo",
                   href: "/Bookdemo",
@@ -297,15 +299,14 @@ export default function Header() {
               onClick={() => setIsOpen(false)}
               className="flex items-center gap-2.5"
             >
-              <div
-                className="h-9 w-9 rounded-xl flex items-center justify-center shadow-md text-white font-black text-sm"
-                style={{
-                  background:
-                    "linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)",
-                }}
-              >
-                B
-              </div>
+              <Image
+                src="/logobuzz.png"
+                alt="Buzzoraa Logo"
+                width={36}
+                height={36}
+                className="h-9 w-9 rounded-xl object-contain shadow-sm shrink-0"
+                priority
+              />
               <div className="flex flex-col">
                 <span className="text-lg font-black text-slate-900 leading-none">
                   Buzzoraa<span style={{ color: "var(--primary)" }}>.</span>
@@ -455,15 +456,16 @@ export default function Header() {
                 <ArrowRight className="h-4 w-4" />
               </Link>
 
-              {/* <Link
+              <Link
                 href="https://buzzoraa.com"
                 target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setIsOpen(false)}
                 className="flex items-center justify-center gap-2 w-full py-3 px-5 rounded-2xl text-sm font-semibold border border-slate-200 bg-slate-50 text-slate-800 hover:bg-slate-100 transition-colors"
               >
                 <LogIn className="h-4 w-4 text-slate-600" />
                 <span>Login to Customer Portal</span>
-              </Link> */}
+              </Link>
             </div>
 
             {/* Quick Contact & Assistance Bar */}

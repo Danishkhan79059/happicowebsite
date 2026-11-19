@@ -50,6 +50,7 @@ import {
   FaReact,
   FaProductHunt,
   FaFigma,
+  FaLinkedin,
 } from "react-icons/fa6";
 import {
   SiNextdotjs,
@@ -82,6 +83,7 @@ const ENGINEERING_TEAM = [
     badge: "Core Engineering",
     image: "/Danish.png",
     initials: "DK",
+    linkedin: "https://www.linkedin.com/in/danishkhan786/",
     bio: "Passionate Full Stack Developer specializing in high-performance Next.js architectures, modern front-end experiences, scalable backend systems, and automated event marketing pipelines.",
     skills: ["React & Next.js", "Full Stack Development", "Node.js & APIs", "Tailwind CSS", "Database Design"],
     quote: "Building seamless digital platforms with precision and modern web architecture.",
@@ -92,6 +94,7 @@ const ENGINEERING_TEAM = [
     badge: "Core Engineering",
     image: "/Gopal.png",
     initials: "GV",
+    linkedin: "https://www.linkedin.com/in/gopal-krishna-basudevan-7b161215b/",
     bio: "Accomplished Full Stack Developer focused on architecting resilient platforms, interactive interfaces, end-to-end data integrations, and scalable tech infrastructure for communities.",
     skills: ["Full Stack Engineering", "Next.js & React", "System Architecture", "Cloud Services", "API Integration"],
     quote: "Crafting scalable, data-driven applications that empower communities worldwide.",
@@ -461,28 +464,43 @@ function FounderPortrait() {
   const [hasError, setHasError] = useState(false);
 
   return (
-    <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-3xl overflow-hidden shadow-2xl ring-4 ring-white mb-6 bg-slate-100">
-      {!hasError ? (
-        <Image
-          src="/Tarun.png"
-          alt="Tarun Gupta - Founder & CTO of Vivaansh Consulting"
-          fill
-          priority
-          sizes="(max-width: 640px) 192px, 224px"
-          className="object-cover object-center"
-          onError={() => setHasError(true)}
-        />
-      ) : (
-        <div className="w-full h-full bg-gradient-to-br from-indigo-600 via-purple-600 to-cyan-500 flex flex-col items-center justify-center text-white p-4">
-          <div className="h-20 w-20 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-inner">
-            <span className="text-3xl font-black tracking-tight text-white">TG</span>
+    <div className="relative w-48 h-48 sm:w-56 sm:h-56 mb-6">
+      <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl ring-4 ring-white bg-slate-100">
+        {!hasError ? (
+          <Image
+            src="/Tarun.png"
+            alt="Tarun Gupta - Founder & CTO of Vivaansh Consulting"
+            fill
+            priority
+            sizes="(max-width: 640px) 192px, 224px"
+            className="object-cover object-center"
+            onError={() => setHasError(true)}
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-indigo-600 via-purple-600 to-cyan-500 flex flex-col items-center justify-center text-white p-4">
+            <div className="h-20 w-20 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-inner">
+              <span className="text-3xl font-black tracking-tight text-white">TG</span>
+            </div>
+            <span className="text-xs font-bold uppercase tracking-wider text-white/90 mt-2">
+              Tarun Gupta
+            </span>
+            <span className="text-[10px] text-white/70">Founder &amp; CTO</span>
           </div>
-          <span className="text-xs font-bold uppercase tracking-wider text-white/90 mt-2">
-            Tarun Gupta
-          </span>
-          <span className="text-[10px] text-white/70">Founder &amp; CTO</span>
-        </div>
-      )}
+        )}
+      </div>
+
+      {/* LinkedIn Profile Badge at bottom corner */}
+      <a
+        href="https://www.linkedin.com/in/thetarungupta/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Connect with Tarun Gupta on LinkedIn"
+        title="Connect with Tarun Gupta on LinkedIn"
+        onClick={(e) => e.stopPropagation()}
+        className="absolute -bottom-2 -right-2 z-10 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#0077b5] text-white shadow-xl ring-4 ring-white transition-all duration-200 hover:scale-110 hover:bg-[#005f93] active:scale-95 group"
+      >
+        <FaLinkedin className="h-5 w-5 transition-transform group-hover:scale-105" />
+      </a>
     </div>
   );
 }
@@ -490,31 +508,46 @@ function FounderPortrait() {
 function DevPortrait({ dev }) {
   const [hasError, setHasError] = useState(false);
 
-  if (dev.image && !hasError) {
-    return (
-      <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden ring-4 ring-slate-100 shadow-md bg-slate-100 group-hover:scale-105 transition-transform shrink-0">
-        <Image
-          src={dev.image}
-          alt={dev.name}
-          fill
-          sizes="(max-width: 640px) 80px, 96px"
-          className="object-cover object-center"
-          onError={() => setHasError(true)}
-        />
-      </div>
-    );
-  }
-
   return (
-    <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-indigo-500 via-indigo-600 to-cyan-500 p-0.5 shadow-md group-hover:scale-105 transition-transform shrink-0">
-      <div className="w-full h-full rounded-[14px] bg-slate-900 flex flex-col items-center justify-center text-white relative overflow-hidden">
-        <span className="text-xl sm:text-2xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 to-cyan-200">
-          {dev.initials}
-        </span>
-        <span className="text-[9px] font-semibold text-slate-400 mt-0.5">
-          {dev.name.split(" ")[0]}
-        </span>
+    <div className="relative w-20 h-20 sm:w-24 sm:h-24 shrink-0">
+      <div className="relative w-full h-full rounded-2xl overflow-hidden ring-4 ring-slate-100 shadow-md bg-slate-100 group-hover:scale-105 transition-transform">
+        {dev.image && !hasError ? (
+          <Image
+            src={dev.image}
+            alt={dev.name}
+            fill
+            sizes="(max-width: 640px) 80px, 96px"
+            className="object-cover object-center"
+            onError={() => setHasError(true)}
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-br from-indigo-500 via-indigo-600 to-cyan-500 p-0.5">
+            <div className="w-full h-full rounded-[14px] bg-slate-900 flex flex-col items-center justify-center text-white relative overflow-hidden">
+              <span className="text-xl sm:text-2xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-200 to-cyan-200">
+                {dev.initials}
+              </span>
+              <span className="text-[9px] font-semibold text-slate-400 mt-0.5">
+                {dev.name.split(" ")[0]}
+              </span>
+            </div>
+          </div>
+        )}
       </div>
+
+      {/* LinkedIn Profile Badge at bottom corner */}
+      {dev.linkedin && (
+        <a
+          href={dev.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Connect with ${dev.name} on LinkedIn`}
+          title={`Connect with ${dev.name} on LinkedIn`}
+          onClick={(e) => e.stopPropagation()}
+          className="absolute -bottom-1 -right-1 z-10 flex h-7 w-7 items-center justify-center rounded-lg bg-[#0077b5] text-white shadow-md ring-2 ring-white transition-all duration-200 hover:scale-110 hover:bg-[#005f93] active:scale-95 group"
+        >
+          <FaLinkedin className="h-4 w-4 transition-transform group-hover:scale-105" />
+        </a>
+      )}
     </div>
   );
 }
@@ -1076,6 +1109,15 @@ export default function AboutPage() {
 
                 {/* Direct Reach Out Action */}
                 <div className="mt-6 w-full pt-6 border-t border-slate-200 flex flex-col gap-2.5">
+                  <a
+                    href="https://www.linkedin.com/in/thetarungupta/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-xs font-bold text-white bg-[#0077b5] hover:bg-[#005f93] shadow-md transition-all duration-200 hover:scale-[1.02] active:scale-95"
+                  >
+                    <FaLinkedin className="h-4 w-4" />
+                    <span>Connect on LinkedIn</span>
+                  </a>
                   <Link
                     href="/contact"
                     className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl text-xs font-bold text-white shadow-md transition-all duration-200 hover:scale-[1.02] active:scale-95"
@@ -1289,9 +1331,23 @@ export default function AboutPage() {
                   <ArrowRight className="h-3.5 w-3.5 text-slate-400" />
                 </Link>
 
-                <span className="px-2.5 py-1 rounded-md bg-indigo-50 text-indigo-700 font-mono text-[11px] font-semibold border border-indigo-100 shadow-2xs">
-                  Full Stack
-                </span>
+                <div className="flex items-center gap-2">
+                  {dev.linkedin && (
+                    <a
+                      href={dev.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title={`${dev.name} on LinkedIn`}
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#0077b5]/10 text-[#0077b5] text-xs font-bold hover:bg-[#0077b5] hover:text-white transition-colors"
+                    >
+                      <FaLinkedin className="h-3.5 w-3.5" />
+                      <span>LinkedIn</span>
+                    </a>
+                  )}
+                  <span className="px-2.5 py-1 rounded-md bg-indigo-50 text-indigo-700 font-mono text-[11px] font-semibold border border-indigo-100 shadow-2xs">
+                    Full Stack
+                  </span>
+                </div>
               </div>
             </SpotlightCard>
           ))}

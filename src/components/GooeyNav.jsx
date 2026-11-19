@@ -812,6 +812,8 @@ const GooeyNav = ({
       const shared = {
         className: 'gooey-nav__link',
         'aria-current': index === current ? 'page' : undefined,
+        target: item.target,
+        rel: item.target === '_blank' ? (item.rel || 'noopener noreferrer') : item.rel,
         onClick: event => {
           if (!item.href || item.href === '#') event.preventDefault();
           select(index);
